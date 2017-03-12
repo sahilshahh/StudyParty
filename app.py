@@ -42,27 +42,26 @@ def prereg():
             #session['location'] = location
             return redirect(url_for('map', location=location, name=name))
             #return render_template('success.html', name=name, location=location)
-    return render_template('index.html')
-	
+    return redirect(url_for('map', location=location, name=name))
+
+@app.route('/mapclick', methods=['POST'])
 def mapclick():
     name = None
     if request.method == 'POST':
-        xPos = request.form['xpos']
-        yPos = request.form['ypos']
+        xPos = request.form['name']
+        yPos = request.form['location']
         # Check that name does not already exist (not a great query, but works)
-        if not db.session.query(User).filter(User.name == name).count():
-            reg = User(xPos, yPos)
-            db.session.add(reg)
-            db.session.commit()
+        reg = User(xPos, yPos)
+        db.session.add(reg)
+        db.session.commit()
             #session['name'] = name
             #session['location'] = location
-            return redirect(url_for('map', location=location, name=name))
+        return redirect(url_for('map', location=location, name=name))
             #return render_template('success.html', name=name, location=location)
-    return render_template('index.html')
 
 @app.route('/map/<name>/<location>')
 def map(location, name):
-    return render_template('success.html', name=name, location=location)
+    return render_template('mapclick.html', name=name, location=location)
 
 if __name__ == '__main__':
     app.secret_key = 'super secret key'
