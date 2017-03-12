@@ -11,12 +11,12 @@ db = SQLAlchemy(app)
 class User(db.Model):
     __tablename__ = "users"
     id = db.Column(db.Integer, primary_key=True)
-    name = db.Column(db.String(120), unique=True)
+    name = db.Column(db.String(120), unique=True) 
     location = db.Column(db.String(120), unique=True)
 
     def __init__(self, name, location):
-        self.name = name
-        self.location = location
+	    self.name = name
+	    self.location = location
 
     def __repr__(self):
         return '<Name %r>' % self.name
@@ -36,6 +36,22 @@ def prereg():
         # Check that name does not already exist (not a great query, but works)
         if not db.session.query(User).filter(User.name == name).count():
             reg = User(name, location)
+            db.session.add(reg)
+            db.session.commit()
+            #session['name'] = name
+            #session['location'] = location
+            return redirect(url_for('map', location=location, name=name))
+            #return render_template('success.html', name=name, location=location)
+    return render_template('index.html')
+	
+def mapclick():
+    name = None
+    if request.method == 'POST':
+        xPos = request.form['xpos']
+        yPos = request.form['ypos']
+        # Check that name does not already exist (not a great query, but works)
+        if not db.session.query(User).filter(User.name == name).count():
+            reg = User(xPos, yPos)
             db.session.add(reg)
             db.session.commit()
             #session['name'] = name
