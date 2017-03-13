@@ -31,8 +31,8 @@ def index():
 def prereg():
     name = None
     if request.method == 'POST':
-        name = request.form['name']
-        location = request.form['location']
+        name = request.form['leftPixel']
+        location = request.form['topPixel']
         # Check that name does not already exist (not a great query, but works)
         if not db.session.query(User).filter(User.name == name).count():
             reg = User(name, location)
@@ -43,21 +43,6 @@ def prereg():
             return redirect(url_for('map', name=name, location=location))
             #return render_template('success.html', name=name, location=location)
     return redirect(url_for('map', name=name, location=location))
-
-@app.route('/mapclick', methods=['POST'])
-def mapclick():
-    name = None
-    if request.method == 'POST':
-        xPos = request.form['name']
-        yPos = request.form['location']
-        # Check that name does not already exist (not a great query, but works)
-        reg = User(xPos, yPos)
-        db.session.add(reg)
-        db.session.commit()
-            #session['name'] = name
-            #session['location'] = location
-        return redirect(url_for('map', location=location, name=name))
-            #return render_template('success.html', name=name, location=location)
 
 @app.route('/map/<name>/<location>')
 def map(location, name):
