@@ -40,9 +40,9 @@ def prereg():
             db.session.commit()
             #session['name'] = name
             #session['location'] = location
-            return redirect(url_for('map', location=location, name=name))
+            return redirect(url_for('map', name=name, location=location))
             #return render_template('success.html', name=name, location=location)
-    return redirect(url_for('map', location=location, name=name))
+    return redirect(url_for('map', name=name, location=location))
 
 @app.route('/mapclick', methods=['POST'])
 def mapclick():

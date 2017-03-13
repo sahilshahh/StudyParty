@@ -68,7 +68,6 @@
      
 						theThing.style.left = xPosition + "px";
 						theThing.style.top = yPosition + "px";
-						window.location = "http://127.0.0.1:5000/map/" + xPosition + "/" + yPosition;
 					}
  
 					function getPosition(el) {
@@ -106,11 +105,23 @@
                 <form class="col-lg-12" action="{{url_for('prereg')}}" method="POST">
                     <div class="input-group" style="width:340px;text-align:center;margin:0 auto;">
                         <div class = "row">
-                            <input class="form-control input-lg" title="Don't worry. We hate spam, and will not share your name with anyone." placeholder="X Position" type="name" name="name">
-                        </div>
+							
+                            <input type="hidden" name="name" id="name_label">
+						</div>
                         <div class = "row">
-                            <input class="form-control input-lg" title="Don't worry. We hate spam, and will not share your location with anyone." placeholder="Y Position" type="location" name="location">
-                        </div>
+							
+                            <input type="hidden" name="location" id="location_label">
+						</div>
+						
+						<script>
+							var dotVar = document.querySelector("#dot");
+							var container = document.querySelector("#contentContainer");
+							container.addEventListener("click", updateLocation);
+							function updateLocation(){
+								document.getElementById('location_label').value = dotVar.style.top.replace("px", "");
+								document.getElementById('name_label').value = dotVar.style.left.replace("px", "");
+							}
+						</script>
                         <div class = "row">
                             <span class="input-group-btn"><button class="btn btn-lg btn-primary" type="submit">GO</button></span>
                         </div>
