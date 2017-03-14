@@ -3,7 +3,7 @@ from flask_sqlalchemy import SQLAlchemy
 from flask_heroku import Heroku
 
 app = Flask(__name__)
-app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://localhost/studyparty'
+app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://postgres:321884@localhost:5432/studyparty'
 #heroku = Heroku(app)
 db = SQLAlchemy(app)
 
@@ -11,12 +11,12 @@ db = SQLAlchemy(app)
 class User(db.Model):
     __tablename__ = "users"
     id = db.Column(db.Integer, primary_key=True)
-    name = db.Column(db.String(120), unique=True)
+    name = db.Column(db.String(120), unique=True) 
     location = db.Column(db.String(120), unique=True)
 
     def __init__(self, name, location):
-        self.name = name
-        self.location = location
+	    self.name = name
+	    self.location = location
 
     def __repr__(self):
         return '<Name %r>' % self.name
@@ -31,8 +31,8 @@ def index():
 def prereg():
     name = None
     if request.method == 'POST':
-        name = request.form['name']
-        location = request.form['location']
+        name = request.form['leftPixel']
+        location = request.form['topPixel']
         # Check that name does not already exist (not a great query, but works)
         if not db.session.query(User).filter(User.name == name).count():
             reg = User(name, location)
@@ -40,13 +40,13 @@ def prereg():
             db.session.commit()
             #session['name'] = name
             #session['location'] = location
-            return redirect(url_for('map', location=location, name=name))
+            return redirect(url_for('map', name=name, location=location))
             #return render_template('success.html', name=name, location=location)
-    return render_template('index.html')
+    return redirect(url_for('map', name=name, location=location))
 
 @app.route('/map/<name>/<location>')
 def map(location, name):
-    return render_template('success.html', name=name, location=location)
+    return render_template('mapclick.html', name=name, location=location)
 
 if __name__ == '__main__':
     app.secret_key = 'super secret key'
