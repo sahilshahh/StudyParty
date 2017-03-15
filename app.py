@@ -40,8 +40,8 @@ def index():
             db.session.delete(user)
             db.session.commit()
         else:
-            x_coord.append(int(user.x_coordinate))
-            y_coord.append(int(user.y_coordinate))
+            x_coord.append(int(float(user.x_coordinate)))
+            y_coord.append(int(float(user.y_coordinate)))
             length+=1
     length = int(length)
     return render_template('index.html', x_coord=x_coord, y_coord=y_coord, length=length)
