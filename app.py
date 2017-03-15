@@ -5,8 +5,8 @@ from flask_sqlalchemy import SQLAlchemy
 from flask_heroku import Heroku
 
 app = Flask(__name__)
-#app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://localhost/studyparty'
-heroku = Heroku(app)
+app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://localhost/studyparty'
+#heroku = Heroku(app)
 db = SQLAlchemy(app)
 
 # Create our database model
@@ -40,8 +40,8 @@ def index():
             db.session.delete(user)
             db.session.commit()
         else:
-            x_coord.append(int(user.x_coordinate))
-            y_coord.append(int(user.y_coordinate))
+            x_coord.append(int(float(user.x_coordinate)))
+            y_coord.append(int(float(user.y_coordinate)))
             length+=1
     length = int(length)
     return render_template('index.html', x_coord=x_coord, y_coord=y_coord, length=length)
