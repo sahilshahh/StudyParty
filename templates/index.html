@@ -33,6 +33,22 @@
 			transition: left .5s cubic-bezier(.42,-0.3,.78,1.25), 
                 top .5s cubic-bezier(.42,-0.3,.78,1.25);
 		}
+
+        {% for i in range(length)%}
+        #dot{{i}} {
+            position: relative;
+            /*
+            left: {{x_coord[i]}}px;
+            top: {{y_coord[i]}}px;
+            */
+            left: 0px;
+            top: 0px;
+            z-index: 2;
+            transition: left .5s cubic-bezier(.42,-0.3,.78,1.25), 
+                top .5s cubic-bezier(.42,-0.3,.78,1.25);
+        }
+        {%endfor%}
+
 		#map{
 			position: absolute;
 			left: 0px;
@@ -53,7 +69,10 @@
 				<div id="contentContainer" style="position: relative; left: 0; top: 0;">
 					<img id="dot" src="{{ url_for('static', filename='img/dot.svg') }}" width="10" height="10">
 					<img id="map" src="{{ url_for('static', filename='img/disneymap.jpg') }}" width="1280" height="1024" alt="Planets" usemap="#planetmap">
-				</div>
+                    {% for i in range(length)%}
+                        <img id="dot{{i}}" src="{{ url_for('static', filename='img/dot.svg') }}" width="30" height="30" style="position: absolute; left: {{x_coord[i]}}px; top: {{y_coord[i]}}px;">
+                    {%endfor%}
+                </div>
 				 <script src="{{ url_for('static', filename='js/map.js') }}"></script> 
 </body>
 </html>

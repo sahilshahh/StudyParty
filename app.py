@@ -3,7 +3,7 @@ from flask_sqlalchemy import SQLAlchemy
 from flask_heroku import Heroku
 
 app = Flask(__name__)
-app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://postgres:321884@localhost:5432/studyparty'
+app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://localhost/studyparty'
 #heroku = Heroku(app)
 db = SQLAlchemy(app)
 
@@ -24,7 +24,19 @@ class User(db.Model):
 # Set "homepage" to index.html
 @app.route('/')
 def index():
-    return render_template('index.html')
+    x_coord = []
+    y_coord = []
+    users = db.session.query(User)
+    length = 0
+    for user in users:
+        #print (user.name)
+        #print (user.location)
+        x_coord.append(int(user.name))
+        y_coord.append(int(user.location))
+        length+=1
+    #print(length)
+    length = int(length)
+    return render_template('index.html', x_coord=x_coord, y_coord=y_coord, length=length)
 
 # Save e-mail to database and send to success page
 @app.route('/prereg', methods=['POST'])
