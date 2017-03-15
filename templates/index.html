@@ -15,6 +15,48 @@
 
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
 
+	<style> 
+		#contentContainer {
+			width: 1280px;
+			height: 1024px;
+			border: 5px black solid;
+			margin: 0 auto;
+			overflow: hidden;
+			background-color: #F2F2F2;
+			cursor: pointer;
+		}
+		#dot {
+			position: absolute;
+			left: 0px;
+			top: 0px;
+			z-index: 2;
+			transition: left .5s cubic-bezier(.42,-0.3,.78,1.25), 
+                top .5s cubic-bezier(.42,-0.3,.78,1.25);
+		}
+
+        {% for i in range(length)%}
+        #dot{{i}} {
+            position: relative;
+            /*
+            left: {{x_coord[i]}}px;
+            top: {{y_coord[i]}}px;
+            */
+            left: 0px;
+            top: 0px;
+            z-index: 2;
+            transition: left .5s cubic-bezier(.42,-0.3,.78,1.25), 
+                top .5s cubic-bezier(.42,-0.3,.78,1.25);
+        }
+        {%endfor%}
+
+		#map{
+			position: absolute;
+			left: 0px;
+			top: 0px;
+			z-index: 1;
+		}
+		
+	</style>
 </head>
 
 <body>
@@ -22,23 +64,36 @@
         <div class="row">
             <div class="col-lg-12 text-center v-center">
                 <h1><a href="/">StudyParty</a></h1>
-                <p class="lead">Place your location on the map</p>
+                <p class="lead">Place your location on the map!</p>
+				
+				<div id="contentContainer" style="position: relative; left: 0; top: 0;">
+					<img id="dot" src="{{ url_for('static', filename='img/dot.svg') }}" width="10" height="10">
+					<img id="map" src="{{ url_for('static', filename='img/disneymap.jpg') }}" width="1280" height="1024" alt="Planets" usemap="#planetmap">
+                    {% for i in range(length)%}
+                        <img id="dot{{i}}" src="{{ url_for('static', filename='img/dot.svg') }}" width="30" height="30" style="position: absolute; left: {{x_coord[i]}}px; top: {{y_coord[i]}}px;">
+                    {%endfor%}
+                </div>
+				 <script src="{{ url_for('static', filename='js/map.js') }}"></script> 
+</body>
+</html>
+				</script>
                 <br>
                 <br>
                 <br>
-                <form class="col-lg-12" action="{{url_for('prereg')}}" method="POST">
+                <form name="generateLink" class="col-lg-12" action="{{url_for('prereg')}}" method="POST">
                     <div class="input-group" style="width:340px;text-align:center;margin:0 auto;">
+                        <div class = "row">	
+                            <input type="hidden" name="leftPixel" id="left_label">
+						</div>
+                        <div class = "row">	
+                            <input type="hidden" name="topPixel" id="top_label">
+						</div>
+						<script src="{{ url_for('static', filename='js/map_dot_update.js') }}"></script> 
                         <div class = "row">
-                            <input class="form-control input-lg" title="Don't worry. We hate spam, and will not share your name with anyone." placeholder="Enter your name" type="name" name="name">
-                        </div>
-                        <div class = "row">
-                            <input class="form-control input-lg" title="Don't worry. We hate spam, and will not share your location with anyone." placeholder="Enter your location" type="location" name="location">
-                        </div>
-                        <div class = "row">
-                            <span class="input-group-btn"><button class="btn btn-lg btn-primary" type="submit">GO</button></span>
+                            <span class="input-group-btn"><button class="btn btn-lg btn-primary" type="submit">Generate Link</button></span>
                         </div>
                     </div>
-                </form>
+                </form>	
             </div>
 
         </div>

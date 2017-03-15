@@ -14,6 +14,27 @@
     <link href="{{ url_for('static', filename='css/styles.css') }}" rel="stylesheet">
 
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+	<style> 
+		#contentContainer {
+			width: 1280px;
+			height: 1024px;
+			border: 5px black solid;
+			margin: 0 auto;
+			overflow: hidden;
+			background-color: #F2F2F2;
+			cursor: pointer;
+		}
+		#dot {
+			position: absolute;
+			z-index: 2;
+		}
+		#map{
+			position: absolute;
+			left: 0px;
+			top: 0px;
+			z-index: 1;
+		}
+	</style>
 </head>
 
 <body>
@@ -21,16 +42,30 @@
         <div class="row">
             <div class="col-lg-12 text-center v-center">
                 <h1><a href="/">StudyParty</a></h1>
-                <p class="lead">Place your location on the map</p>
-                <br>
-                <br>
-                <br>
-                <form class="col-lg-12">
-                    <div class="input-group" style="width:340px;text-align:center;margin:0 auto;">
-                        <h3>Thank you {{name}}!</h3>
-                        <p>Your location has been recorded as {{location}}.</p>
-                    </div>
-                </form>
+				
+				<div id="contentContainer" style="position: relative; left: 0; top: 0;">
+					<img id="dot" src="{{ url_for('static', filename='img/dot.svg') }}" width="30" height="30">
+					<img id="map" src="{{ url_for('static', filename='img/disneymap.jpg') }}" width="1280" height="1024" alt="Planets" usemap="#planetmap">
+					<script src="{{ url_for('static', filename='js/dot_position_load.js') }}"></script>
+					<script>
+						var s = document.querySelector("#dot");
+						var container = document.querySelector("#contentContainer");
+						
+						function dotPosition(){
+							s.style.position = "absolute";
+							var x = {{x_coordinate}}, y = {{y_coordinate}};
+							s.style.left = x + "px";
+							s.style.top = y + "px";
+						}
+						
+						window.onload = dotPosition;
+					</script>
+				</div>
+				
+				<div class="input-group" style="width:340px;text-align:center;margin:0 auto;">
+                        <h3>X Position: {{x_coordinate}}</h3>
+                        <h3>Y Position: {{y_coordinate}}</h3>
+                </div>
             </div>
 
         </div>
