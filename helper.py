@@ -9,9 +9,10 @@ def add_data(db, form):
     data = User(x_coordinate, y_coordinate, time)
     db.session.add(data)
     db.session.commit()
-    return x_coordinate,y_coordinate
+    placeholder = None
+    return x_coordinate,y_coordinate, placeholder
 
-def fetch_data(db):
+def fetch_data(db, placeholder):
     from app import User
     x_coord = []
     y_coord = []
@@ -20,8 +21,8 @@ def fetch_data(db):
     for user in users:
         user_time = user.time
         current_time = datetime.datetime.now()
-        #database entries will delete after 12 hours (this can be easily changed)
-        if (current_time - user_time) > timedelta(hours = 12):
+        #database entries will delete after 8 hours (this can be easily changed)
+        if (current_time - user_time) > timedelta(hours = 8):
             db.session.delete(user)
             db.session.commit()
         else:

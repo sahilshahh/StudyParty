@@ -29,7 +29,7 @@ class User(db.Model):
 # Set "homepage" to index.html and fetches data for the heatmap
 @app.route('/')
 def index():
-    x_coord, y_coord, length = fetch_data(db)
+    x_coord, y_coord, length = fetch_data(db, placeholder = None)
     #x_coord = []
     #y_coord = []
     #users = db.session.query(User)
@@ -52,7 +52,7 @@ def index():
 @app.route('/prereg', methods=['GET','POST'])
 def prereg():
     if request.method == 'POST':
-        x_coordinate, y_coordinate = add_data(db, request.form)
+        x_coordinate, y_coordinate, placeholder = add_data(db, request.form)
         #x_coordinate = request.form['leftPixel']
         #y_coordinate = request.form['topPixel']
         #time = datetime.datetime.now()
