@@ -68,7 +68,7 @@
 				
 				<div id="contentContainer" style="position: relative; left: 0; top: 0;">
 					<img id="dot" src="{{ url_for('static', filename='img/dot.svg') }}" width="10" height="10">
-					<img id="map" src="{{ url_for('static', filename='img/disneymap.jpg') }}" width="1280" height="1024" alt="Planets" usemap="#planetmap">
+					<img id="map" src="{{ url_for('static', filename='img/facDraft.svg') }}" width="1280" height="1024" alt="Planets" usemap="#planetmap">
                     {% for i in range(length)%}
                         <img id="dot{{i}}" src="{{ url_for('static', filename='img/dot.svg') }}" width="30" height="30" style="position: absolute; left: {{x_coord[i]}}px; top: {{y_coord[i]}}px;">
                     {%endfor%}
