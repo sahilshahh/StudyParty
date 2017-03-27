@@ -45,7 +45,7 @@
 				
 				<div id="contentContainer" style="position: relative; left: 0; top: 0;">
 					<img id="dot" src="{{ url_for('static', filename='img/dot.svg') }}" width="30" height="30">
-					<img id="map" src="{{ url_for('static', filename='img/disneymap.jpg') }}" width="1280" height="1024" alt="Planets" usemap="#planetmap">
+					<img id="map" src="{{ url_for('static', filename='img/facDraft.svg') }}" width="1280" height="1024" alt="Planets" usemap="#planetmap">
 					<script src="{{ url_for('static', filename='js/dot_position_load.js') }}"></script>
 					<script>
 						var s = document.querySelector("#dot");
@@ -63,8 +63,9 @@
 				</div>
 				
 				<div class="input-group" style="width:340px;text-align:center;margin:0 auto;">
-                        <h3>X Position: {{x_coordinate}}</h3>
-                        <h3>Y Position: {{y_coordinate}}</h3>
+                        <!--<h3>X Position: {{x_coordinate}}</h3>
+                        <h3>Y Position: {{y_coordinate}}</h3> -->
+                        <h3>Share your location!</h3>
                 </div>
             </div>
 
