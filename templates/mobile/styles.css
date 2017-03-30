@@ -36,7 +36,11 @@ main {border-radius:10vh;margin:2vmin;font-family: 'Nunito';position:relative;/*
 
 	#map-container::-webkit-scrollbar{display:none;}
 
-	#pin {position:absolute;left:100%;top:75%;width:30px;height:30px;background: radial-gradient(circle 15px,white 0%,blue 100%);clip-path:circle(50% at 50% 50%);}
+	/* Reference Pin Picture*/
+	/* https://www.google.com/url?sa=i&rct=j&q=&esrc=s&source=images&cd=&cad=rja&uact=8&ved=0ahUKEwjU4Kasov3SAhXH54MKHefuA8UQjBwIBA&url=http%3A%2F%2Fwww.droid-life.com%2Fwp-content%2Fuploads%2F2016%2F09%2FGoogle-Maps.jpg&psig=AFQjCNGiofyRhw_d7OZMVKapXdNPNOy5IA&ust=1490930303303145 */
+	#pin {--pin_R: 10px;position:absolute;left:100%;top:75%;width:calc(2*var(--pin_R));height:calc(2*var(--pin_R));background: rgb(66,134,245);border-radius:50%;border:calc(0.15*var(--pin_R)) solid white; box-shadow: 0 0 calc(0.5*var(--pin_R)) 0 rgba(0,0,0,.4)}
+
+	#pin:before{content:'';position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:calc(8*var(--pin_R));height:calc(8*var(--pin_R));background:rgba(66,134,245,.2);border:1px solid rgba(66,134,245,.5);border-radius:50%;}
 
 	svg {will-change: transform;transform:translate(0,0,0);}
 
