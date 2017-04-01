@@ -9,8 +9,8 @@
 	<link href="https://fonts.googleapis.com/css?family=Lora|Nunito" rel="stylesheet" async>
 	<svg style="height:0;">
 		<defs>
-			<rect id="vert_box" x="1" y="-.1" width="98" height="100.2" rx="25" ry="25"/>
-			<rect id="hor_box" x="-.1" y="1" width="100.2" height="98" rx="25" ry="25"/>
+			<rect id="vert_box" x="1" y="-.1" width="98" height="100.2" rx="24.5" ry="24.5"/>
+			<rect id="hor_box" x="-.1" y="1" width="100.2" height="98" rx="24.5" ry="24.5"/>
 			<mask id="border_mask">
 				<rect width="100" height="100" fill="white"/>
 				<use href="#vert_box"/>
@@ -163,7 +163,7 @@
 		<use x="-75.5" y="-75.5" width="100" height="100" href="#cb"/>
 	</svg>
 	<svg id="grid" viewbox="0 0 100 100" preserveAspectRatio="xMidYMid slice">
-		<use href="#g" stroke="rgba(0,0,0,.1)" stroke-width=".25" clip-path="url(#border_clip)"/>
+		<use href="#g" stroke="rgba(0,0,0,.1)" stroke-width=".25"/>
 	</svg>
 
 	
@@ -179,46 +179,87 @@
 	</ul>
 </footer>
 <script>
+function distance(x1,y1,x2,y2) {
+	return Math.sqrt((x1-x2)**2+(y1-y2)**2);
+}
 class Point {
 	constructor(meID,mapID) {
 		this.me = document.getElementById(meID);
-		this.width = me.style.offsetWidth;
-		this.height = me.style.offsetHeight; // assumes no resize of me.
+		let bounds = this.me.getBoundingClientRect();
+		this.diameter = bounds.width; // assume me never resizes.
 		this.map = document.getElementById(mapID);
-		this.scrollLeft = map.scrollLeft;
-		this.scrollTop = map.scrollTop;
+		this.updateOffset();
+		this.updateScroll();
 		this.paintScheduled = false;
-		this.scrolls = 0;
-		registerHandlers();
+		this.updateScheduled = false; // assume can't resize and/or scroll and/or click at same time
+		this.registerHandlers();
+		this.pointSet = false;
+		// this.updates = 0;
 	}
 	updateCoords(X,Y) {
-		this.x = X + this.scrollLeft - this.width/2;
-		this.y = Y + this.scrollTop - this.height/2;
+		this.x = X + this.scrollLeft - this.diameter/2 - this.offsetLeft;
+		this.y = Y + this.scrollTop - this.diameter/2 - this.offsetTop;
+		// console.log("updated x,y: " + this.x + ", " + this.y);
 	}
-	resampleScroll() {
-		// if (--this.scrolls)
-			// return;
-		this.scrollLeft = map.scrollLeft;
-		this.scrollTop = map.scrollTop;
+	updateScroll() {
+		this.scrollLeft = this.map.scrollLeft;
+		this.scrollTop = this.map.scrollTop;
+		this.updateScheduled = false;
+		// this.updates++;
+		// console.log([this.scrollLeft,this.scrollTop]);
+	}
+	updateOffset() {
+		let bounds = this.map.getBoundingClientRect();
+		this.offsetLeft = bounds.left;
+		this.offsetTop = bounds.top;
+		this.updateScheduled = false;
+		// console.log([this.offsetLeft, this.offsetTop]);
 	}
 	repaint() {
-		me.style.transform = 'translate('+x+'px,'+y+'px)';
-		// do i need to trigger reflow?
+		this.me.style.transform = 'translate('+this.x+'px,'+this.y+'px)';
 		this.paintScheduled = false;
+		// console.log(this.me.style.transform);
 	}
 	clickHandler(e) {
-		updateCoords(e.clientX,e.clientY);
+		// (1) Uncomment for "unset when click close", "reset when click far away" behavior
+		// let x = this.x,
+		// 	y = this.y;
+		// this.updateCoords(e.clientX,e.clientY);
+		// if (distance(x,y,this.x,this.y) < 2*this.diameter)
+		// 	this.pointSet = !this.pointSet;
+		// else
+		// 	this.repaint();
+		// (2) Uncomment for simple "toggle set" behavior
+		this.pointSet = !this.pointSet;	
+		// TODO: More intuitive behaviors... like "press and hold to set", "click to release"
+	}
+	mouseMoveHandler(e) {
+		// Perhaps this is not really a good behavior for mobile since there is no "hover" input
+		if (this.pointSet)
+			return;
+		this.updateCoords(e.clientX,e.clientY);
 		if (this.paintScheduled)
 			return;
-		requestAnimationFrame(repaint);
+		this.paintScheduled = true;
+		requestAnimationFrame(() => this.repaint());
 	}
 	scrollHandler(e) {
-		// this.scrolls++;
-		requestAnimationFrame(resampleScroll);
+		if (this.updateScheduled)
+			return;
+		this.updateScheduled = true;
+		requestAnimationFrame(() => this.updateScroll());
+	}
+	resizeHandler(e) {
+		if (this.updateScheduled)
+			return;
+		this.updateScheduled = true;
+		requestAnimationFrame(() => this.updateOffset());
 	}
 	registerHandlers() {
-		map.addEventListener('click',clickHandler);
-		map.addEventListener('scroll',scrollHandler);
+		this.map.addEventListener('click',(e) => this.clickHandler(e));
+		this.map.addEventListener('mousemove',(e) => this.mouseMoveHandler(e));
+		this.map.addEventListener('scroll',(e) => this.scrollHandler(e));
+		this.map.addEventListener('resize',(e) => this.resizeHandler(e));
 	}
 }
 
@@ -230,13 +271,16 @@ var		point,
 function initPoint() {
 	if (pointInitialized)
 		return;
-	if (document.readystate === 'interactive' || document.readystate === 'complete') {
+	if (document.readyState === 'interactive' || document.readyState === 'complete') {
 		pointInitialized = true;
 		point = new Point(meID,mapID);
+		console.log("Point initialized.");
 	}
 	else
 		document.addEventListener('readystatechange',initPoint);
-} 
+}
+
+initPoint();
 
 </script>
 </body>
