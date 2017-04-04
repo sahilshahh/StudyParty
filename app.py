@@ -7,7 +7,7 @@ from helper import add_data, fetch_data
 
 app = Flask(__name__)
 #app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://localhost/studyparty
-app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://postgres:321884@localhost:5432/studyparty2'
+app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://postgres:321884@localhost:5432/studyparty'
 heroku = Heroku(app)
 db = SQLAlchemy(app)
 
@@ -47,7 +47,7 @@ def index():
             #y_coord.append(int(float(user.y_coordinate)))
             #length+=1
     #length = int(length)
-    return render_template('index.html', x_coord=x_coord, y_coord=y_coord, length=length)
+    return render_template('demo.html', x_coord=x_coord, y_coord=y_coord, length=length)
 
 # Adds info to database and redirects to function that creats link
 @app.route('/prereg', methods=['GET','POST'])
@@ -68,7 +68,7 @@ def prereg():
 @app.route('/map/<x_coordinate>/<y_coordinate>', methods=['GET','POST'])
 def map(x_coordinate, y_coordinate):
     if request.method == 'GET':
-        return render_template('mapclick.html', x_coordinate=x_coordinate, y_coordinate=y_coordinate)
+        return render_template('democlick.html', x_coordinate=x_coordinate, y_coordinate=y_coordinate)
     else:
         return redirect(url_for('index'))
 

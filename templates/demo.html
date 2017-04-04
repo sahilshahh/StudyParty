@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 	<title>FAC Map</title>
 	<!-- Styles -->
-	<link type="text/css" rel="stylesheet" href="styles.css" async>
+	<link type="text/css" rel="stylesheet" href="{{ url_for('static', filename='css/demostyles.css') }}" async>
 	<link href="https://fonts.googleapis.com/css?family=Lora|Nunito" rel="stylesheet" async>
 	<svg style="height:0;">
 		<defs>
@@ -116,15 +116,38 @@
 			</g>
 	</symbol>
 	</svg>
+	<style> 
+        {% for i in range(length)%}
+        #dot{{i}} {
+            position: relative;
+            /*
+            left: {{x_coord[i]}}px;
+            top: {{y_coord[i]}}px;
+            */
+            left: 0px;
+            top: 0px;
+            z-index: 2;
+            transition: left .5s cubic-bezier(.42,-0.3,.78,1.25), 
+                top .5s cubic-bezier(.42,-0.3,.78,1.25);
+        }
+        {%endfor%}
+	</style>
 </head>
 <body>
+<div class="container-full">
+    <div class="row">
+        <div class="col-lg-12 text-center v-center">
+			<h1><a href="/">StudyParty</a></h1>
+        </div>
+    </div>
+</div>
 <header>
 	<span class="highlight-white line-bg">FAC</span>
 </header>
 <main>
 	<div id="map-container">
 		<!-- 147.64587/114.39804 = 1.290633 -->
-		<img id="map" src="FAC.svg" width="150%">
+		<img id="map" src="{{ url_for('static', filename='img/FAC.svg') }}" width="150%">
 		<svg id="furniture" width="150%" viewbox="0 0 640 495.88" preserveAspectRatio="xMinYMin meet">
 			<use href="#ct" width="20" height="20" x="205.4" y="348" transform="translate(-10,-10)"/>
 			<use href="#ct" width="20" height="20" x="234.1" y="324" transform="translate(-10,-10)"/>
@@ -148,6 +171,9 @@
 			<use href="#ct" width="20" height="20" x="406.9" y="174" transform="translate(-10,-10)"/>
 			<use href="#ct" width="20" height="20" x="435.7" y="150" transform="translate(-10,-10)"/>
 		</svg>
+		{% for i in range(length)%}
+            <img id="dot{{i}}" src="{{ url_for('static', filename='img/dot.svg') }}" width="30" height="30" style="position: absolute; left: {{x_coord[i]}}px; top: {{y_coord[i]}}px;">
+        {%endfor%}
 		<div id="pin" class="layer"></div>
 	</div>
 	<svg id="left-top" class="corner-border" viewbox="0 0 24.5 24.5" preserveAspectRatio="xMinYMin meet">
@@ -177,6 +203,19 @@
 		<li><span>Get a link</span></li>
 		<li><span>Copy it and share</span></li>
 	</ul>
+	<form name="generateLink" class="col-lg-12" action="{{url_for('prereg')}}" method="POST">
+        <div class="input-group" style="width:340px;text-align:center;margin:0 auto;">
+            <div class = "row">	
+                <input type="hidden" name="leftPixel" id="left_label">
+			</div>
+            <div class = "row">	
+                <input type="hidden" name="topPixel" id="top_label">
+			</div>
+            <div class = "row">
+                <span class="input-group-btn"><button class="btn btn-lg btn-primary" type="submit">Generate Link</button></span>
+            </div>
+        </div>
+     </form>	
 </footer>
 <script>
 function distance(x1,y1,x2,y2) {
@@ -222,15 +261,20 @@ class Point {
 	}
 	clickHandler(e) {
 		// (1) Uncomment for "unset when click close", "reset when click far away" behavior
-		// let x = this.x,
-		// 	y = this.y;
-		// this.updateCoords(e.clientX,e.clientY);
-		// if (distance(x,y,this.x,this.y) < 2*this.diameter)
-		// 	this.pointSet = !this.pointSet;
-		// else
-		// 	this.repaint();
+		//let x = this.x,
+		//y = this.y;
+		//this.updateCoords(e.clientX,e.clientY);
+		//if (distance(x,y,this.x,this.y) < 2*this.diameter)
+		//	this.pointSet = !this.pointSet;
+		//else
+		//	this.repaint();
+		
+		
 		// (2) Uncomment for simple "toggle set" behavior
 		this.pointSet = !this.pointSet;	
+		
+		document.getElementById('top_label').value = Math.floor(this.y);
+		document.getElementById('left_label').value = Math.floor(this.x);
 		// TODO: More intuitive behaviors... like "press and hold to set", "click to release"
 	}
 	mouseMoveHandler(e) {
