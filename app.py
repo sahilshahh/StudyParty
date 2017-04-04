@@ -6,7 +6,8 @@ from flask_heroku import Heroku
 from helper import add_data, fetch_data
 
 app = Flask(__name__)
-#app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://localhost/studyparty'
+#app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://localhost/studyparty
+app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://postgres:321884@localhost:5432/studyparty2'
 heroku = Heroku(app)
 db = SQLAlchemy(app)
 
