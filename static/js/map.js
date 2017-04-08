@@ -1,15 +1,15 @@
-var theThing = document.querySelector("#dot");
+var dot = document.querySelector("#dot");
 var container = document.querySelector("#contentContainer");
  
 container.addEventListener("click", getClickPosition, false);
  
 function getClickPosition(e) {
 	var parentPosition = getPosition(e.currentTarget);
-	var xPosition = e.clientX - parentPosition.x - (theThing.clientWidth / 2);
-	var yPosition = e.clientY - parentPosition.y - (theThing.clientHeight / 2);
+	var xPosition = e.clientX - parentPosition.x - (dot.clientWidth / 2);
+	var yPosition = e.clientY - parentPosition.y - (dot.clientHeight / 2);
      
-	theThing.style.left = xPosition + "px";
-	theThing.style.top = yPosition + "px";
+	dot.style.left = xPosition + "px";
+	dot.style.top = yPosition + "px";
 }
  
 function getPosition(el) {

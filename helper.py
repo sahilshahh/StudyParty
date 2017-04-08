@@ -1,4 +1,5 @@
 import datetime
+import re
 from datetime import timedelta
 
 def add_data(db, form):
@@ -26,8 +27,13 @@ def fetch_data(db, placeholder):
             db.session.delete(user)
             db.session.commit()
         else:
-            x_coord.append(int(float(user.x_coordinate)))
-            y_coord.append(int(float(user.y_coordinate)))
-            length+=1
+            try:
+                x_coord.append(int(float(user.x_coordinate)))
+                y_coord.append(int(float(user.y_coordinate)))
+                length+=1
+            except ValueError:
+                #delete entry
+                db.session.delete(user)
+                db.session.commit()
     length = int(length)
     return x_coord, y_coord, length
