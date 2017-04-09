@@ -193,7 +193,6 @@
 	</svg>
 
 	
-	
 </main>
 <footer>
 	<span class="info">How it works</span>
@@ -269,13 +268,16 @@ class Point {
 		//else
 		//	this.repaint();
 		
-		
 		// (2) Uncomment for simple "toggle set" behavior
 		this.pointSet = !this.pointSet;	
 		
 		document.getElementById('top_label').value = Math.floor(this.y);
 		document.getElementById('left_label').value = Math.floor(this.x);
+		
 		// TODO: More intuitive behaviors... like "press and hold to set", "click to release"
+	}
+	dblClickHandler(e){
+		window.alert(1);
 	}
 	mouseMoveHandler(e) {
 		// Perhaps this is not really a good behavior for mobile since there is no "hover" input
@@ -299,11 +301,37 @@ class Point {
 		this.updateScheduled = true;
 		requestAnimationFrame(() => this.updateOffset());
 	}
+	mouseWheelHandler(e){
+		//var e = window.event || e; // old IE support
+		e.preventDefault();
+		var delta = -1*e.deltaY;
+		//var zoomShift = (document.getElementId('map').width) + delta;
+		document.getElementById('map').style.width = Math.max(1000, Math.min(4000, document.getElementById('map').width + delta)) + "px";
+		//document.getElementById('map-container').style.zoom = Math.max(0.1, Math.min(10, document.getElementById('map-container').zoom + 0.05*delta));
+		//document.getElementById('furniture').style.width = Math.max(1000, Math.min(4000, document.getElementById('furniture').width + delta)) + "%";
+		//document.getElementById('furniture').style.width = Math.max(50, Math.min(300, document.getElementById('furniture').style.width + (delta))) + "%";
+		//$('#map-container').css({ transform: 'scale(.8)' });
+		return false;
+	}
+	mouseWheelFireFoxHandler(e){
+		//var e = window.event || e; // old IE support
+		e.preventDefault();
+		var delta = -1*e.deltaY;
+		//var zoomShift = (document.getElementId('map').width) + delta;
+		document.getElementById('map').style.width = Math.max(1000, Math.min(4000, document.getElementById('map').width + delta)) + "px";
+		//document.getElementById('furniture').style.width = Math.max(1000, Math.min(4000, document.getElementById('furniture').width + delta)) + "%";
+		//document.getElementById('furniture').style.width = Math.max(50, Math.min(300, document.getElementById('furniture').style.width + (delta))) + "%";
+		//window.alert(100);
+		return false;
+	}
 	registerHandlers() {
 		this.map.addEventListener('click',(e) => this.clickHandler(e));
+		//this.map.addEventListener('dblclick', (e) => this.dblClickHandler(e));
 		this.map.addEventListener('mousemove',(e) => this.mouseMoveHandler(e));
 		this.map.addEventListener('scroll',(e) => this.scrollHandler(e));
 		this.map.addEventListener('resize',(e) => this.resizeHandler(e));
+		this.map.addEventListener('wheel', (e) => this.mouseWheelHandler(e));
+		//this.map.addEventListener('DOMMouseScroll', (e) => this.mouseWheelHandler(e));
 	}
 }
 
