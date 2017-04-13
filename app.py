@@ -3,6 +3,7 @@ import datetime
 from werkzeug import secure_filename
 import os
 from datetime import timedelta
+from sqlalchemy.exc import IntegrityError
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy.exc import IntegrityError
 from flask_heroku import Heroku
