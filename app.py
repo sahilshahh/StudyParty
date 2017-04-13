@@ -20,10 +20,10 @@ mydir = os.path.dirname(mypath)
 class User(db.Model):
     __tablename__ = "users"
     id = db.Column(db.Integer, primary_key=True)
-    x_coordinate = db.Column(db.String(120), unique=True) 
-    y_coordinate = db.Column(db.String(120), unique=True)
-    time = db.Column(db.DateTime, unique=True)
-    building = db.Column(db.String(120), unique=True)
+    x_coordinate = db.Column(db.String(120), unique=False) 
+    y_coordinate = db.Column(db.String(120), unique=False)
+    time = db.Column(db.DateTime, unique=False)
+    building = db.Column(db.String(120), unique=False)
 
 
     def __init__(self, x_coordinate, y_coordinate, time, building):
