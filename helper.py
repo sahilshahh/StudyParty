@@ -6,18 +6,19 @@ def add_data(db, form):
     from app import User
     x_coordinate = form['leftPixel']
     y_coordinate = form['topPixel']
+    building = form['Building'].lower()
     time = datetime.datetime.now()
-    data = User(x_coordinate, y_coordinate, time)
+    data = User(x_coordinate, y_coordinate, time, building)
     db.session.add(data)
     db.session.commit()
     placeholder = None
-    return x_coordinate,y_coordinate, placeholder
+    return x_coordinate, y_coordinate, building, placeholder
 
-def fetch_data(db, placeholder):
+def fetch_data(db, building, placeholder):
     from app import User
     x_coord = []
     y_coord = []
-    users = db.session.query(User)
+    users = db.session.query(User).filter(User.building == building)
     length = 0
     for user in users:
         user_time = user.time

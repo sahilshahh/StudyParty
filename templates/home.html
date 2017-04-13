@@ -1,0 +1,5 @@
+<h1>Pick your map</h1>
+{%for item in buildings%}
+    <a href="{{url_for('index', building = item)}}">{{item}}</a>
+{%endfor%}
+<h1><a href="{{url_for('upload')}}">Upload a new map</a></h1>
