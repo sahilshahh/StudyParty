@@ -82,6 +82,8 @@
   --L_d: 12px; }
 
 .r-rectangle-B {
+  /* shared box dimensions */
+  /* dimensions passed to each box through CSS inheritance */
   --w: 60px;
   --l: 0px;
   --h: 46.76537px;
@@ -98,12 +100,17 @@
   --hyp2: 46.76537px;
   --w1: 6px;
   --l1: 12px;
+  /* global positioning */
   transform-style: preserve-3d;
   width: 120px;
   height: 120px;
-  position: relative;
-  border: 2px solid red;
-  box-sizing: content-box; }
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  border-radius: 50%;
+  background-color: rgba(0, 0, 0, 0.5);
+  /* positioning each box */ }
   .r-rectangle-B > *:nth-child(1) {
     position: absolute;
     left: 50%;
@@ -139,6 +146,81 @@
     left: 50%;
     top: 50%;
     transform: translate(-50%, -50%) rotate(300deg) rotateX(90deg) translateZ(-51.96152px); }
+
+.r-rectangle-L {
+  /* shared box dimensions */
+  /* dimensions passed to each box through CSS inheritance */
+  --w: 12px;
+  --l: 5.19615px;
+  --h: 108px;
+  --bW: 3px;
+  --hyp: 6px;
+  --theta: 0.5236rad;
+  /* global positioning */
+  transform-style: preserve-3d;
+  width: 12px;
+  height: 12px;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  /* positioning each box */ }
+  .r-rectangle-L > *:nth-child(1) {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, 0) rotate(180deg); }
+
+  .r-rectangle-L > *:nth-child(2) {
+    position: absolute;
+    left: 50%;
+    top: 0;
+    transform: translate(-50%, 0); }
+  .r-rectangle-L .t-face {
+    overflow: hidden !important; }
+
+.r-rectangle-T {
+  /* shared box dimensions */
+  /* shared dimensions passed to each box through CSS inheritance */
+  --h: 12px;
+  /* global positioning */
+  transform-style: preserve-3d;
+  width: 240px;
+  height: 120px;
+  position: relative;
+  transform: translateZ(108px);
+  /* positioning each box */ }
+  .r-rectangle-T > *:nth-child(1) {
+    --w: 120px;
+    --l: 12px;
+    --bW: 12px;
+    --hyp: 16.97056px;
+    --theta: 0.7854rad;
+    position: absolute;
+    left: 0;
+    top: 0;
+    transform: translate(-50%, -50%) rotate(-90deg) translate(-60px, 6px); }
+
+  .r-rectangle-T > *:nth-child(2) {
+    --w: 216px;
+    --l: 120px;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%); }
+
+  .r-rectangle-T > *:nth-child(3) {
+    --w: 120px;
+    --l: 12px;
+    --bW: 12px;
+    --hyp: 16.97056px;
+    --theta: 0.7854rad;
+    position: absolute;
+    left: 0;
+    top: 0;
+    transform: translate(-50%, -50%) rotate(90deg) translate(60px, -234px); }
+  .r-rectangle-T .t-face {
+    overflow: hidden !important; }
 
 /* Glass Divider */
 .divider-dims {
@@ -299,7 +381,7 @@
   font: calc(0.6*var(--l))/var(--l) sans-serif; }
 
 /* Trapezoid Box */
-/* args: w,l,h,w1,b,hyp,theta */
+/* args: w,l,h,bW,hyp,theta */
 .t-box {
   --raise: calc(0.5*var(--h));
   --w1: calc(var(--w) - calc(2*var(--bW)));
