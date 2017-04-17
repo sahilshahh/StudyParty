@@ -41,8 +41,8 @@ def building_list():
     for name in os.listdir(os.path.join(mydir, "templates/building")):
         if name != 'template.html':
             buildings.append(name.split('.')[0])
-    buildings= buildings[1:]
-    print(buildings)
+    #buildings= buildings[1:]
+    #print(buildings)
     return buildings
 
 @app.route('/')
