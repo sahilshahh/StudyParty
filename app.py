@@ -36,17 +36,25 @@ class User(db.Model):
     def __repr__(self):
         return '<Name %r>' % self.name
 
-@app.route('/')
-def home():
+def building_list():
     buildings = []
     for name in os.listdir(os.path.join(mydir, "templates/building")):
         if name != 'template.html':
             buildings.append(name.split('.')[0])
-    return render_template('home.html', buildings = buildings)
+    buildings= buildings[1:]
+    print(buildings)
+    return buildings
+
+@app.route('/')
+def home():
+    #buildings = building_list()
+    #return render_template('home.html', buildings = buildings)
+    return redirect(url_for('index', building='fac'))
 
 @app.route('/upload')
 def upload():
-    return render_template('upload.html')
+    buildings = building_list()
+    return render_template('upload.html', buildings=buildings)
 
 @app.route('/uploading', methods=['POST'])
 def uploading():
@@ -64,21 +72,22 @@ def uploading():
             Html_file.write(file)
             Html_file.close()
 
-    return redirect(url_for('home'))
+    return redirect(url_for('index', building = name+'*'))
 
 # Set "homepage" to index.html and fetches data for the heatmap
 @app.route('/<building>')
 def index(building):
+    buildings = building_list()
     if '*' in building:
         Html_file= open(os.path.join(mydir, 'templates/building/'+building+'.html'),"r")
         image = Html_file.read() 
         x_coord, y_coord, length = fetch_data(db, building.lower(), placeholder = None)
         building_string = 'building/template.html'
-        return render_template(building_string, x_coord=x_coord, y_coord=y_coord, length=length, building=building, image=image)
+        return render_template(building_string, x_coord=x_coord, y_coord=y_coord, length=length, building=building, image=image, buildings = buildings)
     else:
         x_coord, y_coord, length = fetch_data(db, building.lower(), placeholder = None)
         building_string = 'building/' + building.lower() + '.html'
-        return render_template(building_string, x_coord=x_coord, y_coord=y_coord, length=length)
+        return render_template(building_string, x_coord=x_coord, y_coord=y_coord, length=length, buildings = buildings)
 
 # Adds info to database and redirects to function that creats link
 @app.route('/prereg', methods=['GET','POST'])
@@ -92,15 +101,16 @@ def prereg():
 #generates the link for our map
 @app.route('/map/<building>/<x_coordinate>/<y_coordinate>', methods=['GET','POST'])
 def map(building, x_coordinate, y_coordinate):
+    buildings = building_list()
     if request.method == 'GET':
         if '*' in building:
             Html_file= open(os.path.join(mydir, 'templates/building/'+building+'.html'),"r")
             image = Html_file.read() 
             building_string = 'buildingclick/templateclick.html'
-            return render_template(building_string, x_coordinate=x_coordinate, y_coordinate=y_coordinate, building=building, image=image)
+            return render_template(building_string, x_coordinate=x_coordinate, y_coordinate=y_coordinate, building=building, image=image, buildings = buildings)
         else:    
             building_string = 'buildingclick/' + building.lower() + 'click.html'
-            return render_template(building_string, x_coordinate=x_coordinate, y_coordinate=y_coordinate)
+            return render_template(building_string, x_coordinate=x_coordinate, y_coordinate=y_coordinate, buildings = buildings)
     else:
         return redirect(url_for('home'))
 

@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-	<title>{{building}} Map</title>
+	<title>{{building.replace('*','')}} Map</title>
 	<!-- Styles -->
 	<link type="text/css" rel="stylesheet" href="{{ url_for('static', filename='css/demostyles.css') }}" async>
 	<link href="https://fonts.googleapis.com/css?family=Lora|Nunito" rel="stylesheet" async>
@@ -136,13 +136,19 @@
 <body>
 <div class="container-full">
     <div class="row">
-        <div class="col-lg-12 text-center v-center">
-			<h1><a href="/">StudyParty</a></h1>
-        </div>
+        <div class="dropdown">
+  			<button class="dropbtn">Buildings</button>
+  			<div class="dropdown-content">
+  				{%for item in buildings%}
+				    <a href="{{url_for('index', building = item)}}">{{item.replace('*','')}}</a>
+				{%endfor%}
+  			</div>
+		</div>
+		<button class="dropbtn" onclick="location.href='{{url_for('upload')}}'">Upload</button>
     </div>
 </div>
 <header>
-	<span class="highlight-white line-bg">{{building}}</span>
+	<span class="highlight-white line-bg">{{building.replace('*','')}}</span>
 </header>
 <main>
 	<div id="map-container">
