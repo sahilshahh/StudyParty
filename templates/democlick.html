@@ -119,8 +119,8 @@
 	<style>
 		#dot {
 			position: absolute;
-			left: {{x_coordinate}}px;
-			top: {{y_coordinate}}px;
+			top: 0px;
+			left: 0px;
 			z-index: 2;
 		}
 	</style>
@@ -182,5 +182,27 @@
 		<use href="#g" stroke="rgba(0,0,0,.1)" stroke-width=".25"/>
 	</svg>
 </main>
+
+<script>
+	var map = document.getElementById("map");
+	var s = document.getElementById("dot");
+						
+	function dotPosition(){
+		var screenX = {{screen_x}};
+		var screenY = {{screen_y}};
+		var preX = {{x_coordinate}};
+		var preY = {{y_coordinate}};
+		
+		var currentScreenX = map.offsetWidth;
+		var currentScreenY = map.offsetHeight;
+		var x = (currentScreenX*preX)/screenX;
+		var y = (currentScreenY*preY)/screenY;
+		
+		s.style.left = x + "px";
+		s.style.top = y + "px";
+	}
+						
+	window.onload = dotPosition;
+</script>
 </body>
 </html>
