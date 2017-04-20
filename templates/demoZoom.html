@@ -7,6 +7,12 @@
 	<!-- Styles -->
 	<link type="text/css" rel="stylesheet" href="styles.css" async>
 	<link href="https://fonts.googleapis.com/css?family=Lora|Nunito" rel="stylesheet" async>
+	<meta charset="utf-8">
+	<link href="https://fonts.googleapis.com/css?family=Chewy|Open+Sans:400i" rel="stylesheet">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 	<svg style="height:0;">
 		<defs>
 			<rect id="vert_box" x="1" y="-.1" width="98" height="100.2" rx="24.5" ry="24.5"/>
@@ -119,10 +125,14 @@
 </head>
 <body>
 <header>
-	<span class="highlight-white line-bg">FAC</span>
+	<div class=" text-center">
+<div class = "container">
+  <h1 style="color:black;">FAC</h1>
+</div>
 </header>
 <main>
-	<div id="map-container">
+
+	<div class = "container-fluid" id="map-container" style ="background-color : AliceBlue">
 		<!-- 147.64587/114.39804 = 1.290633 -->
 		<img id="map" src="FAC.svg" width="150%">
 		<!-- onLoad() moved to the end of the <script> after it is defined. -->
@@ -167,10 +177,13 @@
 		<use href="#g" stroke="rgba(0,0,0,.1)" stroke-width=".25"/>
 	</svg>
 
-	
+
 	
 </main>
 <footer>
+	<div class = "row">
+	<button type="button" class="btn btn-default btn-xs" onclick = "zoomOut()" style="float: right; font-family: Chewy;">Zoom Out</button>
+	</div>
 	<span class="info">How it works</span>
 	<hr>
 	<ul>
@@ -178,6 +191,8 @@
 		<li><span>Get a link</span></li>
 		<li><span>Copy it and share</span></li>
 	</ul>
+		<div>
+	 </div>
 </footer>
 <script>
 	function distance(x1,y1,x2,y2) {
@@ -521,6 +536,38 @@
         current.y = finalY;
         current.oldzoom = originalZoom;
 
+      }
+
+      var zoomOut = function(e){
+      	        var zoomImg = img;
+        var originalZoom = current.zoom;
+        if(originalZoom >1){
+        newZoom = current.zoom * .75; //put parameter for scale
+    }
+
+        current.zoom = newZoom;
+  //      current.x = finalX;
+  //      current.y = finalY;
+        current.oldzoom = originalZoom;
+
+        img.style.transform
+        = 'scale('+current.zoom+')';
+        console.log( "Current values " + current.x + ' ' + current.y);
+        var tempx = document.getElementById('map-container').scrollLeft;
+        var tempy = document.getElementById('map-container').scrollTop;
+        console.log("Current Scrolls " + tempx, tempy);
+        var newScrollLeft =  -(current.x * current.zoom);
+        var newScrollTop = -((current.y * current.zoom) );
+        console.log(newScrollLeft, newScrollTop);
+      //  document.getElementById('map-container').scrollLeft= tempx - newScrollLeft;
+    //    document.getElementById('map-container').scrollTop= tempy - newScrollTop;
+
+         furn.style.transform
+        = 'scale('+current.zoom+')';
+
+
+
+      
       }
   
 
