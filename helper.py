@@ -39,7 +39,7 @@ def fetch_data(db, building, placeholder):
                 y_coord.append((float(user.y_coordinate)))
                 screen_xs.append((float(user.screen_x)))
                 screen_ys.append((float(user.screen_y)))
-                zoomLevels.append((float(user.zoomLevel)))
+                zoomLevels.append((float(user.zoomlevel)))
                 length+=1
             except ValueError:
                 #delete entry

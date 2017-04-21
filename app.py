@@ -10,9 +10,9 @@ from flask_heroku import Heroku
 from helper import add_data, fetch_data
 
 app = Flask(__name__)
-#app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://localhost/studyparty'
-app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://postgres:321884@localhost:5432/studyparty'
-heroku = Heroku(app)
+app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://localhost/studyparty1'
+#app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://postgres:321884@localhost:5432/studyparty'
+#heroku = Heroku(app)
 db = SQLAlchemy(app)
 mypath = os.path.abspath(__file__)
 mydir = os.path.dirname(mypath)
@@ -25,17 +25,17 @@ class User(db.Model):
     y_coordinate = db.Column(db.Float(), unique=False)
     screen_x = db.Column(db.Float(), unique=False)
     screen_y = db.Column(db.Float(), unique=False)
-    zoomLevel = db.Column(db.Float(), unique=False)
+    zoomlevel = db.Column(db.Float(), unique=False)
     time = db.Column(db.DateTime, unique=False)
     building = db.Column(db.String(120), unique=False)
 
 
-    def __init__(self, x_coordinate, y_coordinate, screen_x, screen_y, zoomLevel, time, building):
+    def __init__(self, x_coordinate, y_coordinate, screen_x, screen_y, zoomlevel, time, building):
         self.x_coordinate = x_coordinate
         self.y_coordinate = y_coordinate
         self.screen_x = screen_x
         self.screen_y = screen_y
-        self.zoomLevel = zoomLevel
+        self.zoomlevel = zoomlevel
         self.time = time
         self.building = building
 
@@ -47,7 +47,7 @@ def building_list():
     for name in os.listdir(os.path.join(mydir, "templates/building")):
         if name != 'template.html':
             buildings.append(name.split('.')[0])
-    #buildings= buildings[1:]
+    buildings= buildings[1:]
     #print(buildings)
     return buildings
 
