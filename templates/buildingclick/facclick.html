@@ -190,8 +190,7 @@
 </main>
 
 <script>
-	var map = document.getElementById("map");
-	var s = document.getElementById("dot");
+	
 						
 	function dotPosition(){
 		var screenX = {{screen_x}} - 100.0;
@@ -214,7 +213,11 @@
 		//s.style.top = y + "px";
 	}
 						
-	window.onload = dotPosition;
+	window.onload = function() {
+	map = document.getElementById("map");
+	s = document.getElementById("dot");
+	dotPosition();
+	};
 </script>
 
 <script src="https://hammerjs.github.io/dist/hammer.js"></script>

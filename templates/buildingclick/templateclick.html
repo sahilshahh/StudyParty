@@ -167,31 +167,34 @@
 </main>
 
 <script>
-	var map = document.getElementById("map");
-	var s = document.getElementById("dot");
-						
-	function dotPosition(){
-		var screenX = {{screen_x}} - 100.0;
-		var screenY = {{screen_y}} - 100.0;
-		var preX = {{x_coordinate}} - 50.0;
-		var preY = {{y_coordinate}} - 50.0;
-		
-		var currentScreenX = map.offsetWidth - 100.0;
-		var currentScreenY = map.offsetHeight - 100.0;
-		
-		var scale = currentScreenX/2000;
-		
-		var x = ((currentScreenX*preX)/screenX) + 50.0 - scale*s.offsetWidth/2;
-		var y = ((currentScreenY*preY)/screenY) + 50.0 - scale*s.offsetHeight/2;
-		
-		s.style.width = scale*30 + "px";
-		s.style.height = scale*30 + "px";
-		s.style.transform = 'translate('+x+'px,'+y+'px)';
-		//s.style.left = x + "px";
-		//s.style.top = y + "px";
-	}
-						
-	window.onload = dotPosition;
+  
+            
+  function dotPosition(){
+    var screenX = {{screen_x}} - 100.0;
+    var screenY = {{screen_y}} - 100.0;
+    var preX = {{x_coordinate}} - 50.0;
+    var preY = {{y_coordinate}} - 50.0;
+    
+    var currentScreenX = map.offsetWidth - 100.0;
+    var currentScreenY = map.offsetHeight - 100.0;
+    
+    var scale = currentScreenX/2000;
+    
+    var x = ((currentScreenX*preX)/screenX) + 50.0 - scale*s.offsetWidth/2;
+    var y = ((currentScreenY*preY)/screenY) + 50.0 - scale*s.offsetHeight/2;
+    
+    s.style.width = scale*30 + "px";
+    s.style.height = scale*30 + "px";
+    s.style.transform = 'translate('+x+'px,'+y+'px)';
+    //s.style.left = x + "px";
+    //s.style.top = y + "px";
+  }
+            
+  window.onload = function() {
+  map = document.getElementById("map");
+  s = document.getElementById("dot");
+  dotPosition();
+  };
 </script>
 
 <script src="https://hammerjs.github.io/dist/hammer.js"></script>
