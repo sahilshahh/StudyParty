@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+	<title>FAC Map</title>
+	<!-- Styles -->
+	<link type="text/css" rel="stylesheet" href="{{ url_for('static', filename='css/demostyles.css') }}" async>
+	<link href="https://fonts.googleapis.com/css?family=Lora|Nunito" rel="stylesheet" async>
+	<svg style="height:0;">
+		<defs>
+			<rect id="vert_box" x="1" y="-.1" width="98" height="100.2" rx="24.5" ry="24.5"/>
+			<rect id="hor_box" x="-.1" y="1" width="100.2" height="98" rx="24.5" ry="24.5"/>
+			<mask id="border_mask">
+				<rect width="100" height="100" fill="white"/>
+				<use href="#vert_box"/>
+				<use href="#hor_box"/>
+			</mask>
+			<clipPath id="border_clip">
+				<use href="#vert_box"/>
+				<use href="#hor_box"/>
+			</clipPath>
+			<symbol id="ct" class="layer" fill="rgba(250,230,177,1)" viewbox="0 0 100 100" preserveAspectRatio="xMidYMid meet">
+				<defs>
+					<!-- shadow filter -->
+					<filter id="f_shadow" x="-50%" y="-50%" width="200%" height="200%" primitiveUnits="objectBoundingBox">
+						<feColorMatrix
+							result="darken"
+							in="offOut"
+							type="matrix"
+							values="0.4 0 0 0 0
+											0 0.4 0 0 0
+											0 0 0.4 0 0
+											0 0 0 1 0" />
+						<!-- <feGaussianBlur result="blurOut" in="darken" stdDeviation=".05"/> -->
+					</filter>
+					<!--  darken filter -->
+					<filter id="f_darken" x="0" y="0" width="100%" height="100%">
+						<feColorMatrix
+							in="SourceGraphic"
+							type="matrix"
+							values="0.02 0 0 0 0
+											0 0.02 0 0 0
+											0 0 0.02 0 0
+											0 0 0 1 0" />
+					</filter>
+					<!-- 	bottom gradient	 -->
+					<radialGradient id="radial" cx="50%" cy="50%" r="50%" fx="0%" fy="50%" gradientTransform="translate(.5,0)">
+						<stop offset="0%" stop-color="rgba(255,255,255,.1)"/>
+						<stop offset="100%" stop-color="rgba(255,255,255,0)"/>
+					</radialGradient>
+					<!-- 	glare	 -->
+					<symbol id="glare" fill="rgba(255,255,255,.5)" viewbox="0 0 28 32" preserveAspectRatio="none">
+						<rect x="-1" y="-10" width="2" height="20" transform="translate(16,10) rotate(10) skewX(-30)"/>
+						<rect x="-.25" y="-10" width=".5" height="20" transform="translate(10,15) rotate(10) skewX(-30)"/>
+						<rect x="-2" y="-10" width="4" height="30" fill="rgba(255,255,255,.2)" transform="translate(18,13) rotate(10) skewX(-30)"/>
+					</symbol>
+					<!-- clip for glare -->
+					<clipPath id="glare_clip">
+						<ellipse id="glare_clip_def" cx="50" cy="0" rx="50" ry="50" transform="translate(0,6.7) scale(1,.5)"/>
+					</clipPath>
+				</defs>
+				<!-- 	shadow	 -->
+				<ellipse id="shadow" cx="50" cy="50" rx="50" ry="50" transform="translate(0,0) scale(.7,.7) scale(1,.5)" fill="rgba(38,34,22,.1)"/>
+				<!-- 	bottom	 -->
+				<ellipse id="bottom1" cx="50" cy="50" rx="50" ry="50" fill="rgb(38,34,22)" transform="translate(0,0) scale(.5,.5) scale(1,.5)"/>
+				<ellipse id="bottom2" cx="50" cy="50" rx="50" ry="50" fill="url(#radial)" transform="translate(0,0) scale(.5,.5) scale(1,.5)"/>
+				<!-- 	leg	 -->
+				<rect id="leg" width="15" height="50" rx="6" x="50" y="0" transform="translate(-7.5,6.7) scale(1,0.866)" fill="rgb(38,34,22)"/>
+				<!-- 	edge	 -->
+				<ellipse id="edge" cx="50" cy="0" rx="50" ry="50" transform="translate(0,6.7) matrix(1,0,0,1.02,0,.8485) scale(1,.5)" fill="rgba(0,0,0,1)"/>
+				<!-- 	top	 -->
+				<ellipse id="top" cx="50" cy="0" rx="50" ry="50" transform="translate(0,6.7) scale(1,.5)"/>
+				<!-- glare -->
+				<g clip-path="url(#glare_clip)">
+					<!-- "contain and clip" trick-->
+					<use id="glare_instance" xlink:href="#glare" width="100" height="50" y="-25" transform="translate(0,25) translate(0,-20.71) scale(1,1)"/>
+				</g>
+			</symbol>
+		</defs>
+		
+		<rect id="cb" width="100" height="100" rx="25" ry="25" mask="url(#border_mask)"/>
+
+		<symbol id="g" viewbox="-50 -50 100 100" fill="none">
+			<g id="hor">
+				<path d="M-150,0 C-150,-65 150,-65 150,0" />
+				<path d="M-150,0 C-150,-55 150,-55 150,0" />
+				<path d="M-150,0 C-150,-45 150,-45 150,0" />
+				<path d="M-150,0 C-150,-35 150,-35 150,0" />
+				<path d="M-150,0 C-150,-25 150,-25 150,0" />
+				<path d="M-150,0 C-150,-15 150,-15 150,0" />
+				<path d="M-150,0 C-150,-5 150,-5 150,0" />
+				<path d="M-150,0 C-150,5 150,5 150,0" />
+				<path d="M-150,0 C-150,15 150,15 150,0" />
+				<path d="M-150,0 C-150,25 150,25 150,0" />
+				<path d="M-150,0 C-150,35 150,35 150,0" />
+				<path d="M-150,0 C-150,45 150,45 150,0" />
+				<path d="M-150,0 C-150,55 150,55 150,0" />
+				<path d="M-150,0 C-150,65 150,65 150,0" />
+			</g>
+			<g id="vert">
+				<path d="M0,-150 C-65,-150 -65,150 0,150" />
+				<path d="M0,-150 C-55,-150 -55,150 0,150" />
+				<path d="M0,-150 C-45,-150 -45,150 0,150" />
+				<path d="M0,-150 C-35,-150 -35,150 0,150" />
+				<path d="M0,-150 C-25,-150 -25,150 0,150" />
+				<path d="M0,-150 C-15,-150 -15,150 0,150" />
+				<path d="M0,-150 C-5,-150 -5,150 0,150" />
+				<path d="M0,-150 C5,-150 5,150 0,150" />
+				<path d="M0,-150 C15,-150 15,150 0,150" />
+				<path d="M0,-150 C25,-150 25,150 0,150" />
+				<path d="M0,-150 C35,-150 35,150 0,150" />
+				<path d="M0,-150 C45,-150 45,150 0,150" />
+				<path d="M0,-150 C55,-150 55,150 0,150" />
+				<path d="M0,-150 C65,-150 65,150 0,150" />
+			</g>
+	</symbol>
+	</svg>
+	<style>
+		#dot {
+			position: absolute;
+			top: 0px;
+			left: 0px;
+			z-index: 2;
+		}
+	</style>
+</head>
+<body
+<div class="container-full">
+    <div class="row">
+        <div class="dropdown">
+  			<button class="dropbtn">Buildings</button>
+  			<div class="dropdown-content">
+  				{%for item in buildings%}
+				    <a href="{{url_for('index', building = item)}}">{{item.replace('*','')}}</a>
+				{%endfor%}
+  			</div>
+		</div>
+		<button class="dropbtn" onclick="location.href='{{url_for('upload')}}'">Upload</button>
+    </div>
+    <!-- /row -->
+</div>
+<header>
+	<span class="highlight-white line-bg">FAC</span>
+</header>
+<main>
+	<div id="map-container">
+		<!-- 147.64587/114.39804 = 1.290633 -->
+		<img id="map" src="{{ url_for('static', filename='img/FAC.svg') }}" width="150%">
+		<svg id="furniture" width="150%" viewbox="0 0 640 495.88" preserveAspectRatio="xMinYMin meet">
+			<use href="#ct" width="20" height="20" x="205.4" y="348" transform="translate(-10,-10)"/>
+			<use href="#ct" width="20" height="20" x="234.1" y="324" transform="translate(-10,-10)"/>
+
+			<use href="#ct" width="20" height="20" x="291.7" y="372" transform="translate(-10,-10)"/>
+			<use href="#ct" width="20" height="20" x="320.5" y="348" transform="translate(-10,-10)"/>
+
+			<use href="#ct" width="20" height="20" x="349.3" y="324" transform="translate(-10,-10)"/>
+
+			<use href="#ct" width="20" height="20" x="406.9" y="372" transform="translate(-10,-10)"/>
+			<use href="#ct" width="20" height="20" x="435.7" y="348" transform="translate(-10,-10)"/>
+
+			<use href="#ct" width="20" height="20" x="263" y="198.5" transform="translate(-10,-10)"/>
+			<use href="#ct" width="20" height="20" x="263" y="298.5" transform="translate(-10,-10)"/>
+
+			<use href="#ct" width="20" height="20" x="291.7" y="174" transform="translate(-10,-10)"/>
+			<use href="#ct" width="20" height="20" x="320.5" y="150" transform="translate(-10,-10)"/>
+
+			<use href="#ct" width="20" height="20" x="349.3" y="126" transform="translate(-10,-10)"/>
+
+			<use href="#ct" width="20" height="20" x="406.9" y="174" transform="translate(-10,-10)"/>
+			<use href="#ct" width="20" height="20" x="435.7" y="150" transform="translate(-10,-10)"/>
+		</svg>
+		<img id="dot" src="{{ url_for('static', filename='img/dot.svg') }}" width="30" height="30">
+	</div>
+	<svg id="left-top" class="corner-border" viewbox="0 0 24.5 24.5" preserveAspectRatio="xMinYMin meet">
+		<use x="0" y="0" width="100" height="100" href="#cb"/>
+	</svg>
+	<svg id="right-top" class="corner-border" viewbox="0 0 24.5 24.5" preserveAspectRatio="xMinYMin meet">
+		<use x="-75.5" y="0" width="100" height="100" href="#cb"/>
+	</svg>
+	<svg id="left-bottom" class="corner-border" viewbox="0 0 24.5 24.5" preserveAspectRatio="xMinYMin meet">
+		<use x="-0" y="-75.5" width="100" height="100" href="#cb"/>
+	</svg>
+	<svg id="right-bottom" class="corner-border" viewbox="0 0 24.5 24.5" preserveAspectRatio="xMinYMin meet">
+		<use x="-75.5" y="-75.5" width="100" height="100" href="#cb"/>
+	</svg>
+	<svg id="grid" viewbox="0 0 100 100" preserveAspectRatio="xMidYMid slice">
+		<use href="#g" stroke="rgba(0,0,0,.1)" stroke-width=".25"/>
+	</svg>
+</main>
+
+<script>
+	var map = document.getElementById("map");
+	var s = document.getElementById("dot");
+						
+	function dotPosition(){
+		var screenX = {{screen_x}} - 100.0;
+		var screenY = {{screen_y}} - 100.0;
+		var preX = {{x_coordinate}} - 50.0;
+		var preY = {{y_coordinate}} - 50.0;
+		
+		var currentScreenX = map.offsetWidth - 100.0;
+		var currentScreenY = map.offsetHeight - 100.0;
+		
+		var scale = currentScreenX/2000;
+		
+		var x = ((currentScreenX*preX)/screenX) + 50.0 - scale*s.offsetWidth/2;
+		var y = ((currentScreenY*preY)/screenY) + 50.0 - scale*s.offsetHeight/2;
+		
+		s.style.width = scale*30 + "px";
+		s.style.height = scale*30 + "px";
+		s.style.transform = 'translate('+x+'px,'+y+'px)';
+		//s.style.left = x + "px";
+		//s.style.top = y + "px";
+	}
+						
+	window.onload = dotPosition;
+</script>
+</body>
+</html>

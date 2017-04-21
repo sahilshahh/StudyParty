@@ -1,0 +1,31 @@
+<link type="text/css" rel="stylesheet" href="{{ url_for('static', filename='css/demostyles.css') }}" async>
+<link href="https://fonts.googleapis.com/css?family=Lora|Nunito" rel="stylesheet" async>
+
+
+
+<body>
+<div class="container-full">
+    <div class="row">
+    	<div class="dropdown">
+  			<button class="dropbtn">Buildings</button>
+  			<div class="dropdown-content">
+  				{%for item in buildings%}
+				    <a href="{{url_for('index', building = item)}}">{{item.replace('*','')}}</a>
+				{%endfor%}
+  			</div>
+		</div>
+		<button class="dropbtn" onclick="location.href='{{url_for('upload')}}'">Upload</button>
+    </div>
+</div>
+
+<h1>Upload Map</h1>
+
+<form action = "{{url_for('uploading')}}" method = "POST" enctype = "multipart/form-data">
+                
+                  <label for="name">Enter map name:</label>
+                  <input type="text" class="form-control" id=" name" name ="name" required>
+                  <label for="file">File:</label>
+                  <input type = "file" name = "files" class = "filebutton" id="files" multiple="" required>
+                  <input type = "submit" style="border-style:none;" value = "Submit" />
+</form>
+</body>

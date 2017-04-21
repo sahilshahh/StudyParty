@@ -9,21 +9,22 @@ def add_data(db, form):
     screen_x = form['screenWidth']
     screen_y = form['screenHeight']
     zoomLevel = form['zoomLevel']
+    building = form['Building'].lower()
     time = datetime.datetime.now()
-    data = User(x_coordinate, y_coordinate, screen_x, screen_y, zoomLevel, time)
+    data = User(x_coordinate, y_coordinate, screen_x, screen_y, zoomLevel, time, building)
     db.session.add(data)
     db.session.commit()
     placeholder = None
-    return x_coordinate,y_coordinate, screen_x, screen_y, zoomLevel, placeholder
+    return x_coordinate, y_coordinate, screen_x, screen_y, zoomLevel, building, placeholder
 
-def fetch_data(db, placeholder):
+def fetch_data(db, building, placeholder):
     from app import User
     x_coord = []
     y_coord = []
     screen_xs = []
     screen_ys = []
     zoomLevels = []
-    users = db.session.query(User)
+    users = db.session.query(User).filter(User.building == building)
     length = 0
     for user in users:
         user_time = user.time
@@ -34,11 +35,11 @@ def fetch_data(db, placeholder):
             db.session.commit()
         else:
             try:
-                x_coord.append(int(float(user.x_coordinate)))
-                y_coord.append(int(float(user.y_coordinate)))
-                screen_xs.append(int(float(user.screen_x)))
-                screen_ys.append(int(float(user.screen_y)))
-                zoomLevels.append(int(float(user.zoomLevel)))
+                x_coord.append((float(user.x_coordinate)))
+                y_coord.append((float(user.y_coordinate)))
+                screen_xs.append((float(user.screen_x)))
+                screen_ys.append((float(user.screen_y)))
+                zoomLevels.append((float(user.zoomLevel)))
                 length+=1
             except ValueError:
                 #delete entry
