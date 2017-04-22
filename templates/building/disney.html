@@ -175,6 +175,7 @@
 	
 </main>
 <footer>
+	<button type= "button" class = "btn btn-default btn-xs" onclick = "zoomOut()" style="float: right;"> Zoom Out</button>
 	<span class="info">How it works</span>
 	<hr>
 	<ul>
@@ -210,11 +211,12 @@
 </footer>
 
 <script>
-	var map = document.getElementById("map");
-	var currentScreenX = map.offsetWidth - 100.0;
-	var currentScreenY = map.offsetHeight - 100.0;
+	var dot_flag = false;
 						
 	function dotPositions(){
+		var map = document.getElementById("map");
+		var currentScreenX = map.offsetWidth - 100.0;
+		var currentScreenY = map.offsetHeight - 100.0;
 		var i;
 		var l = {{length}};
 		for(i = 0; i < l; i++){
@@ -238,16 +240,20 @@
 			
 			//var yScale = currentScreenX/1000;
 		
-			//s.style.transform = 'scale('+xScale+','+yScale+')';
+			//s.style.transform = 'scale('+scale+','+scale+')';
 			s.style.width = scale*30 + "px";
 			s.style.height = scale*30 + "px";
 			s.style.transform = 'translate('+x+'px,'+y+'px)';
 			//s.style.left = x + "px";
 			//s.style.top = y + "px";
+			console.log("dotPositions() ran!");
+			dot_flag = true;
 		}
 	}
 						
 	window.onload = dotPositions;
+	if (!dot_flag)
+		dotPositions();
 </script>
 <script>
 function distance(x1,y1,x2,y2) {

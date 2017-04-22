@@ -190,9 +190,11 @@
 </main>
 
 <script>
-	
+	var dot_flag = false;
 						
 	function dotPosition(){
+		var map = document.getElementById("map");
+		var s = document.getElementById("dot");
 		var screenX = {{screen_x}} - 100.0;
 		var screenY = {{screen_y}} - 100.0;
 		var preX = {{x_coordinate}} - 50.0;
@@ -211,13 +213,13 @@
 		s.style.transform = 'translate('+x+'px,'+y+'px)';
 		//s.style.left = x + "px";
 		//s.style.top = y + "px";
+		dot_flag = true;
 	}
 						
-	window.onload = function() {
-	map = document.getElementById("map");
-	s = document.getElementById("dot");
-	dotPosition();
-	};
+	window.onload = dotPosition;
+	
+	if (!dot_flag)
+		dotPosition();
 </script>
 
 <script src="https://hammerjs.github.io/dist/hammer.js"></script>
