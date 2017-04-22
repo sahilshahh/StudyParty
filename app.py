@@ -5,11 +5,12 @@ import os
 from datetime import timedelta
 from sqlalchemy.exc import IntegrityError
 from flask_sqlalchemy import SQLAlchemy
+from sqlalchemy.exc import IntegrityError
 from flask_heroku import Heroku
 from helper import add_data, fetch_data
 
 app = Flask(__name__)
-app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://localhost/studyparty'
+app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://localhost/studyparty1'
 #app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://postgres:321884@localhost:5432/studyparty'
 #heroku = Heroku(app)
 db = SQLAlchemy(app)
@@ -20,15 +21,21 @@ mydir = os.path.dirname(mypath)
 class User(db.Model):
     __tablename__ = "users"
     id = db.Column(db.Integer, primary_key=True)
-    x_coordinate = db.Column(db.String(120), unique=False) 
-    y_coordinate = db.Column(db.String(120), unique=False)
+    x_coordinate = db.Column(db.Float(), unique=False) 
+    y_coordinate = db.Column(db.Float(), unique=False)
+    screen_x = db.Column(db.Float(), unique=False)
+    screen_y = db.Column(db.Float(), unique=False)
+    zoomlevel = db.Column(db.Float(), unique=False)
     time = db.Column(db.DateTime, unique=False)
     building = db.Column(db.String(120), unique=False)
 
 
-    def __init__(self, x_coordinate, y_coordinate, time, building):
+    def __init__(self, x_coordinate, y_coordinate, screen_x, screen_y, zoomlevel, time, building):
         self.x_coordinate = x_coordinate
         self.y_coordinate = y_coordinate
+        self.screen_x = screen_x
+        self.screen_y = screen_y
+        self.zoomlevel = zoomlevel
         self.time = time
         self.building = building
 
@@ -41,7 +48,7 @@ def building_list():
         if name != 'template.html':
             buildings.append(name.split('.')[0])
     buildings= buildings[1:]
-    print(buildings)
+    #print(buildings)
     return buildings
 
 @app.route('/')
@@ -80,36 +87,36 @@ def index(building):
     if '*' in building:
         Html_file= open(os.path.join(mydir, 'templates/building/'+building+'.html'),"r")
         image = Html_file.read() 
-        x_coord, y_coord, length = fetch_data(db, building.lower(), placeholder = None)
+        x_coord, y_coord, screen_xs, screen_ys, zoomLevels, length = fetch_data(db, building.lower(), placeholder = None)
         building_string = 'building/template.html'
-        return render_template(building_string, x_coord=x_coord, y_coord=y_coord, length=length, building=building, image=image, buildings = buildings)
+        return render_template(building_string, x_coord=x_coord, y_coord=y_coord, screen_xs=screen_xs, screen_ys=screen_ys, zoomLevels=zoomLevels, length=length, building=building, image=image, buildings = buildings)
     else:
-        x_coord, y_coord, length = fetch_data(db, building.lower(), placeholder = None)
+        x_coord, y_coord, screen_xs, screen_ys, zoomLevels, length = fetch_data(db, building.lower(), placeholder = None)
         building_string = 'building/' + building.lower() + '.html'
-        return render_template(building_string, x_coord=x_coord, y_coord=y_coord, length=length, buildings = buildings)
+        return render_template(building_string, x_coord=x_coord, y_coord=y_coord, screen_xs=screen_xs, screen_ys=screen_ys, zoomLevels=zoomLevels, length=length, buildings = buildings)
 
 # Adds info to database and redirects to function that creats link
 @app.route('/prereg', methods=['GET','POST'])
 def prereg():
     if request.method == 'POST':
-        x_coordinate, y_coordinate, building, placeholder = add_data(db, request.form)
-        return redirect(url_for('map', building=building, x_coordinate=x_coordinate, y_coordinate=y_coordinate))
+        x_coordinate, y_coordinate, screen_x, screen_y, zoomLevel, building, placeholder = add_data(db, request.form)
+        return redirect(url_for('map', building=building, x_coordinate=x_coordinate, y_coordinate=y_coordinate, screen_x=screen_x, screen_y=screen_y, zoomLevel=zoomLevel))
     else:
         return redirect(url_for('home'))
 
 #generates the link for our map
-@app.route('/map/<building>/<x_coordinate>/<y_coordinate>', methods=['GET','POST'])
-def map(building, x_coordinate, y_coordinate):
+@app.route('/map/<building>/<x_coordinate>/<y_coordinate>/<screen_x>/<screen_y>/<zoomLevel>', methods=['GET','POST'])
+def map(building, x_coordinate, y_coordinate, screen_x, screen_y, zoomLevel):
     buildings = building_list()
     if request.method == 'GET':
         if '*' in building:
             Html_file= open(os.path.join(mydir, 'templates/building/'+building+'.html'),"r")
             image = Html_file.read() 
             building_string = 'buildingclick/templateclick.html'
-            return render_template(building_string, x_coordinate=x_coordinate, y_coordinate=y_coordinate, building=building, image=image, buildings = buildings)
+            return render_template(building_string, x_coordinate=x_coordinate, y_coordinate=y_coordinate, screen_x=screen_x, screen_y=screen_y, zoomLevel=zoomLevel, building=building, image=image, buildings = buildings)
         else:    
             building_string = 'buildingclick/' + building.lower() + 'click.html'
-            return render_template(building_string, x_coordinate=x_coordinate, y_coordinate=y_coordinate, buildings = buildings)
+            return render_template(building_string, x_coordinate=x_coordinate, y_coordinate=y_coordinate, screen_x=screen_x, screen_y=screen_y, zoomLevel=zoomLevel, buildings = buildings)
     else:
         return redirect(url_for('home'))
 

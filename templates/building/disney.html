@@ -120,12 +120,8 @@
         {% for i in range(length)%}
         #dot{{i}} {
             position: relative;
-            /*
-            left: {{x_coord[i]}}px;
-            top: {{y_coord[i]}}px;
-            */
-            left: 0px;
-            top: 0px;
+			top: 0px;
+			left: 0px;
             z-index: 2;
             transition: left .5s cubic-bezier(.42,-0.3,.78,1.25), 
                 top .5s cubic-bezier(.42,-0.3,.78,1.25);
@@ -155,7 +151,7 @@
 		<!-- 147.64587/114.39804 = 1.290633 -->
 		<img id="map" src="{{ url_for('static', filename='img/disneymap.jpg') }}" width="150%">
 		{% for i in range(length)%}
-            <img id="dot{{i}}" src="{{ url_for('static', filename='img/dot.svg') }}" width="30" height="30" style="position: absolute; left: {{x_coord[i]}}px; top: {{y_coord[i]}}px;">
+            <img id="dot{{i}}" src="{{ url_for('static', filename='img/dot.svg') }}" width="30" height="30" style="position: absolute;">
         {%endfor%}
 		<div id="pin" class="layer"></div>
 	</div>
@@ -179,6 +175,7 @@
 	
 </main>
 <footer>
+	<button type= "button" class = "btn btn-default btn-xs" onclick = "zoomOut()" style="float: right;"> Zoom Out</button>
 	<span class="info">How it works</span>
 	<hr>
 	<ul>
@@ -195,6 +192,15 @@
                 <input type="hidden" name="topPixel" id="top_label">
 			</div>
 			<div class = "row">	
+                <input type="hidden" name="screenWidth" id="sc_width_label">
+			</div>
+            <div class = "row">	
+                <input type="hidden" name="screenHeight" id="sc_height_label">
+			</div>
+			<div class = "row">	
+                <input type="hidden" name="zoomLevel" id="zoom_label">
+			</div>
+			<div class = "row">	
                 <input type="hidden" name="Building" value="Disney">
 			</div>
             <div class = "row">
@@ -203,6 +209,52 @@
         </div>
      </form>	
 </footer>
+
+<script>
+	var dot_flag = false;
+						
+	function dotPositions(){
+		var map = document.getElementById("map");
+		var currentScreenX = map.offsetWidth - 100.0;
+		var currentScreenY = map.offsetHeight - 100.0;
+		var i;
+		var l = {{length}};
+		for(i = 0; i < l; i++){
+			var s = document.getElementById("dot" + i);
+			console.log(s);
+			
+			var scale = currentScreenX/2000;
+			
+			var screenXArr = {{screen_xs}};
+			var screenYArr = {{screen_ys}};
+			var preXArr = {{x_coord}};
+			var preYArr = {{y_coord}};
+			var screenX = screenXArr[i] - 100.0;
+			var screenY = screenYArr[i] - 100.0;
+			var preX = preXArr[i] - 50.0;
+			var preY = preYArr[i] - 50.0;
+		
+			var x = ((currentScreenX*preX)/screenX) + 50.0 - scale*s.offsetWidth/2;
+			var y = ((currentScreenY*preY)/screenY) + 50.0 - scale*s.offsetHeight/2;
+		
+			
+			//var yScale = currentScreenX/1000;
+		
+			//s.style.transform = 'scale('+scale+','+scale+')';
+			s.style.width = scale*30 + "px";
+			s.style.height = scale*30 + "px";
+			s.style.transform = 'translate('+x+'px,'+y+'px)';
+			//s.style.left = x + "px";
+			//s.style.top = y + "px";
+			console.log("dotPositions() ran!");
+			dot_flag = true;
+		}
+	}
+						
+	window.onload = dotPositions;
+	if (!dot_flag)
+		dotPositions();
+</script>
 <script>
 function distance(x1,y1,x2,y2) {
 	return Math.sqrt((x1-x2)**2+(y1-y2)**2);
@@ -259,8 +311,15 @@ class Point {
 		// (2) Uncomment for simple "toggle set" behavior
 		this.pointSet = !this.pointSet;	
 		
-		document.getElementById('top_label').value = Math.floor(this.y);
-		document.getElementById('left_label').value = Math.floor(this.x);
+		var map = document.getElementById("map");
+		
+		document.getElementById('top_label').value = this.y + 15.0;
+		document.getElementById('left_label').value = this.x + 15.0;
+		
+		document.getElementById('sc_width_label').value = map.offsetWidth;
+		document.getElementById('sc_height_label').value = map.offsetHeight;
+		
+		document.getElementById('zoom_label').value = 150;
 		// TODO: More intuitive behaviors... like "press and hold to set", "click to release"
 	}
 	mouseMoveHandler(e) {
@@ -313,5 +372,302 @@ function initPoint() {
 initPoint();
 
 </script>
+
+<script src="https://hammerjs.github.io/dist/hammer.js"></script>
+<script>
+      var MIN_SCALE = 1; // 1=scaling when first loaded
+      var MAX_SCALE = 64;
+      // HammerJS fires "pinch" and "pan" events that are cumulative in nature and not
+      // deltas. Therefore, we need to store the "last" values of scale, x and y so that we can
+      // adjust the UI accordingly. It isn't until the "pinchend" and "panend" events are received
+      // that we can set the "last" values.
+      // Our "raw" coordinates are not scaled. This allows us to only have to modify our stored
+      // coordinates when the UI is updated. It also simplifies our calculations as these
+      // coordinates are without respect to the current scale.
+   
+      var img = null;
+      var current = {x: 0, y: 0, zoom: 1, oldzoom: 1};
+      var container = null;
+      var table = null;
+      var map = null;
+      var prevScale = 1;
+      var furn = null;
+          // We need to disable the following event handlers so that the browser doesn't try to
+      // automatically handle our image drag gestures.
+      var disableImgEventHandlers = function() {
+        var events = ['onclick', 'onmousedown', 'onmousemove', 'onmouseout', 'onmouseover',
+          'onmouseup', 'ondblclick', 'onfocus', 'onblur'
+        ];
+        events.forEach(function(event) {
+          img[event] = function() {
+            return false;
+          };
+        });
+      };
+    /*  
+      class Furniture {
+  constructor(meID,mapID) {
+    this.img = document.getElementById(meID);
+      this.container = document.getElementById(mapID);
+      if(this.img.nodeName == "svg"){
+         this.bBox = this.img.getBBox();
+         this.imgWidth = this.bBox.width;
+         this.imgHeight = this.bBox.height;
+        // this.viewportWidth = this.container.offsetWidth;
+      //this.viewportHeight = this.container.offsetHeight;
+          //this.scale = this.viewportWidth / this.imgWidth;
+          //this.lastScale = this.scale;
+      //this.viewportHeight = this.container.height;
+    
+      }
+      else{
+        this.imgWidth = this.img.width;
+        this.imgHeight = this.img.height;
+       // this.viewportWidth = this.img.offsetWidth;
+        //this.viewportHeight = this.img.offsetHeight;
+          //this.scale = this.viewportWidth / this.imgWidth;
+          //this.lastScale = this.scale;
+      //this.viewportHeight = this.container.height;
+       
+      }
+         this.viewportWidth = this.container.offsetWidth;
+      this.viewportHeight = this.container.height;
+          this.scale = this.viewportWidth / this.imgWidth;
+          this.lastScale = this.scale;
+        this.curWidth = this.imgWidth * this.scale;                     
+        this.curHeight = this.imgHeight * this.scale;
+      this.x = 0;
+        this.lastX = 0;
+        this.y = 0;
+        this.lastY = 0;
+        this.pinchCenter = null;
+  }
+   // Traverse the DOM to calculate the absolute position of an element
+      absolutePosition (el){
+        var x = 0,
+          y = 0;
+        while (el !== null) {
+          x += el.offsetLeft;
+          y += el.offsetTop;
+          el = el.offsetParent;
+        }
+        return {
+          x: x,
+          y: y
+        };
+      };
+      restrictScale(scale) {
+        if (scale < 1) {
+          scale = 1;
+        } else if (scale > 64) {
+          scale = 64;
+        }
+        return scale;
+      };
+      restrictRawPos(pos, viewportDim, imgDim) {
+        if (pos < viewportDim / this.scale - imgDim) { // too far left/up?
+          pos = viewportDim / this.scale - imgDim;
+        } else if (pos > 0) { // too far right/down?
+          pos = 0;
+        }
+        return pos;
+      };
+      updateLastPos (deltaX, deltaY) {
+        //this.lastX = this.x;
+        //this.lastY = this.y;
+        this.lastX = this.x;
+        this.lastY = this.y;
+      };
+      translate(deltaX, deltaY) {
+        // We restrict to the min of the viewport width/height or current width/height as the
+        // current width/height may be smaller than the viewport width/height
+        var newX = this.restrictRawPos(this.lastX + deltaX / this.scale,
+          Math.min(this.viewportWidth, this.curWidth), this.imgWidth);
+        this.x = newX;
+        this.img.style.marginLeft = Math.ceil(newX * this.scale) + 'px' ;
+        var newY = this.restrictRawPos(this.lastY + deltaY / this.scale,
+          Math.min(this.viewportHeight, this.curHeight), this.imgHeight);
+        this.y = newY;
+        this.img.style.marginTop = Math.ceil(newY * this.scale) + 'px' ;
+      };
+      zoom(scaleBy) {
+        this.scale = this.restrictScale(this.lastScale * scaleBy);
+        this.curWidth = this.imgWidth * this.scale;
+        this.curHeight = this.imgHeight * this.scale;
+        this.img.style.width = Math.ceil(this.curWidth) + 'px';
+        this.img.style.height = Math.ceil(this.curHeight) + 'px' ;
+        // Adjust margins to make sure that we aren't out of bounds
+        this.translate(0, 0);
+      };
+      rawCenter(e) {
+        var pos = this.absolutePosition(this.container);
+        // We need to account for the scroll position
+        var scrollLeft =  document.body.scrollLeft;
+        var scrollTop =  document.body.scrollTop;
+        var zoomX = -this.x + (e.center.x - pos.x + scrollLeft) / this.scale;
+        var zoomY = -this.y + (e.center.y - pos.y + scrollTop) / this.scale;
+        return { x: zoomX, y: zoomY };
+      };
+      updateLastScale() {
+        this.lastScale = this.scale;
+      };
+      zoomAround(scaleBy, rawZoomX, rawZoomY, doNotUpdateLast) {
+        // Zoom
+       // this.zoom(scaleBy);
+        // New raw center of viewport
+        var rawCenterX = -this.x + Math.min(this.viewportWidth, this.curWidth) / 2 / this.scale;
+        var rawCenterY = -this.y + Math.min(this.viewportHeight, this.curHeight) / 2 / this.scale;
+        // Delta
+        //var deltaX = (rawCenterX - rawZoomX) * this.scale;
+        //var deltaY = (rawCenterY - rawZoomY) * this.scale;
+        var deltaX = (rawCenterX - rawZoomX) ;
+        var deltaY = (rawCenterY - rawZoomY) ;
+        // Translate back to zoom center
+       
+        if (!doNotUpdateLast) {
+          this.updateLastScale();
+          this.updateLastPos();
+        }
+        return { x: deltaX, y: deltaY };
+      };
+      zoomCenter(scaleBy) {
+        // Center of viewport
+        var zoomX = -this.x + Math.min(this.viewportWidth, this.curWidth) / 2 / this.scale;
+        var zoomY = -this.y + Math.min(this.viewportHeight, this.curHeight) / 2 / this.scale;
+        this.zoomAround(scaleBy, zoomX, zoomY);
+      };
+      zoomIn() {
+       this.zoomCenter(2);
+      };
+      zoomOut() {
+        this.zoomCenter(1 / 2);
+      };
+}
+*/
+      var zoomWithTransform = function(e){
+        var zoomImg = img,
+        originalZoom = current.zoom,
+        newZoom = current.zoom * 1.6, //put parameter for scale
+        /// scroll offset
+        scrollX = zoomImg.scrollLeft,
+        scrollY = zoomImg.scrollTop,
+        /// offset of containeR -- not sure if offset exists
+        /// mouse cords
+        mouseX = e.center.x - 0 + scrollX,
+        mouseY = e.center.y - 0 + scrollY,
+        /// calculate click at current zoom
+        xCoord = (mouseX - current.x) / originalZoom,
+        yCoord = (mouseY - current.y) / originalZoom,
+        /// calculate click at new zoom
+        newX = xCoord * newZoom,
+        newY = yCoord * newZoom,
+        /// move to the difference
+        /// make sure we take mouse pointer offset into account!
+        finalX = (xCoord + (mouseX - xCoord) - newX),
+        finalY = (yCoord + (mouseY - yCoord) - newY)
+        current.zoom = newZoom;
+        current.x = finalX;
+        current.y = finalY;
+        current.oldzoom = originalZoom;
+      }
+      var zoomOut = function(e){
+      	        var zoomImg = img;
+        var originalZoom = current.zoom;
+        if(originalZoom >1){
+        newZoom = current.zoom * .75; //put parameter for scale
+    }
+        current.zoom = newZoom;
+  //      current.x = finalX;
+  //      current.y = finalY;
+        current.oldzoom = originalZoom;
+        img.style.transform
+        = 'scale('+current.zoom+')';
+        console.log( "Current values " + current.x + ' ' + current.y);
+        var tempx = document.getElementById('map-container').scrollLeft;
+        var tempy = document.getElementById('map-container').scrollTop;
+        console.log("Current Scrolls " + tempx, tempy);
+        var newScrollLeft =  -(current.x * current.zoom);
+        var newScrollTop = -((current.y * current.zoom) );
+        console.log(newScrollLeft, newScrollTop);
+      //  document.getElementById('map-container').scrollLeft= tempx - newScrollLeft;
+    //    document.getElementById('map-container').scrollTop= tempy - newScrollTop;
+         furn.style.transform
+        = 'scale('+current.zoom+')';
+      
+      }
+  
+      var onLoad = function() {
+        img = document.getElementById("map");
+        container = document.getElementById("map-container");
+        furn = document.getElementById("furniture");
+        
+      //  table = new Furniture("furniture", "map-container");
+       // map = new Furniture("map", "map-container");
+ 
+      //  disableImgEventHandlers();
+        var hammer = new Hammer(container, {
+          domEvents: true
+        });
+        hammer.get('pinch').set({
+          enable: true
+        });
+        hammer.on('pan', function(e) {
+          //map.translate(e.deltaX, e.deltaY);
+          //table.translate(e.deltaX, e.deltaY);
+        });
+        hammer.on('panend', function(e) {
+         // map.updateLastPos();
+         // table.updateLastPos();
+        });
+        hammer.on('pinch', function(e) {
+          // We only calculate the pinch center on the first pinch event as we want the center to
+          // stay consistent during the entire pinch
+          //if (pinchCenter === null) {
+           // pinchCenter = rawCenter(e);
+           // var offsetX = pinchCenter.x * scale - (-x * scale + Math.min(viewportWidth, curWidth) / 2);
+           // var offsetY = pinchCenter.y * scale - (-y * scale + Math.min(viewportHeight, curHeight) / 2);
+           // pinchCenterOffset = {
+           //   x: offsetX,
+           //   y: offsetY
+           // };
+          //}
+        //  var newScale = restrictScale(scale * e.scale);
+        //  var zoomX = pinchCenter.x * newScale - pinchCenterOffset.x;
+         // var zoomY = pinchCenter.y * newScale - pinchCenterOffset.y;
+         // var zoomCenter = {
+         //   x: zoomX / newScale,
+          //  y: zoomY / newScale
+         // };
+        
+          
+        });
+        hammer.on('pinchend', function(e) {
+       //   updateLastScale();
+       //   updateLastPos();
+       //   pinchCenter = null;
+        });
+        hammer.on('doubletap', function(e) {
+          //var c = map.rawCenter(e);
+          //var n = map.zoomAround(1.6, c.x, c.y);
+          //var n = table.rawCenter(e);
+          //table.zoomAround(1.6, n.x, n.y);
+          //var newScale = 1.3*prevScale;
+          zoomWithTransform(e);    
+          //apply new transformations
+          img.style.transform
+        = 'scale('+current.zoom+')';
+        console.log(current.x + ' ' + current.y);
+        var tempx = document.getElementById('map-container').scrollLeft;
+        var tempy = document.getElementById('map-container').scrollTop;
+        document.getElementById('map-container').scrollLeft= -(current.x * current.zoom);
+        document.getElementById('map-container').scrollTop= -((current.y * current.zoom) );
+         furn.style.transform
+        = 'scale('+current.zoom+')';
+       //prevScale = newScale;
+        });
+      };
+      onLoad();
+</script>
+
 </body>
 </html>
