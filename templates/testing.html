@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<body>
+
+<h1>Upload Delete Test</h1>
+<form action = "{{url_for('upload_test')}}" method = "POST">
+	{%for building in buildings%}
+		<input type="radio" name="building" value={{building}}> {{building}}<br>
+	{%endfor%}
+	<input type = "submit" style="border-style:none;" value = "Submit" />
+</form> 
+
+<h1>Database Test</h1>
+<form action = "{{url_for('database_test')}}" method = "POST">
+    <div class = "row">	
+    	<label for="name">leftPixel</label>
+        <input type="text" name="leftPixel" id="left_label" required>
+	</div>
+    <div class = "row">	
+    	<label for="name">topPixel</label>
+        <input type="text" name="topPixel" id="top_label" required>
+	</div>
+	<div class = "row">	
+		<label for="name">screenWidth</label>
+        <input type="text" name="screenWidth" id="sc_width_label" required>
+	</div>
+    <div class = "row">	
+    	<label for="name">screenHeight</label>
+        <input type="text" name="screenHeight" id="sc_height_label" required>
+	</div>
+	<div class = "row">	
+		<label for="name">zoomLevel</label>
+        <input type="text" name="zoomLevel" id="zoom_label" required>
+	</div>
+	<div class = "row">	
+		<label for="name">Building</label>
+        <input type="text" name="Building" required>
+	</div>
+	<input type = "submit" style="border-style:none;" value = "Submit" />
+</form> 
+
+</body>
+</html>
