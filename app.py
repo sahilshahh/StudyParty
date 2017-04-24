@@ -12,6 +12,7 @@ from helper import add_data, fetch_data
 app = Flask(__name__)
 #app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://localhost/studyparty1'
 #app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://postgres:321884@localhost:5432/studyparty'
+app.config['SECRET_KEY'] = 'hard to guess string'
 heroku = Heroku(app)
 db = SQLAlchemy(app)
 mypath = os.path.abspath(__file__)
@@ -153,6 +154,6 @@ def database_test():
     return redirect(url_for('map', building=building, x_coordinate=x_coordinate, y_coordinate=y_coordinate, screen_x=screen_x, screen_y=screen_y, zoomLevel=zoomLevel))
 
 if __name__ == '__main__':
-    app.secret_key = 'super secret key'
+    app.secret_key = 'hard to guess string'
     app.debug = True
     app.run()
