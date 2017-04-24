@@ -47,9 +47,9 @@ class User(db.Model):
 def building_list():
     buildings = []
     for name in os.listdir(os.path.join(mydir, "templates/building")):
-        print(name)
-        if name != 'template.html':
-            buildings.append(name.split('.')[0])
+        print(name[:-5])
+        if name[:-5] != 'template':
+            buildings.append(name[:-5])
     buildings= buildings[1:]
     print(buildings)
     return buildings
