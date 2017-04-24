@@ -49,7 +49,7 @@ def building_list():
         if name != 'template.html':
             buildings.append(name.split('.')[0])
     buildings= buildings[1:]
-    #print(buildings)
+    print(buildings)
     return buildings
 
 @app.route('/')
@@ -106,7 +106,7 @@ def prereg():
     if request.method == 'POST':
         x_coordinate, y_coordinate, screen_x, screen_y, zoomLevel, building, placeholder = add_data(db, request.form)
         session['flag'] = True
-        session['url'] = 'http://127.0.0.1:5000/map/'+building+'/'+x_coordinate+'/'+y_coordinate+'/'+screen_x+'/'+screen_y+'/'+zoomLevel
+        session['url'] = 'https://study-party-ut.herokuapp.com/map/'+building+'/'+x_coordinate+'/'+y_coordinate+'/'+screen_x+'/'+screen_y+'/'+zoomLevel
         return redirect(url_for('index', building=building))
         #return redirect(url_for('map', building=building, x_coordinate=x_coordinate, y_coordinate=y_coordinate, screen_x=screen_x, screen_y=screen_y, zoomLevel=zoomLevel))
     else:
