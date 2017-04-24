@@ -10,10 +10,11 @@ from flask_heroku import Heroku
 from helper import add_data, fetch_data
 
 app = Flask(__name__)
-#app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://localhost/studyparty1'
+app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://localhost/studyparty1'
 #app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://postgres:321884@localhost:5432/studyparty'
+app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = True
 app.config['SECRET_KEY'] = 'hard to guess string'
-heroku = Heroku(app)
+#heroku = Heroku(app)
 db = SQLAlchemy(app)
 mypath = os.path.abspath(__file__)
 mydir = os.path.dirname(mypath)
@@ -46,6 +47,7 @@ class User(db.Model):
 def building_list():
     buildings = []
     for name in os.listdir(os.path.join(mydir, "templates/building")):
+        print(name)
         if name != 'template.html':
             buildings.append(name.split('.')[0])
     buildings= buildings[1:]
