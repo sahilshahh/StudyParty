@@ -57,6 +57,8 @@ def building_list():
 def home():
     #buildings = building_list()
     #return render_template('home.html', buildings = buildings)
+    session['flag'] = False
+    session['url'] = ''
     return redirect(url_for('index', building='fac'))
 
 @app.route('/upload')
