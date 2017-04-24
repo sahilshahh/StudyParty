@@ -50,7 +50,6 @@ def building_list():
         print(name[:-5])
         if name[:-5] != 'template':
             buildings.append(name[:-5])
-    buildings= buildings[1:]
     print(buildings)
     return buildings
 
