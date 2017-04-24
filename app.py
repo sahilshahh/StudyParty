@@ -10,9 +10,9 @@ from flask_heroku import Heroku
 from helper import add_data, fetch_data
 
 app = Flask(__name__)
-app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://localhost/studyparty1'
+#app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://localhost/studyparty1'
 #app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://postgres:321884@localhost:5432/studyparty'
-#heroku = Heroku(app)
+heroku = Heroku(app)
 db = SQLAlchemy(app)
 mypath = os.path.abspath(__file__)
 mydir = os.path.dirname(mypath)
