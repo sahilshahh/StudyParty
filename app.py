@@ -10,9 +10,11 @@ from flask_heroku import Heroku
 from helper import add_data, fetch_data
 
 app = Flask(__name__)
-app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://localhost/studyparty1'
+#app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://localhost/studyparty1'
 #app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://postgres:321884@localhost:5432/studyparty'
-#heroku = Heroku(app)
+app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = True
+app.config['SECRET_KEY'] = 'hard to guess string'
+heroku = Heroku(app)
 db = SQLAlchemy(app)
 mypath = os.path.abspath(__file__)
 mydir = os.path.dirname(mypath)
@@ -45,16 +47,18 @@ class User(db.Model):
 def building_list():
     buildings = []
     for name in os.listdir(os.path.join(mydir, "templates/building")):
-        if name != 'template.html':
-            buildings.append(name.split('.')[0])
-    buildings= buildings[1:]
-    #print(buildings)
+        print(name[:-5])
+        if name[:-5] != 'template':
+            buildings.append(name[:-5])
+    print(buildings)
     return buildings
 
 @app.route('/')
 def home():
     #buildings = building_list()
     #return render_template('home.html', buildings = buildings)
+    session['flag'] = False
+    session['url'] = ''
     return redirect(url_for('index', building='fac'))
 
 @app.route('/upload')
@@ -84,23 +88,30 @@ def uploading():
 @app.route('/<building>')
 def index(building):
     buildings = building_list()
+    flag = session.get('flag')
+    url = session.get('url')
+    session['flag'] = False
+    session['url'] = ''
     if '*' in building:
         Html_file= open(os.path.join(mydir, 'templates/building/'+building+'.html'),"r")
         image = Html_file.read() 
         x_coord, y_coord, screen_xs, screen_ys, zoomLevels, length = fetch_data(db, building.lower(), placeholder = None)
         building_string = 'building/template.html'
-        return render_template(building_string, x_coord=x_coord, y_coord=y_coord, screen_xs=screen_xs, screen_ys=screen_ys, zoomLevels=zoomLevels, length=length, building=building, image=image, buildings = buildings)
+        return render_template(building_string, x_coord=x_coord, y_coord=y_coord, screen_xs=screen_xs, screen_ys=screen_ys, zoomLevels=zoomLevels, length=length, building=building, image=image, buildings = buildings, flag = flag, url=url)
     else:
         x_coord, y_coord, screen_xs, screen_ys, zoomLevels, length = fetch_data(db, building.lower(), placeholder = None)
         building_string = 'building/' + building.lower() + '.html'
-        return render_template(building_string, x_coord=x_coord, y_coord=y_coord, screen_xs=screen_xs, screen_ys=screen_ys, zoomLevels=zoomLevels, length=length, buildings = buildings)
+        return render_template(building_string, x_coord=x_coord, y_coord=y_coord, screen_xs=screen_xs, screen_ys=screen_ys, zoomLevels=zoomLevels, length=length, buildings = buildings, flag = flag, url=url)
 
 # Adds info to database and redirects to function that creats link
 @app.route('/prereg', methods=['GET','POST'])
 def prereg():
     if request.method == 'POST':
         x_coordinate, y_coordinate, screen_x, screen_y, zoomLevel, building, placeholder = add_data(db, request.form)
-        return redirect(url_for('map', building=building, x_coordinate=x_coordinate, y_coordinate=y_coordinate, screen_x=screen_x, screen_y=screen_y, zoomLevel=zoomLevel))
+        session['flag'] = True
+        session['url'] = 'https://study-party-ut.herokuapp.com/map/'+building+'/'+x_coordinate+'/'+y_coordinate+'/'+screen_x+'/'+screen_y+'/'+zoomLevel
+        return redirect(url_for('index', building=building))
+        #return redirect(url_for('map', building=building, x_coordinate=x_coordinate, y_coordinate=y_coordinate, screen_x=screen_x, screen_y=screen_y, zoomLevel=zoomLevel))
     else:
         return redirect(url_for('home'))
 
@@ -120,7 +131,32 @@ def map(building, x_coordinate, y_coordinate, screen_x, screen_y, zoomLevel):
     else:
         return redirect(url_for('home'))
 
+@app.route('/testing')
+def testing():
+    uploaded_buildings = []
+    buildings = building_list()
+    for building in buildings:
+        if '*' in building:
+            uploaded_buildings.append(building)
+    return render_template('testing.html', buildings = uploaded_buildings)
+
+@app.route('/upload_test', methods=['POST'])
+def upload_test():
+    building = request.form['building']
+    #print(building)
+    Html_file= open(os.path.join(mydir, 'templates/building/'+building+'.html'),"r")
+    image = Html_file.read()
+    #print(image) 
+    os.remove(os.path.join(mydir, 'static/img/'+image))
+    os.remove(os.path.join(mydir, 'templates/building/'+building+'.html'))
+    return redirect(url_for('index', building='fac'))
+
+@app.route('/database_test', methods=['POST'])
+def database_test():
+    x_coordinate, y_coordinate, screen_x, screen_y, zoomLevel, building, placeholder = add_data(db, request.form)
+    return redirect(url_for('map', building=building, x_coordinate=x_coordinate, y_coordinate=y_coordinate, screen_x=screen_x, screen_y=screen_y, zoomLevel=zoomLevel))
+
 if __name__ == '__main__':
-    app.secret_key = 'super secret key'
+    app.secret_key = 'hard to guess string'
     app.debug = True
     app.run()
