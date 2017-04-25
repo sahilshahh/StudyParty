@@ -187,7 +187,7 @@
 	<span class="info">How it works</span>
 	<hr>
 	<ul>
-		{%if flag == False%}
+		{%if flag == False or flag == None%}
 		<li class="current"><span class="underlined">Pick where to meet</span></li>
 		<li><span>Click Generate Link</span></li>
 		{%endif%}
