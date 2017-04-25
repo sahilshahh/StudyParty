@@ -92,6 +92,7 @@ def index(building):
     url = session.get('url')
     session['flag'] = False
     session['url'] = ''
+    print(building)
     if '*' in building:
         Html_file= open(os.path.join(mydir, 'templates/building/'+building+'.html'),"r")
         image = Html_file.read() 
