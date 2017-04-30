@@ -416,7 +416,6 @@ initPoint();
 
 </script>
 
-<!--
 <script src="https://hammerjs.github.io/dist/hammer.js"></script>
 <script>
 	  //var globalMap = document.getElementById("map");
@@ -460,6 +459,7 @@ initPoint();
       };
     
       var zoomWithTransform = function(e){
+      	point.updateOffset();
         var zoomImg = img,
         originalZoom = current.zoom,
         newZoom = current.zoom * 1.25, //put parameter for scale
@@ -527,47 +527,8 @@ initPoint();
        // map = new Furniture("map", "map-container");
  
       //  disableImgEventHandlers();
-        var hammer = new Hammer(container, {
-          domEvents: true
-        });
-        hammer.get('pinch').set({
-          enable: true
-        });
-        hammer.on('pan', function(e) {
-          //map.translate(e.deltaX, e.deltaY);
-          //table.translate(e.deltaX, e.deltaY);
-        });
-        hammer.on('panend', function(e) {
-         // map.updateLastPos();
-         // table.updateLastPos();
-        });
-        hammer.on('pinch', function(e) {
-          // We only calculate the pinch center on the first pinch event as we want the center to
-          // stay consistent during the entire pinch
-          //if (pinchCenter === null) {
-           // pinchCenter = rawCenter(e);
-           // var offsetX = pinchCenter.x * scale - (-x * scale + Math.min(viewportWidth, curWidth) / 2);
-           // var offsetY = pinchCenter.y * scale - (-y * scale + Math.min(viewportHeight, curHeight) / 2);
-           // pinchCenterOffset = {
-           //   x: offsetX,
-           //   y: offsetY
-           // };
-          //}
-        //  var newScale = restrictScale(scale * e.scale);
-        //  var zoomX = pinchCenter.x * newScale - pinchCenterOffset.x;
-         // var zoomY = pinchCenter.y * newScale - pinchCenterOffset.y;
-         // var zoomCenter = {
-         //   x: zoomX / newScale,
-          //  y: zoomY / newScale
-         // };
+        var hammer = new Hammer(container);
         
-          
-        });
-        hammer.on('pinchend', function(e) {
-       //   updateLastScale();
-       //   updateLastPos();
-       //   pinchCenter = null;
-        });
         hammer.on('doubletap', function(e) {
           //var c = map.rawCenter(e);
           //var n = map.zoomAround(1.6, c.x, c.y);
@@ -616,7 +577,6 @@ initPoint();
       };
       onLoad();
 </script>
--->
 
 </body>
 </html>
