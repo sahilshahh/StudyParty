@@ -330,6 +330,8 @@ class Point {
 		let bounds = this.map.getBoundingClientRect();
 		this.offsetLeft = bounds.left;
 		this.offsetTop = bounds.top;
+		this.x *= SoniasGlobalZoomVariable;
+		this.y *= SoniasGlobalZoomVariable;
 		this.updateScheduled = false;
 		// console.log([this.offsetLeft, this.offsetTop]);
 	}
@@ -395,6 +397,9 @@ class Point {
 	}
 }
 
+var SoniasGlobalZoomVariable = 1;
+
+
 const	meID = 'pin',
 		mapID = 'newcontainer';
 var		point,
@@ -459,7 +464,7 @@ initPoint();
       };
     
       var zoomWithTransform = function(e){
-      	point.updateOffset();
+      	
         var zoomImg = img,
         originalZoom = current.zoom,
         newZoom = current.zoom * 1.25, //put parameter for scale
@@ -480,7 +485,8 @@ initPoint();
         /// make sure we take mouse pointer offset into account!
         finalX = (xCoord + (mouseX - xCoord) - newX),
         finalY = (yCoord + (mouseY - yCoord) - newY)
-        current.zoom = newZoom;
+        SoniasGlobalZoomVariable = current.zoom = newZoom;
+        point.updateOffset();
         current.x = finalX;
         current.y = finalY;
         current.oldzoom = originalZoom;
