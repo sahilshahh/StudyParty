@@ -317,8 +317,26 @@ class Point {
 		// this.updates = 0;
 	}
 	updateCoords(X,Y) {
-		this.x = X + this.scrollLeft - this.diameter/2 - this.offsetLeft;
-		this.y = Y + this.scrollTop - this.diameter/2 - this.offsetTop;
+		var flagx = 0;
+		var flagy = 0;
+		if (SoniasGlobalZoomVariable == 1.25){
+			flagy = 20;
+			flagx = 5;
+		}
+		if (SoniasGlobalZoomVariable == 1.5625){
+			flagy = 35;
+			flagx = 5;
+		}
+		if (SoniasGlobalZoomVariable == 1.953125){
+			flagy = 50;
+			flagx = 7;
+		}
+		if (SoniasGlobalZoomVariable == 2.44140625){
+			flagy = 10;
+			flagx = 5;
+		}
+		this.x = X/SoniasGlobalZoomVariable + this.scrollLeft - this.diameter/2 - this.offsetLeft + flagx;
+		this.y = Y/SoniasGlobalZoomVariable + this.scrollTop - this.diameter/2 - this.offsetTop + flagy;
 		// console.log("updated x,y: " + this.x + ", " + this.y);
 	}
 	updateScroll() {
