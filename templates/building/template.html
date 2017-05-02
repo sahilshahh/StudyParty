@@ -183,7 +183,7 @@
 	
 </main>
 <footer>
-	<button type= "button" class = "btn btn-default btn-xs" onclick = "zoomOut()" style="float: right;"> Zoom Out</button>
+	<!--<button type= "button" class = "btn btn-default btn-xs" onclick = "zoomOut()" style="float: right;"> Zoom Out</button>-->
 	<span class="info">How it works</span>
 	<hr>
 	<ul>
@@ -290,8 +290,26 @@ class Point {
 		// this.updates = 0;
 	}
 	updateCoords(X,Y) {
-		this.x = X + this.scrollLeft - this.diameter/2 - this.offsetLeft;
-		this.y = Y + this.scrollTop - this.diameter/2 - this.offsetTop;
+		var flagx = 0;
+		var flagy = 0;
+		if (SoniasGlobalZoomVariable == 1.25){
+			flagy = 20;
+			flagx = 5;
+		}
+		if (SoniasGlobalZoomVariable == 1.5625){
+			flagy = 35;
+			flagx = 5;
+		}
+		if (SoniasGlobalZoomVariable == 1.953125){
+			flagy = 50;
+			flagx = 7;
+		}
+		if (SoniasGlobalZoomVariable == 2.44140625){
+			flagy = 10;
+			flagx = 5;
+		}
+		this.x = X/SoniasGlobalZoomVariable + this.scrollLeft - this.diameter/2 - this.offsetLeft + flagx;
+		this.y = Y/SoniasGlobalZoomVariable + this.scrollTop - this.diameter/2 - this.offsetTop + flagy;
 		// console.log("updated x,y: " + this.x + ", " + this.y);
 	}
 	updateScroll() {
@@ -305,6 +323,8 @@ class Point {
 		let bounds = this.map.getBoundingClientRect();
 		this.offsetLeft = bounds.left;
 		this.offsetTop = bounds.top;
+		this.x *= SoniasGlobalZoomVariable;
+		this.y *= SoniasGlobalZoomVariable;
 		this.updateScheduled = false;
 		// console.log([this.offsetLeft, this.offsetTop]);
 	}
@@ -370,6 +390,9 @@ class Point {
 	}
 }
 
+var SoniasGlobalZoomVariable = 1;
+
+
 const	meID = 'pin',
 		mapID = 'newcontainer';
 var		point,
@@ -390,7 +413,6 @@ function initPoint() {
 initPoint();
 
 </script>
-
 <!--
 <script src="https://hammerjs.github.io/dist/hammer.js"></script>
 <script>
@@ -435,39 +457,45 @@ initPoint();
       };
     
       var zoomWithTransform = function(e){
-        var zoomImg = img,
-        originalZoom = current.zoom,
-        newZoom = current.zoom * 1.25, //put parameter for scale
-        /// scroll offset
-        scrollX = zoomImg.scrollLeft,
-        scrollY = zoomImg.scrollTop,
-        /// offset of containeR -- not sure if offset exists
-        /// mouse cords
-        mouseX = e.center.x - 0 + scrollX,
-        mouseY = e.center.y - 0 + scrollY,
-        /// calculate click at current zoom
-        xCoord = (mouseX - current.x) / originalZoom,
-        yCoord = (mouseY - current.y) / originalZoom,
-        /// calculate click at new zoom
-        newX = xCoord * newZoom,
-        newY = yCoord * newZoom,
-        /// move to the difference
-        /// make sure we take mouse pointer offset into account!
-        finalX = (xCoord + (mouseX - xCoord) - newX),
-        finalY = (yCoord + (mouseY - yCoord) - newY)
-        current.zoom = newZoom;
-        current.x = finalX;
-        current.y = finalY;
-        current.oldzoom = originalZoom;
+      	
+        var zoomImg = img;
+        originalZoom = current.zoom;
+        if (originalZoom < 1.953125){
+	        newZoom = current.zoom * 1.25; //put parameter for scale
+	        /// scroll offset
+	        scrollX = zoomImg.scrollLeft;
+	        scrollY = zoomImg.scrollTop;
+	        /// offset of containeR -- not sure if offset exists
+	        /// mouse cords
+	        mouseX = e.center.x - 0 + scrollX;
+	        mouseY = e.center.y - 0 + scrollY;
+	        /// calculate click at current zoom
+	        xCoord = (mouseX - current.x) / originalZoom;
+	        yCoord = (mouseY - current.y) / originalZoom;
+	        /// calculate click at new zoom
+	        newX = xCoord * newZoom;
+	        newY = yCoord * newZoom;
+	        /// move to the difference
+	        /// make sure we take mouse pointer offset into account!
+	        finalX = (xCoord + (mouseX - xCoord) - newX);
+	        finalY = (yCoord + (mouseY - yCoord) - newY);
+	        SoniasGlobalZoomVariable = current.zoom = newZoom;
+	        point.updateOffset();
+	        current.x = finalX;
+	        current.y = finalY;
+	        current.oldzoom = originalZoom;
+    	}
       }
       var zoomOut = function(e){
       	        var zoomImg = img;
         var originalZoom = current.zoom;
         if(originalZoom >1){
-        newZoom = current.zoom * .8; //put parameter for scale
+        newZoom = current.zoom / 1.25; //put parameter for scale
 		
 
 		}
+
+		SoniasGlobalZoomVariable=newZoom;
 		
         current.zoom = newZoom;
   //      current.x = finalX;
@@ -502,47 +530,8 @@ initPoint();
        // map = new Furniture("map", "map-container");
  
       //  disableImgEventHandlers();
-        var hammer = new Hammer(container, {
-          domEvents: true
-        });
-        hammer.get('pinch').set({
-          enable: true
-        });
-        hammer.on('pan', function(e) {
-          //map.translate(e.deltaX, e.deltaY);
-          //table.translate(e.deltaX, e.deltaY);
-        });
-        hammer.on('panend', function(e) {
-         // map.updateLastPos();
-         // table.updateLastPos();
-        });
-        hammer.on('pinch', function(e) {
-          // We only calculate the pinch center on the first pinch event as we want the center to
-          // stay consistent during the entire pinch
-          //if (pinchCenter === null) {
-           // pinchCenter = rawCenter(e);
-           // var offsetX = pinchCenter.x * scale - (-x * scale + Math.min(viewportWidth, curWidth) / 2);
-           // var offsetY = pinchCenter.y * scale - (-y * scale + Math.min(viewportHeight, curHeight) / 2);
-           // pinchCenterOffset = {
-           //   x: offsetX,
-           //   y: offsetY
-           // };
-          //}
-        //  var newScale = restrictScale(scale * e.scale);
-        //  var zoomX = pinchCenter.x * newScale - pinchCenterOffset.x;
-         // var zoomY = pinchCenter.y * newScale - pinchCenterOffset.y;
-         // var zoomCenter = {
-         //   x: zoomX / newScale,
-          //  y: zoomY / newScale
-         // };
+        var hammer = new Hammer(container);
         
-          
-        });
-        hammer.on('pinchend', function(e) {
-       //   updateLastScale();
-       //   updateLastPos();
-       //   pinchCenter = null;
-        });
         hammer.on('doubletap', function(e) {
           //var c = map.rawCenter(e);
           //var n = map.zoomAround(1.6, c.x, c.y);

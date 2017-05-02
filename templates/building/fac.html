@@ -483,40 +483,44 @@ initPoint();
     
       var zoomWithTransform = function(e){
       	
-        var zoomImg = img,
-        originalZoom = current.zoom,
-        newZoom = current.zoom * 1.25, //put parameter for scale
-        /// scroll offset
-        scrollX = zoomImg.scrollLeft,
-        scrollY = zoomImg.scrollTop,
-        /// offset of containeR -- not sure if offset exists
-        /// mouse cords
-        mouseX = e.center.x - 0 + scrollX,
-        mouseY = e.center.y - 0 + scrollY,
-        /// calculate click at current zoom
-        xCoord = (mouseX - current.x) / originalZoom,
-        yCoord = (mouseY - current.y) / originalZoom,
-        /// calculate click at new zoom
-        newX = xCoord * newZoom,
-        newY = yCoord * newZoom,
-        /// move to the difference
-        /// make sure we take mouse pointer offset into account!
-        finalX = (xCoord + (mouseX - xCoord) - newX),
-        finalY = (yCoord + (mouseY - yCoord) - newY)
-        SoniasGlobalZoomVariable = current.zoom = newZoom;
-        point.updateOffset();
-        current.x = finalX;
-        current.y = finalY;
-        current.oldzoom = originalZoom;
+        var zoomImg = img;
+        originalZoom = current.zoom;
+        if (originalZoom < 1.953125){
+	        newZoom = current.zoom * 1.25; //put parameter for scale
+	        /// scroll offset
+	        scrollX = zoomImg.scrollLeft;
+	        scrollY = zoomImg.scrollTop;
+	        /// offset of containeR -- not sure if offset exists
+	        /// mouse cords
+	        mouseX = e.center.x - 0 + scrollX;
+	        mouseY = e.center.y - 0 + scrollY;
+	        /// calculate click at current zoom
+	        xCoord = (mouseX - current.x) / originalZoom;
+	        yCoord = (mouseY - current.y) / originalZoom;
+	        /// calculate click at new zoom
+	        newX = xCoord * newZoom;
+	        newY = yCoord * newZoom;
+	        /// move to the difference
+	        /// make sure we take mouse pointer offset into account!
+	        finalX = (xCoord + (mouseX - xCoord) - newX);
+	        finalY = (yCoord + (mouseY - yCoord) - newY);
+	        SoniasGlobalZoomVariable = current.zoom = newZoom;
+	        point.updateOffset();
+	        current.x = finalX;
+	        current.y = finalY;
+	        current.oldzoom = originalZoom;
+    	}
       }
       var zoomOut = function(e){
       	        var zoomImg = img;
         var originalZoom = current.zoom;
         if(originalZoom >1){
-        newZoom = current.zoom * .8; //put parameter for scale
+        newZoom = current.zoom / 1.25; //put parameter for scale
 		
 
 		}
+
+		SoniasGlobalZoomVariable=newZoom;
 		
         current.zoom = newZoom;
   //      current.x = finalX;
