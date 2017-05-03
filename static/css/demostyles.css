@@ -1,4 +1,4 @@
-*{box-sizing: border-box;}
+/**{box-sizing: border-box;}*/
 
 /*flex layout properties */
 body {display:flex;flex-flow:column nowrap;justify-content:center;align-items:stretch;}
@@ -36,15 +36,15 @@ main {z-index:0;border-radius:10vh;margin:2vmin;font-family: 'Nunito';position:r
 
 	#map-container::-webkit-scrollbar{display:none;}
 	
-	#newcontainer {position:absolute;left:0;top:0;width:100%;height:100%;pointer-events:initial;overflow:scroll;clip-path:inset(0 round 10vh);}
+	#newcontainer {perspective:45vw;transform-style:preserve-3d;position:absolute;left:0;top:0;width:100%;height:100%;pointer-events:initial;overflow:scroll;/*clip-path:inset(0 round 10vh);*/background:linear-gradient(rgba(0,0,255,.5) 0%, rgba(255,0,0,.25) 100%);}
 
 	#newcontainer::-webkit-scrollbar{display:none;}
 
 	/* Reference Pin Picture*/
 	/* https://www.google.com/url?sa=i&rct=j&q=&esrc=s&source=images&cd=&cad=rja&uact=8&ved=0ahUKEwjU4Kasov3SAhXH54MKHefuA8UQjBwIBA&url=http%3A%2F%2Fwww.droid-life.com%2Fwp-content%2Fuploads%2F2016%2F09%2FGoogle-Maps.jpg&psig=AFQjCNGiofyRhw_d7OZMVKapXdNPNOy5IA&ust=1490930303303145 */
-	#pin {--pin_R: 10px;position:absolute;left:0;top:0;width:calc(2*var(--pin_R));height:calc(2*var(--pin_R));background: rgb(66,134,245);border-radius:50%;border:calc(0.15*var(--pin_R)) solid white; box-shadow: 0 0 calc(0.5*var(--pin_R)) 0 rgba(0,0,0,.4);}
+	#pin {--pin_R: 10px;position:absolute;left:0;top:0;width:calc(2*var(--pin_R));height:calc(2*var(--pin_R));background: rgb(66,134,245);border-radius:50%;border:calc(0.15*var(--pin_R)) solid white; box-shadow: 0 0 calc(0.5*var(--pin_R)) 0 rgba(0,0,0,.4);pointer-events: none;}
 
-	#pin:before{content:'';position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:calc(8*var(--pin_R));height:calc(8*var(--pin_R));background:rgba(66,134,245,.2);border:1px solid rgba(66,134,245,.5);border-radius:50%;}
+	#pin:before{content:'';position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:calc(8*var(--pin_R));height:calc(8*var(--pin_R));background:rgba(66,134,245,.2);border:1px solid rgba(66,134,245,.5);border-radius:50%;pointer-events: none;}
 
 	svg {will-change: transform;transform:translate(0,0,0);}
 
@@ -54,8 +54,64 @@ main {z-index:0;border-radius:10vh;margin:2vmin;font-family: 'Nunito';position:r
 
 	.layer {will-change:transform;transform:translate3d(0,0,0);}
 
-	#map, #furniture {position:absolute;left:0;top:0;box-sizing: content-box;padding: 50px;transform-origin:0 0;transform:scale(1); transition: all .7s ease; pointer-events: auto;}
-	/*#map, #furniture {position:absolute;left:0;top:0;box-sizing: content-box;padding: 50px;transform-origin:0 0;transform:scale(1); transition: all .7s ease; pointer-events: auto; touch-action: pan-x pan-y pinch-zoom;}*/
+	#map, #furniture-container {position:absolute;left:0;top:0;box-sizing: content-box;padding: 50px;transform-origin:0 0;transform:scale(1); transition: all .7s ease; pointer-events: auto;}
+	/*#map, #furniture-container {position:absolute;left:0;top:0;box-sizing: content-box;padding: 50px;transform-origin:0 0;transform:scale(1); transition: all .7s ease; pointer-events: auto; touch-action: pan-x pan-y pinch-zoom;}*/
+
+	#map {width: 30%; transform: scale(5); transform-origin: 0 0; padding: 10px;}
+
+	#furniture-container {
+		--naturalW: 558;
+		--naturalH:432;
+		--RES: calc(100vw - 2 * 2vmin);
+		--W: calc(1.5*var(--RES));
+		--L: calc(var(--W) * var(--naturalH) / var(--naturalW));
+		width: var(--W);
+		height: var(--L);
+		transform-style:preserve-3d;
+	}
+
+	.placement {
+		--totalW: calc(147.644 - 1);
+		--totalH: calc(114.400 - 1);
+		--top: calc(6.648 *var(--W) / var(--totalW));
+		--left: calc(23.129 *var(--W) / var(--totalW));
+		--w: calc(97.106 *var(--W) / var(--totalW));
+		--l: calc(99.448 *var(--W) / var(--totalW));
+		width: var(--w);
+		height: var(--l);
+		position:absolute;
+		left: var(--left);
+		top: var(--top);
+		/*border: 2px solid red;*/
+		margin: 50px;
+	}
+
+	.placement {
+		--RES: var(--w);
+		--map-width: var(--w);
+		--map-height: var(--l);
+	}
+
+	#blueprint {
+		--b_w: 773.805;
+		--b_l: 609.509;
+		--b_gap: 40.76;
+		--b_L: 227.004;
+		--b_R: 13.986;
+		--b_T: 15.721;
+		--b_B: 42.711;
+		--b_width: calc(var(--b_w) - var(--b_L) - var(--b_R));
+		--b_height: calc(var(--b_l) - var(--b_T) - var(--b_B));
+		width: calc(var(--b_w) * var(--map-width)/var(--b_width));
+		height: calc(var(--b_l) * var(--map-height)/var(--b_height));
+		position: absolute;
+		top: calc(-1*var(--b_T) * var(--map-height) / var(--b_height));
+		left: calc(-1*var(--b_L) * var(--map-width) / var(--b_width));
+		opacity: .5;
+		z-index: -1;
+	}
+
+
 
 footer {}
 

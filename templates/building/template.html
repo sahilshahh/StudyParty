@@ -6,6 +6,8 @@
 	<title>{{building.replace('*','')}} Map</title>
 	<!-- Styles -->
 	<link type="text/css" rel="stylesheet" href="{{ url_for('static', filename='css/demostyles.css') }}" async>
+	<link type="text/css" rel="stylesheet" href="{{ url_for('static', filename='css/furniture.css') }}" async>
+	<link type="text/css" rel="stylesheet" href="{{ url_for('static', filename='css/fac_placement.css') }}" async>
 	<link href="https://fonts.googleapis.com/css?family=Lora|Nunito" rel="stylesheet" async>
 	<svg style="height:0;">
 		<defs>
@@ -155,7 +157,8 @@
 	<div id="map-container">
 		<!-- 147.64587/114.39804 = 1.290633 -->
 		<div id="newcontainer">
-			<img id="map" src="{{ url_for('static', filename='img/'+image) }}" width="150%">
+			<img id="map" src="{{ url_for('static', filename='img/'+image) }}">
+			<!-- INSERT FURNITURE HERE -->
 			{% for i in range(length)%}
 				<img id="dot{{i}}" src="{{ url_for('static', filename='img/dot.svg') }}" width="30" height="30" />
 			{%endfor%}
@@ -178,7 +181,6 @@
 	<svg id="grid" viewbox="0 0 100 100" preserveAspectRatio="xMidYMid slice">
 		<use href="#g" stroke="rgba(0,0,0,.1)" stroke-width=".25"/>
 	</svg>
-
 	
 	
 </main>
@@ -221,7 +223,6 @@
         </div>
      </form>	
 </footer>
-
 <script>
 	var dot_flag = false;
 						
@@ -271,7 +272,6 @@
 		dotPositions();
 </script>
 <script>
-
 function distance(x1,y1,x2,y2) {
 	return Math.sqrt((x1-x2)**2+(y1-y2)**2);
 }
@@ -390,14 +390,31 @@ class Point {
 	}
 }
 
+function scrollToCenter() {
+	var c = document.getElementById('newcontainer');
+	c.scrollTop = c.scrollHeight * 6.648/(114.400 - 1) + 50;
+	c.scrollLeft = c.scrollWidth * 23.129/(147.644 - 1) + 30;
+}
+
+function setBgColor(time=(new Date()).getHours()) {
+	var c = document.getElementById('newcontainer');
+	if (time > 17)
+		c.style.background = 'linear-gradient(rgba(0,0,255,.5) 0%, rgba(255,0,0,.25) 100%)';
+	else if (time > 11)
+		c.style.background = 'linear-gradient(rgba(128,255,255,.5) 0%, rgba(128,128,0,.25) 100%)';
+	else if (time > 6)
+		c.style.background = 'linear-gradient(rgba(255,255,0,.25) 0%, rgba(0,128,233,.5) 100%)';
+	else if (time > 3)
+		c.style.background = 'linear-gradient(rgba(0,0,255,.5) 0%, rgba(0,0,0,.25) 100%)';
+	else
+		c.style.background = 'linear-gradient(rgba(0,0,0,.5) 0%, rgba(0,0,255,.25) 100%)';
+}
+
 var SoniasGlobalZoomVariable = 1;
-
-
 const	meID = 'pin',
 		mapID = 'newcontainer';
 var		point,
 		pointInitialized = false;
-
 function initPoint() {
 	if (pointInitialized)
 		return;
@@ -405,22 +422,20 @@ function initPoint() {
 		pointInitialized = true;
 		point = new Point(meID,mapID);
 		console.log("Point initialized.");
+		scrollToCenter();
+		setBgColor();
 	}
 	else
 		document.addEventListener('readystatechange',initPoint);
 }
-
 initPoint();
-
 </script>
 <!--
 <script src="https://hammerjs.github.io/dist/hammer.js"></script>
 <script>
 	  //var globalMap = document.getElementById("map");
-
 	  var currentMapX = 0;
 	  var currentMapY = 0;
-
       var MIN_SCALE = 1; // 1=scaling when first loaded
       var MAX_SCALE = 64;
       // HammerJS fires "pinch" and "pan" events that are cumulative in nature and not
@@ -492,9 +507,7 @@ initPoint();
         if(originalZoom >1){
         newZoom = current.zoom / 1.25; //put parameter for scale
 		
-
 		}
-
 		SoniasGlobalZoomVariable=newZoom;
 		
         current.zoom = newZoom;
@@ -568,7 +581,6 @@ initPoint();
 			var s = document.getElementById("dot" + i);
 			s.style.transform = 'scale('+current.zoom+')';
 		}*/
-
 		var p = document.getElementById("newcontainer");
 		p.style.transform = 'scale('+current.zoom+')';
 		p.style.transformOrigin = "0 0"; 
@@ -581,6 +593,5 @@ initPoint();
       onLoad();
 </script>
 -->
-
 </body>
 </html>
