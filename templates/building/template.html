@@ -168,6 +168,7 @@
 </footer>
 
 <script>
+/*
 function dotPositions(){
 	var map = document.getElementById("map");
 	var currentScreenX = map.offsetWidth - 100.0;
@@ -324,6 +325,171 @@ class Point {
 		this.map.addEventListener('scroll',(e) => this.scrollHandler(e));
 		this.map.addEventListener('resize',(e) => this.resizeHandler(e));
 	}
+}*/
+	var dot_flag = false;
+						
+	function dotPositions(){
+		var map = document.getElementById("map");
+		var currentScreenX = map.offsetWidth - 100.0;
+		var currentScreenY = map.offsetHeight - 100.0;
+		var i;
+		var l = {{length}};
+		for(i = 0; i < l; i++){
+			var s = document.getElementById("dot" + i);
+			console.log(s);
+			
+			var scale = currentScreenX/2000;
+			
+			
+			var screenXArr = {{screen_xs}};
+			var screenYArr = {{screen_ys}};
+			var preXArr = {{x_coord}};
+			var preYArr = {{y_coord}};
+			var screenX = screenXArr[i] - 100.0;
+			var screenY = screenYArr[i] - 100.0;
+			
+			var prevScale = screenX/2000;
+			
+			var preX = preXArr[i] - 50.0;
+			var preY = preYArr[i] - 50.0;
+		
+			var x = ((currentScreenX*preX)/screenX) + 50.0;
+			var y = ((currentScreenY*preY)/screenY) + 50.0;
+		
+			//var yScale = currentScreenX/1000;
+		
+			//s.style.transform = 'scale('+scale+','+scale+')';
+			s.style.width = scale*30 + "px";
+			s.style.height = scale*30 + "px";
+			s.style.transform = 'translate('+x+'px,'+y+'px)';
+			//s.style.left = x + "px";
+			//s.style.top = y + "px";
+			console.log("dotPositions() ran!");
+			dot_flag = true;
+		}
+	}
+						
+	window.onload = dotPositions;
+	if (!dot_flag)
+		dotPositions();
+</script>
+<script>
+function distance(x1,y1,x2,y2) {
+	return Math.sqrt((x1-x2)**2+(y1-y2)**2);
+}
+class Point {
+	constructor(meID,mapID) {
+		this.me = document.getElementById(meID);
+		let bounds = this.me.getBoundingClientRect();
+		this.diameter = bounds.width; // assume me never resizes.
+		this.map = document.getElementById(mapID);
+		this.updateOffset();
+		this.updateScroll();
+		this.paintScheduled = false;
+		this.updateScheduled = false; // assume can't resize and/or scroll and/or click at same time
+		this.registerHandlers();
+		this.pointSet = false;
+		// this.updates = 0;
+	}
+	updateCoords(X,Y) {
+		var flagx = 0;
+		var flagy = 0;
+		if (SoniasGlobalZoomVariable == 1.25){
+			flagy = 20;
+			flagx = 5;
+		}
+		if (SoniasGlobalZoomVariable == 1.5625){
+			flagy = 35;
+			flagx = 5;
+		}
+		if (SoniasGlobalZoomVariable == 1.953125){
+			flagy = 50;
+			flagx = 7;
+		}
+		if (SoniasGlobalZoomVariable == 2.44140625){
+			flagy = 10;
+			flagx = 5;
+		}
+		this.x = X/SoniasGlobalZoomVariable + this.scrollLeft - this.diameter/2 - this.offsetLeft + flagx;
+		this.y = Y/SoniasGlobalZoomVariable + this.scrollTop - this.diameter/2 - this.offsetTop + flagy;
+		// console.log("updated x,y: " + this.x + ", " + this.y);
+	}
+	updateScroll() {
+		this.scrollLeft = this.map.scrollLeft;
+		this.scrollTop = this.map.scrollTop;
+		this.updateScheduled = false;
+		// this.updates++;
+		// console.log([this.scrollLeft,this.scrollTop]);
+	}
+	updateOffset() {
+		let bounds = this.map.getBoundingClientRect();
+		this.offsetLeft = bounds.left;
+		this.offsetTop = bounds.top;
+		this.x *= SoniasGlobalZoomVariable;
+		this.y *= SoniasGlobalZoomVariable;
+		this.updateScheduled = false;
+		// console.log([this.offsetLeft, this.offsetTop]);
+	}
+	repaint() {
+		this.me.style.transform = 'translate('+this.x+'px,'+this.y+'px)';
+		this.paintScheduled = false;
+		// console.log(this.me.style.transform);
+	}
+	clickHandler(e) {
+		// (1) Uncomment for "unset when click close", "reset when click far away" behavior
+		//let x = this.x,
+		//y = this.y;
+		//this.updateCoords(e.clientX,e.clientY);
+		//if (distance(x,y,this.x,this.y) < 2*this.diameter)
+		//	this.pointSet = !this.pointSet;
+		//else
+		//	this.repaint();
+		
+		
+		// (2) Uncomment for simple "toggle set" behavior
+		this.pointSet = !this.pointSet;	
+		
+		var map = document.getElementById("map");
+		var currentScreenX = map.offsetWidth - 100.0;
+		var scale = currentScreenX/2000;
+		
+		document.getElementById('top_label').value = this.y;
+		document.getElementById('left_label').value = this.x;
+		
+		document.getElementById('sc_width_label').value = map.offsetWidth;
+		document.getElementById('sc_height_label').value = map.offsetHeight;
+		
+		document.getElementById('zoom_label').value = 150;
+		// TODO: More intuitive behaviors... like "press and hold to set", "click to release"
+	}
+	mouseMoveHandler(e) {
+		// Perhaps this is not really a good behavior for mobile since there is no "hover" input
+		if (this.pointSet)
+			return;
+		this.updateCoords(e.clientX,e.clientY);
+		if (this.paintScheduled)
+			return;
+		this.paintScheduled = true;
+		requestAnimationFrame(() => this.repaint());
+	}
+	scrollHandler(e) {
+		if (this.updateScheduled)
+			return;
+		this.updateScheduled = true;
+		requestAnimationFrame(() => this.updateScroll());
+	}
+	resizeHandler(e) {
+		if (this.updateScheduled)
+			return;
+		this.updateScheduled = true;
+		requestAnimationFrame(() => this.updateOffset());
+	}
+	registerHandlers() {
+		this.map.addEventListener('click',(e) => this.clickHandler(e));
+		this.map.addEventListener('mousemove',(e) => this.mouseMoveHandler(e));
+		this.map.addEventListener('scroll',(e) => this.scrollHandler(e));
+		this.map.addEventListener('resize',(e) => this.resizeHandler(e));
+	}
 }
 
 function scrollToCenter() {
@@ -351,6 +517,7 @@ const	meID = 'pin',
 		mapID = 'newcontainer';
 var		point,
 		pointInitialized = false;
+/*
 function initPoint() {
 	if (pointInitialized)
 		return;
@@ -361,6 +528,19 @@ function initPoint() {
 		dotPositions();
 		scrollToCenter();
 		setBgColor();
+	}
+	else
+		document.addEventListener('readystatechange',initPoint);
+}
+initPoint();
+*/
+function initPoint() {
+	if (pointInitialized)
+		return;
+	if (document.readyState === 'interactive' || document.readyState === 'complete') {
+		pointInitialized = true;
+		point = new Point(meID,mapID);
+		console.log("Point initialized.");
 	}
 	else
 		document.addEventListener('readystatechange',initPoint);
