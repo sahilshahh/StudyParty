@@ -194,6 +194,21 @@
 		//s.style.top = y + "px";
 		dot_flag = true;
 	}
+
+	function setBgColor(time=(new Date()).getHours()) {
+	var c = document.getElementById('newcontainer');
+	if (time > 17)
+		c.style.background = 'linear-gradient(rgba(0,0,255,.5) 0%, rgba(255,0,0,.25) 100%)';
+	else if (time > 11)
+		c.style.background = 'linear-gradient(rgba(128,255,255,.5) 0%, rgba(128,128,0,.25) 100%)';
+	else if (time > 6)
+		c.style.background = 'linear-gradient(rgba(255,255,0,.25) 0%, rgba(0,128,233,.5) 100%)';
+	else if (time > 3)
+		c.style.background = 'linear-gradient(rgba(0,0,255,.5) 0%, rgba(0,0,0,.25) 100%)';
+	else
+		c.style.background = 'linear-gradient(rgba(0,0,0,.5) 0%, rgba(0,0,255,.25) 100%)';
+}
+	setBgColor();
 						
 	window.onload = dotPosition;
 	
