@@ -540,7 +540,9 @@ function initPoint() {
 	if (document.readyState === 'interactive' || document.readyState === 'complete') {
 		pointInitialized = true;
 		point = new Point(meID,mapID);
-		console.log("Point initialized.");
+		dotPositions();
+		scrollToCenter();
+		setBgColor();
 	}
 	else
 		document.addEventListener('readystatechange',initPoint);
