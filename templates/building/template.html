@@ -78,48 +78,6 @@
 			overflow: auto;   
         }
 	</style>
-		<script>
-						
-	function dotPositions(){
-		var map = document.getElementById("map");
-		var currentScreenX = map.offsetWidth - 100.0;
-		var currentScreenY = map.offsetHeight - 100.0;
-		var i;
-		var l = {{length}};
-		for(i = 0; i < l; i++){
-			var s = document.getElementById("dot" + i);
-			console.log(s);
-			
-			var scale = currentScreenX/2000;
-			
-			
-			var screenXArr = {{screen_xs}};
-			var screenYArr = {{screen_ys}};
-			var preXArr = {{x_coord}};
-			var preYArr = {{y_coord}};
-			var screenX = screenXArr[i] - 100.0;
-			var screenY = screenYArr[i] - 100.0;
-			
-			var prevScale = screenX/2000;
-			
-			var preX = preXArr[i] - 50.0;
-			var preY = preYArr[i] - 50.0;
-		
-			var x = ((currentScreenX*preX)/screenX) + 50.0;
-			var y = ((currentScreenY*preY)/screenY) + 50.0;
-		
-			//var yScale = currentScreenX/1000;
-		
-			//s.style.transform = 'scale('+scale+','+scale+')';
-			s.style.width = 30 + "px";
-			s.style.height = 30 + "px";
-			s.style.transform = 'translate('+x+'px,'+y+'px)';
-			//s.style.left = x + "px";
-			//s.style.top = y + "px";
-			console.log("dotPositions() ran!");
-		}
-	}
-</script>
 </head>
 <body>
 <div class="container-full">
@@ -210,6 +168,46 @@
 </footer>
 
 <script>
+function dotPositions(){
+	var map = document.getElementById("map");
+	var currentScreenX = map.offsetWidth - 100.0;
+	var currentScreenY = map.offsetHeight - 100.0;
+	var i;
+	var l = {{length}};
+	for(i = 0; i < l; i++){
+		var s = document.getElementById("dot" + i);
+		console.log(s);
+		
+		var scale = currentScreenX/2000;
+		
+		
+		var screenXArr = {{screen_xs}};
+		var screenYArr = {{screen_ys}};
+		var preXArr = {{x_coord}};
+		var preYArr = {{y_coord}};
+		var screenX = screenXArr[i] - 100.0;
+		var screenY = screenYArr[i] - 100.0;
+		
+		var prevScale = screenX/2000;
+		
+		var preX = preXArr[i] - 50.0;
+		var preY = preYArr[i] - 50.0;
+	
+		var x = ((currentScreenX*preX)/screenX) + 50.0;
+		var y = ((currentScreenY*preY)/screenY) + 50.0;
+	
+		//var yScale = currentScreenX/1000;
+	
+		//s.style.transform = 'scale('+scale+','+scale+')';
+		s.style.width = 30 + "px";
+		s.style.height = 30 + "px";
+		s.style.transform = 'translate('+x+'px,'+y+'px)';
+		//s.style.left = x + "px";
+		//s.style.top = y + "px";
+		console.log("dotPositions() ran!");
+	}
+}
+
 function distance(x1,y1,x2,y2) {
 	return Math.sqrt((x1-x2)**2+(y1-y2)**2);
 }
