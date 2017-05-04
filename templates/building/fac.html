@@ -1,3 +1,4 @@
+					</div>
 <html>
 <head>
 <meta charset="UTF-8">
@@ -22,63 +23,6 @@
 				<use href="#vert_box"/>
 				<use href="#hor_box"/>
 			</clipPath>
-			<symbol id="ct" class="layer" fill="rgba(250,230,177,1)" viewbox="0 0 100 100" preserveAspectRatio="xMidYMid meet">
-				<defs>
-					<!-- shadow filter -->
-					<filter id="f_shadow" x="-50%" y="-50%" width="200%" height="200%" primitiveUnits="objectBoundingBox">
-						<feColorMatrix
-							result="darken"
-							in="offOut"
-							type="matrix"
-							values="0.4 0 0 0 0
-											0 0.4 0 0 0
-											0 0 0.4 0 0
-											0 0 0 1 0" />
-						<!-- <feGaussianBlur result="blurOut" in="darken" stdDeviation=".05"/> -->
-					</filter>
-					<!--  darken filter -->
-					<filter id="f_darken" x="0" y="0" width="100%" height="100%">
-						<feColorMatrix
-							in="SourceGraphic"
-							type="matrix"
-							values="0.02 0 0 0 0
-											0 0.02 0 0 0
-											0 0 0.02 0 0
-											0 0 0 1 0" />
-					</filter>
-					<!-- 	bottom gradient	 -->
-					<radialGradient id="radial" cx="50%" cy="50%" r="50%" fx="0%" fy="50%" gradientTransform="translate(.5,0)">
-						<stop offset="0%" stop-color="rgba(255,255,255,.1)"/>
-						<stop offset="100%" stop-color="rgba(255,255,255,0)"/>
-					</radialGradient>
-					<!-- 	glare	 -->
-					<symbol id="glare" fill="rgba(255,255,255,.5)" viewbox="0 0 28 32" preserveAspectRatio="none">
-						<rect x="-1" y="-10" width="2" height="20" transform="translate(16,10) rotate(10) skewX(-30)"/>
-						<rect x="-.25" y="-10" width=".5" height="20" transform="translate(10,15) rotate(10) skewX(-30)"/>
-						<rect x="-2" y="-10" width="4" height="30" fill="rgba(255,255,255,.2)" transform="translate(18,13) rotate(10) skewX(-30)"/>
-					</symbol>
-					<!-- clip for glare -->
-					<clipPath id="glare_clip">
-						<ellipse id="glare_clip_def" cx="50" cy="0" rx="50" ry="50" transform="translate(0,6.7) scale(1,.5)"/>
-					</clipPath>
-				</defs>
-				<!-- 	shadow	 -->
-				<ellipse id="shadow" cx="50" cy="50" rx="50" ry="50" transform="translate(0,0) scale(.7,.7) scale(1,.5)" fill="rgba(38,34,22,.1)"/>
-				<!-- 	bottom	 -->
-				<ellipse id="bottom1" cx="50" cy="50" rx="50" ry="50" fill="rgb(38,34,22)" transform="translate(0,0) scale(.5,.5) scale(1,.5)"/>
-				<ellipse id="bottom2" cx="50" cy="50" rx="50" ry="50" fill="url(#radial)" transform="translate(0,0) scale(.5,.5) scale(1,.5)"/>
-				<!-- 	leg	 -->
-				<rect id="leg" width="15" height="50" rx="6" x="50" y="0" transform="translate(-7.5,6.7) scale(1,0.866)" fill="rgb(38,34,22)"/>
-				<!-- 	edge	 -->
-				<ellipse id="edge" cx="50" cy="0" rx="50" ry="50" transform="translate(0,6.7) matrix(1,0,0,1.02,0,.8485) scale(1,.5)" fill="rgba(0,0,0,1)"/>
-				<!-- 	top	 -->
-				<ellipse id="top" cx="50" cy="0" rx="50" ry="50" transform="translate(0,6.7) scale(1,.5)"/>
-				<!-- glare -->
-				<g clip-path="url(#glare_clip)">
-					<!-- "contain and clip" trick-->
-					<use id="glare_instance" xlink:href="#glare" width="100" height="50" y="-25" transform="translate(0,25) translate(0,-20.71) scale(1,1)"/>
-				</g>
-			</symbol>
 		</defs>
 		
 		<rect id="cb" width="100" height="100" rx="25" ry="25" mask="url(#border_mask)"/>
@@ -135,6 +79,48 @@
 			overflow: auto;   
         }
 	</style>
+	<script>
+						
+	function dotPositions(){
+		var map = document.getElementById("map");
+		var currentScreenX = map.offsetWidth - 100.0;
+		var currentScreenY = map.offsetHeight - 100.0;
+		var i;
+		var l = {{length}};
+		for(i = 0; i < l; i++){
+			var s = document.getElementById("dot" + i);
+			console.log(s);
+			
+			var scale = currentScreenX/2000;
+			
+			
+			var screenXArr = {{screen_xs}};
+			var screenYArr = {{screen_ys}};
+			var preXArr = {{x_coord}};
+			var preYArr = {{y_coord}};
+			var screenX = screenXArr[i] - 100.0;
+			var screenY = screenYArr[i] - 100.0;
+			
+			var prevScale = screenX/2000;
+			
+			var preX = preXArr[i] - 50.0;
+			var preY = preYArr[i] - 50.0;
+		
+			var x = ((currentScreenX*preX)/screenX) + 50.0;
+			var y = ((currentScreenY*preY)/screenY) + 50.0;
+		
+			//var yScale = currentScreenX/1000;
+		
+			//s.style.transform = 'scale('+scale+','+scale+')';
+			s.style.width = 30 + "px";
+			s.style.height = 30 + "px";
+			s.style.transform = 'translate('+x+'px,'+y+'px)';
+			//s.style.left = x + "px";
+			//s.style.top = y + "px";
+			console.log("dotPositions() ran!");
+		}
+	}
+</script>
 </head>
 <body>
 <div class="container-full">
@@ -157,11 +143,11 @@
 	<div id="map-container">
 		<!-- 147.64587/114.39804 = 1.290633 -->
 		<div id="newcontainer">
-			<img id="map" src="{{ url_for('static', filename='img/FAC.svg') }}">
+			<img id="map" src="{{ url_for('static', filename='img/FACnew.svg') }}" onload="dotPositions()">
 <div id='furniture-container'>
 				<div class='placement'>
 					<!-- <img src='blueprints/fac1_.svg' id='blueprint'> -->
-				<div class='circle furniture'><div class='ctable'></div></div>
+		<div class='circle furniture'><div class='ctable'></div></div>
 		<div class='circle furniture'><div class='ctable'></div></div>
 		<div class='circle furniture'><div class='ctable'></div></div>
 		<div class='circle furniture'><div class='ctable'></div></div>
@@ -1187,15 +1173,427 @@
 		</div>
 
 		<div class = 'booth-wrapper'>
-			<div class = 'booth table'>1</div>
-			<div class = 'booth table'>2</div>
-			<div class = 'booth table'>3</div>
-			<div class = 'booth table'>4</div>
+			<div class='boothset'>
+<div class='booth'>
+<div class='furniture'>
+      <div class='t-box booth-B1'>
+        <div class='t-face t-s1'>1</div>
+        <div class='t-face t-s2'>2</div>
+        <div class='t-face t-s3'>3</div>
+        <div class='t-face t-s4'>4</div>
+        <div class='t-face t-s6'>6</div>
+      </div>
+      <div class='booth-C'>
+        <div class='w-box'>
+          <div class='w-face w-s1'>1</div>
+          <div class='w-face w-s2'>2</div>
+          <div class='w-face w-s3'>3</div>
+          <div class='w-face w-s4'>4</div>
+        </div>
+        <div class='box'>
+          <div class='face s1'>1</div>
+          <div class='face s2'>2</div>
+          <div class='face s4'>4</div>
+        </div>
+        <div class='t-box'>
+          <div class='t-face t-s1'>1</div>
+          <div class='t-face t-s2'>2</div>
+          <div class='t-face t-s4'>4</div>
+        </div>
+      </div>
+      <div class='booth-B2'>
+        <div class='t-box'>
+          <div class='t-face t-s1'>1</div>
+          <div class='t-face t-s2'>2</div>
+          <div class='t-face t-s4'>4</div>
+          <div class='t-face t-s5'>5</div>
+          <div class='t-face t-s6'>6</div>
+        </div>
+        <div class='t-box'>
+          <div class='t-face t-s1'>1</div>
+          <div class='t-face t-s2'>2</div>
+          <div class='t-face t-s4'>4</div>
+          <div class='t-face t-s5'>5</div>
+          <div class='t-face t-s6'>6</div>
+        </div>
+      </div>
+    </div></div>
+    <div class='booth'>
+    <div class='furniture'>
+      <div class='t-box booth-B1'>
+        <div class='t-face t-s1'>1</div>
+        <div class='t-face t-s2'>2</div>
+        <div class='t-face t-s3'>3</div>
+        <div class='t-face t-s4'>4</div>
+        <div class='t-face t-s6'>6</div>
+      </div>
+      <div class='booth-C'>
+        <div class='w-box'>
+          <div class='w-face w-s1'>1</div>
+          <div class='w-face w-s2'>2</div>
+          <div class='w-face w-s3'>3</div>
+          <div class='w-face w-s4'>4</div>
+        </div>
+        <div class='box'>
+          <div class='face s1'>1</div>
+          <div class='face s2'>2</div>
+          <div class='face s4'>4</div>
+        </div>
+        <div class='t-box'>
+          <div class='t-face t-s1'>1</div>
+          <div class='t-face t-s2'>2</div>
+          <div class='t-face t-s4'>4</div>
+        </div>
+      </div>
+      <div class='booth-B2'>
+        <div class='t-box'>
+          <div class='t-face t-s1'>1</div>
+          <div class='t-face t-s2'>2</div>
+          <div class='t-face t-s4'>4</div>
+          <div class='t-face t-s5'>5</div>
+          <div class='t-face t-s6'>6</div>
+        </div>
+        <div class='t-box'>
+          <div class='t-face t-s1'>1</div>
+          <div class='t-face t-s2'>2</div>
+          <div class='t-face t-s4'>4</div>
+          <div class='t-face t-s5'>5</div>
+          <div class='t-face t-s6'>6</div>
+        </div>
+      </div>
+      </div></div>
+      
+      <div class='r-rectangle'>
+      <div class='r-rectangle furniture'>
+  <div class='r-rectangle-T'>
+    <div class='box'>
+      <div class='face s1'>1</div>
+      <div class='face s2'>2</div>
+      <div class='face s3'>3</div>
+      <div class='face s4'>4</div>
+      <div class='face s5'>5</div>
+      <div class='face s6'>6</div>
+    </div>
+  </div>
+</div></div>
+    </div>
+    	<div class='boothset'>
+<div class='booth'>
+<div class='furniture'>
+      <div class='t-box booth-B1'>
+        <div class='t-face t-s1'>1</div>
+        <div class='t-face t-s2'>2</div>
+        <div class='t-face t-s3'>3</div>
+        <div class='t-face t-s4'>4</div>
+        <div class='t-face t-s6'>6</div>
+      </div>
+      <div class='booth-C'>
+        <div class='w-box'>
+          <div class='w-face w-s1'>1</div>
+          <div class='w-face w-s2'>2</div>
+          <div class='w-face w-s3'>3</div>
+          <div class='w-face w-s4'>4</div>
+        </div>
+        <div class='box'>
+          <div class='face s1'>1</div>
+          <div class='face s2'>2</div>
+          <div class='face s4'>4</div>
+        </div>
+        <div class='t-box'>
+          <div class='t-face t-s1'>1</div>
+          <div class='t-face t-s2'>2</div>
+          <div class='t-face t-s4'>4</div>
+        </div>
+      </div>
+      <div class='booth-B2'>
+        <div class='t-box'>
+          <div class='t-face t-s1'>1</div>
+          <div class='t-face t-s2'>2</div>
+          <div class='t-face t-s4'>4</div>
+          <div class='t-face t-s5'>5</div>
+          <div class='t-face t-s6'>6</div>
+        </div>
+        <div class='t-box'>
+          <div class='t-face t-s1'>1</div>
+          <div class='t-face t-s2'>2</div>
+          <div class='t-face t-s4'>4</div>
+          <div class='t-face t-s5'>5</div>
+          <div class='t-face t-s6'>6</div>
+        </div>
+      </div>
+    </div></div>
+    <div class='booth'>
+    <div class='furniture'>
+      <div class='t-box booth-B1'>
+        <div class='t-face t-s1'>1</div>
+        <div class='t-face t-s2'>2</div>
+        <div class='t-face t-s3'>3</div>
+        <div class='t-face t-s4'>4</div>
+        <div class='t-face t-s6'>6</div>
+      </div>
+      <div class='booth-C'>
+        <div class='w-box'>
+          <div class='w-face w-s1'>1</div>
+          <div class='w-face w-s2'>2</div>
+          <div class='w-face w-s3'>3</div>
+          <div class='w-face w-s4'>4</div>
+        </div>
+        <div class='box'>
+          <div class='face s1'>1</div>
+          <div class='face s2'>2</div>
+          <div class='face s4'>4</div>
+        </div>
+        <div class='t-box'>
+          <div class='t-face t-s1'>1</div>
+          <div class='t-face t-s2'>2</div>
+          <div class='t-face t-s4'>4</div>
+        </div>
+      </div>
+      <div class='booth-B2'>
+        <div class='t-box'>
+          <div class='t-face t-s1'>1</div>
+          <div class='t-face t-s2'>2</div>
+          <div class='t-face t-s4'>4</div>
+          <div class='t-face t-s5'>5</div>
+          <div class='t-face t-s6'>6</div>
+        </div>
+        <div class='t-box'>
+          <div class='t-face t-s1'>1</div>
+          <div class='t-face t-s2'>2</div>
+          <div class='t-face t-s4'>4</div>
+          <div class='t-face t-s5'>5</div>
+          <div class='t-face t-s6'>6</div>
+        </div>
+      </div>
+      </div></div>
+      
+      <div class='r-rectangle'>
+      <div class='r-rectangle furniture'>
+  <div class='r-rectangle-T'>
+    <div class='box'>
+      <div class='face s1'>1</div>
+      <div class='face s2'>2</div>
+      <div class='face s3'>3</div>
+      <div class='face s4'>4</div>
+      <div class='face s5'>5</div>
+      <div class='face s6'>6</div>
+    </div>
+  </div>
+</div></div>
+    </div>
+    	<div class='boothset'>
+<div class='booth'>
+<div class='furniture'>
+      <div class='t-box booth-B1'>
+        <div class='t-face t-s1'>1</div>
+        <div class='t-face t-s2'>2</div>
+        <div class='t-face t-s3'>3</div>
+        <div class='t-face t-s4'>4</div>
+        <div class='t-face t-s6'>6</div>
+      </div>
+      <div class='booth-C'>
+        <div class='w-box'>
+          <div class='w-face w-s1'>1</div>
+          <div class='w-face w-s2'>2</div>
+          <div class='w-face w-s3'>3</div>
+          <div class='w-face w-s4'>4</div>
+        </div>
+        <div class='box'>
+          <div class='face s1'>1</div>
+          <div class='face s2'>2</div>
+          <div class='face s4'>4</div>
+        </div>
+        <div class='t-box'>
+          <div class='t-face t-s1'>1</div>
+          <div class='t-face t-s2'>2</div>
+          <div class='t-face t-s4'>4</div>
+        </div>
+      </div>
+      <div class='booth-B2'>
+        <div class='t-box'>
+          <div class='t-face t-s1'>1</div>
+          <div class='t-face t-s2'>2</div>
+          <div class='t-face t-s4'>4</div>
+          <div class='t-face t-s5'>5</div>
+          <div class='t-face t-s6'>6</div>
+        </div>
+        <div class='t-box'>
+          <div class='t-face t-s1'>1</div>
+          <div class='t-face t-s2'>2</div>
+          <div class='t-face t-s4'>4</div>
+          <div class='t-face t-s5'>5</div>
+          <div class='t-face t-s6'>6</div>
+        </div>
+      </div>
+    </div></div>
+    <div class='booth'>
+    <div class='furniture'>
+      <div class='t-box booth-B1'>
+        <div class='t-face t-s1'>1</div>
+        <div class='t-face t-s2'>2</div>
+        <div class='t-face t-s3'>3</div>
+        <div class='t-face t-s4'>4</div>
+        <div class='t-face t-s6'>6</div>
+      </div>
+      <div class='booth-C'>
+        <div class='w-box'>
+          <div class='w-face w-s1'>1</div>
+          <div class='w-face w-s2'>2</div>
+          <div class='w-face w-s3'>3</div>
+          <div class='w-face w-s4'>4</div>
+        </div>
+        <div class='box'>
+          <div class='face s1'>1</div>
+          <div class='face s2'>2</div>
+          <div class='face s4'>4</div>
+        </div>
+        <div class='t-box'>
+          <div class='t-face t-s1'>1</div>
+          <div class='t-face t-s2'>2</div>
+          <div class='t-face t-s4'>4</div>
+        </div>
+      </div>
+      <div class='booth-B2'>
+        <div class='t-box'>
+          <div class='t-face t-s1'>1</div>
+          <div class='t-face t-s2'>2</div>
+          <div class='t-face t-s4'>4</div>
+          <div class='t-face t-s5'>5</div>
+          <div class='t-face t-s6'>6</div>
+        </div>
+        <div class='t-box'>
+          <div class='t-face t-s1'>1</div>
+          <div class='t-face t-s2'>2</div>
+          <div class='t-face t-s4'>4</div>
+          <div class='t-face t-s5'>5</div>
+          <div class='t-face t-s6'>6</div>
+        </div>
+      </div>
+      </div></div>
+      
+      <div class='r-rectangle'>
+      <div class='r-rectangle furniture'>
+  <div class='r-rectangle-T'>
+    <div class='box'>
+      <div class='face s1'>1</div>
+      <div class='face s2'>2</div>
+      <div class='face s3'>3</div>
+      <div class='face s4'>4</div>
+      <div class='face s5'>5</div>
+      <div class='face s6'>6</div>
+    </div>
+  </div>
+</div></div>
+    </div>
+    	<div class='boothset'>
+<div class='booth'>
+<div class='furniture'>
+      <div class='t-box booth-B1'>
+        <div class='t-face t-s1'>1</div>
+        <div class='t-face t-s2'>2</div>
+        <div class='t-face t-s3'>3</div>
+        <div class='t-face t-s4'>4</div>
+        <div class='t-face t-s6'>6</div>
+      </div>
+      <div class='booth-C'>
+        <div class='w-box'>
+          <div class='w-face w-s1'>1</div>
+          <div class='w-face w-s2'>2</div>
+          <div class='w-face w-s3'>3</div>
+          <div class='w-face w-s4'>4</div>
+        </div>
+        <div class='box'>
+          <div class='face s1'>1</div>
+          <div class='face s2'>2</div>
+          <div class='face s4'>4</div>
+        </div>
+        <div class='t-box'>
+          <div class='t-face t-s1'>1</div>
+          <div class='t-face t-s2'>2</div>
+          <div class='t-face t-s4'>4</div>
+        </div>
+      </div>
+      <div class='booth-B2'>
+        <div class='t-box'>
+          <div class='t-face t-s1'>1</div>
+          <div class='t-face t-s2'>2</div>
+          <div class='t-face t-s4'>4</div>
+          <div class='t-face t-s5'>5</div>
+          <div class='t-face t-s6'>6</div>
+        </div>
+        <div class='t-box'>
+          <div class='t-face t-s1'>1</div>
+          <div class='t-face t-s2'>2</div>
+          <div class='t-face t-s4'>4</div>
+          <div class='t-face t-s5'>5</div>
+          <div class='t-face t-s6'>6</div>
+        </div>
+      </div>
+    </div></div>
+    <div class='booth'>
+    <div class='furniture'>
+      <div class='t-box booth-B1'>
+        <div class='t-face t-s1'>1</div>
+        <div class='t-face t-s2'>2</div>
+        <div class='t-face t-s3'>3</div>
+        <div class='t-face t-s4'>4</div>
+        <div class='t-face t-s6'>6</div>
+      </div>
+      <div class='booth-C'>
+        <div class='w-box'>
+          <div class='w-face w-s1'>1</div>
+          <div class='w-face w-s2'>2</div>
+          <div class='w-face w-s3'>3</div>
+          <div class='w-face w-s4'>4</div>
+        </div>
+        <div class='box'>
+          <div class='face s1'>1</div>
+          <div class='face s2'>2</div>
+          <div class='face s4'>4</div>
+        </div>
+        <div class='t-box'>
+          <div class='t-face t-s1'>1</div>
+          <div class='t-face t-s2'>2</div>
+          <div class='t-face t-s4'>4</div>
+        </div>
+      </div>
+      <div class='booth-B2'>
+        <div class='t-box'>
+          <div class='t-face t-s1'>1</div>
+          <div class='t-face t-s2'>2</div>
+          <div class='t-face t-s4'>4</div>
+          <div class='t-face t-s5'>5</div>
+          <div class='t-face t-s6'>6</div>
+        </div>
+        <div class='t-box'>
+          <div class='t-face t-s1'>1</div>
+          <div class='t-face t-s2'>2</div>
+          <div class='t-face t-s4'>4</div>
+          <div class='t-face t-s5'>5</div>
+          <div class='t-face t-s6'>6</div>
+        </div>
+      </div>
+      </div></div>
+      
+      <div class='r-rectangle'>
+      <div class='r-rectangle furniture'>
+  <div class='r-rectangle-T'>
+    <div class='box'>
+      <div class='face s1'>1</div>
+      <div class='face s2'>2</div>
+      <div class='face s3'>3</div>
+      <div class='face s4'>4</div>
+      <div class='face s5'>5</div>
+      <div class='face s6'>6</div>
+    </div>
+  </div>
+</div></div>
+    </div>
+			</div>
 		</div>
 					</div>
-					</div>
 			{% for i in range(length)%}
-				<img id="dot{{i}}" src="{{ url_for('static', filename='img/dot.svg') }}" width="100" height="100" />
+				<img id="dot{{i}}" src="{{ url_for('static', filename='img/dot.svg') }}" width="30" height="30" />
 			{%endfor%}
 		
 			<div id="pin" class="layer"></div>
@@ -1260,54 +1658,7 @@
         </div>
      </form>	
 </footer>
-<script>
-	var dot_flag = false;
-						
-	function dotPositions(){
-		var map = document.getElementById("map");
-		var currentScreenX = map.offsetWidth - 100.0;
-		var currentScreenY = map.offsetHeight - 100.0;
-		var i;
-		var l = {{length}};
-		for(i = 0; i < l; i++){
-			var s = document.getElementById("dot" + i);
-			console.log(s);
-			
-			var scale = currentScreenX/2000;
-			
-			
-			var screenXArr = {{screen_xs}};
-			var screenYArr = {{screen_ys}};
-			var preXArr = {{x_coord}};
-			var preYArr = {{y_coord}};
-			var screenX = screenXArr[i] - 100.0;
-			var screenY = screenYArr[i] - 100.0;
-			
-			var prevScale = screenX/2000;
-			
-			var preX = preXArr[i] - 50.0;
-			var preY = preYArr[i] - 50.0;
-		
-			var x = ((currentScreenX*preX)/screenX) + 50.0;
-			var y = ((currentScreenY*preY)/screenY) + 50.0;
-		
-			//var yScale = currentScreenX/1000;
-		
-			//s.style.transform = 'scale('+scale+','+scale+')';
-			s.style.width = 30 + "px";
-			s.style.height = 30 + "px";
-			s.style.transform = 'translate('+x+'px,'+y+'px)';
-			//s.style.left = x + "px";
-			//s.style.top = y + "px";
-			console.log("dotPositions() ran!");
-			dot_flag = true;
-		}
-	}
-						
-	window.onload = dotPositions;
-	if (!dot_flag)
-		dotPositions();
-</script>
+
 <script>
 function distance(x1,y1,x2,y2) {
 	return Math.sqrt((x1-x2)**2+(y1-y2)**2);

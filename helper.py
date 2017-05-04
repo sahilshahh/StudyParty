@@ -30,7 +30,7 @@ def fetch_data(db, building, placeholder):
         user_time = user.time
         current_time = datetime.datetime.now()
         #database entries will delete after 8 hours (this can be easily changed)
-        if (current_time - user_time) > timedelta(hours = 8):
+        if (current_time - user_time) > timedelta(hours = 1):
             db.session.delete(user)
             db.session.commit()
         else:

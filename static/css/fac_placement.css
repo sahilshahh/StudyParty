@@ -44,18 +44,47 @@
 	width: 2.9%;
 	height: 5.0%;
 }
-.booth{
+.boothset{
 	position:absolute;
 	left:0;
 	top:0;
 	width: 2.9%;
 	height: 4.0%;
-	background: grey;
-	font: calc(.02*var(--RES))/calc(.02*var(--RES)) "Segoe UI";
-	color: white;
-	text-align: center;
-	font-size: 14px;
+	/*transform-style: preserve-3d;transform: scale3d(5,5,5) translateY(60px);*/
 }
+.booth .face,
+.booth .t-face,
+.booth .w-face {
+	background: rgba(182,72,60,1);
+	border-color: rgba(182,72,60,1);
+}
+.booth-C .face,
+.booth-C .t-face,
+.booth-C .w-face {
+	background: rgba(199,112,92,1);
+	border-color: rgba(199,112,92,1);
+}
+
+.booth:nth-child(1) {
+	position: absolute;
+	left:0;top:100%;
+	transform-origin: 0 0;
+	transform: rotate(-90deg);
+}
+.booth:nth-child(2) {
+	position: absolute;
+	left:100%;top:0;
+	transform-origin: 0 0;
+	transform: rotate(90deg);
+}
+
+.boothset > .r-rectangle {
+	position: absolute;
+	left:50%;top:0;
+	transform-origin: 0 0;
+	transform: translate(-50%,0);
+}
+
 .long-rectangle:nth-of-type(1){
 	display:none;
 }
@@ -350,19 +379,19 @@
 	height: 3.5%;
 }
 
-.booth:nth-of-type(1) {
+.boothset:nth-of-type(1) {
 	left:56.5%;
 	top:6.9%;
 }
-.booth:nth-of-type(2) {
+.boothset:nth-of-type(2) {
 	left:63.5%;
 	top:6.9%;
 }
-.booth:nth-of-type(3) {
+.boothset:nth-of-type(3) {
 	left:70.5%;
 	top:6.9%;
 }
-.booth:nth-of-type(4) {
+.boothset:nth-of-type(4) {
 	left:77.5%;
 	top:6.9%;
 }
