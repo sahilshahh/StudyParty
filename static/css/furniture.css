@@ -17,6 +17,157 @@
 .furniture:active {
   transform: scale3d(var(--SCALE), var(--SCALE), var(--SCALE)) translate(50%, 50%) scale3d(1.3, 1.3, 1.3) rotate(45deg) translate(-50%, -50%); }
 
+.pcl_table .r-rectangle {
+  --RES: 0.95355vw;
+  --SCALE: 2;
+  --W: calc(1 * var(--RES));
+  --L: calc(0.725 * var(--RES));
+  --H: calc(0.725 * var(--RES));
+  --T_bW: calc(0.0725 * var(--RES));
+  --T_t: calc(0.0725 * var(--RES));
+  --B_t: calc(0.0725 * var(--RES));
+  --B_d: calc(0.725 * var(--RES));
+  --L_d: calc(0.0725 * var(--RES)); }
+.pcl_table .r-rectangle-B {
+  /* shared box dimensions */
+  /* dimensions passed to each box through CSS inheritance */
+  --w: calc(0.3625 * var(--RES));
+  --l: calc(0 * var(--RES));
+  --h: calc(0.28254 * var(--RES));
+  --bW: calc(0.16313 * var(--RES));
+  --bL1: calc(0.0725 * var(--RES));
+  --bL2: calc(0 * var(--RES));
+  --sign: 1;
+  --theta: 0.5236rad;
+  --phi1: -0.25118rad;
+  --phi2: 0rad;
+  --hyp: calc(0.32625 * var(--RES));
+  --hyp1: calc(0.29169 * var(--RES));
+  --hyp2: calc(0.28254 * var(--RES));
+  --w1: calc(0.03625 * var(--RES));
+  --l1: calc(0.0725 * var(--RES));
+  /* global positioning */
+  transform-style: preserve-3d;
+  width: calc(0.725 * var(--RES));
+  height: calc(0.725 * var(--RES));
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  border-radius: 50%;
+  background-color: rgba(0, 0, 0, 0.5);
+  /* positioning each box */
+  /* implement border-type() mixin */ }
+  .pcl_table .r-rectangle-B > *:nth-child(1) {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%) rotate(0deg) rotateX(90deg) translateZ(calc(-0.31393 * var(--RES))); }
+  .pcl_table .r-rectangle-B > *:nth-child(2) {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%) rotate(60deg) rotateX(90deg) translateZ(calc(-0.31393 * var(--RES))); }
+  .pcl_table .r-rectangle-B > *:nth-child(3) {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%) rotate(120deg) rotateX(90deg) translateZ(calc(-0.31393 * var(--RES))); }
+  .pcl_table .r-rectangle-B > *:nth-child(4) {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%) rotate(180deg) rotateX(90deg) translateZ(calc(-0.31393 * var(--RES))); }
+  .pcl_table .r-rectangle-B > *:nth-child(5) {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%) rotate(240deg) rotateX(90deg) translateZ(calc(-0.31393 * var(--RES))); }
+  .pcl_table .r-rectangle-B > *:nth-child(6) {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%) rotate(300deg) rotateX(90deg) translateZ(calc(-0.31393 * var(--RES))); }
+  .pcl_table .r-rectangle-B .w-s2, .pcl_table .r-rectangle-B .w-s4 {
+    border-bottom: none;
+    --width: calc(var(--bL2) + var(--l) + var(--bL1));
+    --offset: var(--bL2); }
+  .pcl_table .r-rectangle-B .w-s2, .pcl_table .r-rectangle-B .w-s4 {
+    overflow: hidden; }
+.pcl_table .r-rectangle-L {
+  /* shared box dimensions */
+  /* dimensions passed to each box through CSS inheritance */
+  --w: calc(0.0725 * var(--RES));
+  --l: calc(0.03139 * var(--RES));
+  --h: calc(0.6525 * var(--RES));
+  --bW: calc(0.01812 * var(--RES));
+  --hyp: calc(0.03625 * var(--RES));
+  --theta: 0.5236rad;
+  /* global positioning */
+  transform-style: preserve-3d;
+  width: calc(0.0725 * var(--RES));
+  height: calc(0.0725 * var(--RES));
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  /* positioning each box */ }
+  .pcl_table .r-rectangle-L > *:nth-child(1) {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, 0) rotate(180deg); }
+  .pcl_table .r-rectangle-L > *:nth-child(2) {
+    position: absolute;
+    left: 50%;
+    top: 0;
+    transform: translate(-50%, 0); }
+  .pcl_table .r-rectangle-L .t-face {
+    overflow: hidden !important; }
+.pcl_table .r-rectangle-T {
+  /* shared box dimensions */
+  /* shared dimensions passed to each box through CSS inheritance */
+  --h: calc(0.0725 * var(--RES));
+  /* global positioning */
+  transform-style: preserve-3d;
+  width: calc(1 * var(--RES));
+  height: calc(0.725 * var(--RES));
+  position: relative;
+  left: 50%;
+  top: 50%;
+  transform: translate3d(-50%, -50%, calc(0.6525 * var(--RES)));
+  /* positioning each box */ }
+  .pcl_table .r-rectangle-T > *:nth-child(1) {
+    --w: calc(0.725 * var(--RES));
+    --l: calc(0.0725 * var(--RES));
+    --bW: calc(0.0725 * var(--RES));
+    --hyp: calc(0.10253 * var(--RES));
+    --theta: 0.7854rad;
+    position: absolute;
+    left: 0;
+    top: 0;
+    transform: translate(-50%, -50%) rotate(-90deg) translate(calc(-0.3625 * var(--RES)), calc(0.03625 * var(--RES))); }
+  .pcl_table .r-rectangle-T > *:nth-child(2) {
+    --w: calc(0.855 * var(--RES));
+    --l: calc(0.725 * var(--RES));
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    --hello: world; }
+  .pcl_table .r-rectangle-T > *:nth-child(3) {
+    --w: calc(0.725 * var(--RES));
+    --l: calc(0.0725 * var(--RES));
+    --bW: calc(0.0725 * var(--RES));
+    --hyp: calc(0.10253 * var(--RES));
+    --theta: 0.7854rad;
+    position: absolute;
+    left: 0;
+    top: 0;
+    transform: translate(-50%, -50%) rotate(90deg) translate(calc(0.3625 * var(--RES)), calc(-0.96375 * var(--RES))); }
+  .pcl_table .r-rectangle-T .t-face {
+    overflow: hidden !important; }
+
 .boothset {
   /* Round Rectangle Table */ }
   .boothset .r-rectangle {
