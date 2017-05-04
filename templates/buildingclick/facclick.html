@@ -1623,7 +1623,7 @@
 
 <script>
 	function dotPositions(){
-		var map = document.getElementById("map");
+		/*var map = document.getElementById("map");
 		var currentScreenX = map.offsetWidth - 100.0;
 		var currentScreenY = map.offsetHeight - 100.0;
 		var i;
@@ -1659,7 +1659,30 @@
 			//s.style.left = x + "px";
 			//s.style.top = y + "px";
 			console.log("dotPositions() ran!");
-		}
+		}*/
+		var map = document.getElementById("map");
+		var s = document.getElementById("dot");
+		var screenX = {{screen_x}} - 100.0;
+		var screenY = {{screen_y}} - 100.0;
+		var preX = {{x_coordinate}} - 50.0;
+		var preY = {{y_coordinate}} - 50.0;
+		
+		var currentScreenX = map.offsetWidth - 100.0;
+		var currentScreenY = map.offsetHeight - 100.0;
+		
+		var scale = currentScreenX/2000;
+		
+		s.style.width = 30 + "px";
+		s.style.height = 30 + "px";
+
+		var x = ((currentScreenX*preX)/screenX) + 50.0;
+		var y = ((currentScreenY*preY)/screenY) + 50.0;
+		
+		
+		s.style.transform = 'translate('+x+'px,'+y+'px)';
+		//s.style.left = x + "px";
+		//s.style.top = y + "px";
+		dot_flag = true;
 	}
 
 	function scrollToCenter() {
