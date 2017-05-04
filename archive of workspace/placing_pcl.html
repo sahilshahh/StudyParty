@@ -1,0 +1,409 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Placing Furniture</title>
+	<style>
+		/* Basic dimension information about the map that can be used when positioning furniture.*/
+		.contain {
+			--naturalW: 1079;
+			--naturalH:722;
+			--RES: calc(100vw - 2 * 2vmin);
+			--W: calc(1.5*var(--RES));
+			--L: calc(var(--W) * var(--naturalH) / var(--naturalW));
+			width: 90vw;
+			height: 90vh;
+			border: 5px double red;
+			overflow:scroll;perspective: 90vw;
+		}
+		#map {
+			--totalW: calc(147.644 - 1);
+			--totalH: calc(114.400 - 1);
+			--top: calc(6.648 *var(--W) / var(--totalW));
+			--left: calc(23.129 *var(--W) / var(--totalW));
+			--w: calc(97.106 *var(--W) / var(--totalW));
+			--l: calc(99.448 *var(--W) / var(--totalW));
+			width: var(--w);
+			height: var(--l);
+			/*position:absolute;*/
+			/*left: var(--left);*/
+			/*top: var(--top);*/
+			/*margin:50px;*/
+
+			--RES: var(--w);
+			--map-width: var(--w);
+			--map-height: var(--l);
+		}
+	</style>
+	<link rel="stylesheet" type="text/css" href="furniture.css">
+	<link rel="stylesheet" type="text/css" href="pcl_placement.css">
+</head>
+<body>
+	<!-- You can pretend this <div> is the map. It is currently sized at 500px by 500px (RES by RES), but this is only for convenience in debugging. In order to transfer the furniture positions correctly to the actual map, the furniture will need to be sized and placed using percentage units as shown in the examples. -->
+	<div class="contain">
+		<div id='map' class='placement' style='position:relative;border: 2px solid black; perspective: initial;'>
+			<!-- Blueprint overlayed for convenience. -->
+			<img src='PCLnew.svg' id='blueprint'>
+			<div style='height: 100%;width: 100%;transform-style: preserve-3d;transform: rotate(-45deg) ;border: 2px solid blue'>
+				<div class='pcl_column'>
+					<div class='pcl_table'>
+						<div class='r-rectangle furniture'>
+							<div class='r-rectangle-B'>
+								<div class='w-box'>
+									<div class='w-face w-s3'>3</div>
+								</div>
+								<div class='w-box'>
+									<div class='w-face w-s3'>3</div>
+								</div>
+								<div class='w-box'>
+									<div class='w-face w-s3'>3</div>
+								</div>
+								<div class='w-box'>
+									<div class='w-face w-s3'>3</div>
+								</div>
+								<div class='w-box'>
+									<div class='w-face w-s3'>3</div>
+								</div>
+								<div class='w-box'>
+									<div class='w-face w-s3'>3</div>
+								</div>
+							</div>
+							<div class='r-rectangle-L'>
+								<div class='t-box'>
+									<div class='t-face t-s2'>2</div>
+									<div class='t-face t-s4'>4</div>
+									<div class='t-face t-s5'>5</div>
+								</div>
+								<div class='t-box'>
+									<div class='t-face t-s2'>2</div>
+									<div class='t-face t-s4'>4</div>
+									<div class='t-face t-s5'>5</div>
+								</div>
+							</div>
+							<div class='r-rectangle-T'>
+								<div class='t-box'>
+									<div class='t-face t-s1'>1</div>
+									<div class='t-face t-s2'>2</div>
+									<div class='t-face t-s4'>4</div>
+									<div class='t-face t-s5'>5</div>
+								</div>
+								<div class='box'>
+									<div class='face s1'>1</div>
+									<div class='face s3'>3</div>
+									<div class='face s5'>5</div>
+								</div>
+								<div class='t-box'>
+									<div class='t-face t-s1'>1</div>
+									<div class='t-face t-s2'>2</div>
+									<div class='t-face t-s4'>4</div>
+									<div class='t-face t-s5'>5</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class='pcl_table'>
+						<div class='r-rectangle furniture'>
+							<div class='r-rectangle-B'>
+								<div class='w-box'>
+									<div class='w-face w-s3'>3</div>
+								</div>
+								<div class='w-box'>
+									<div class='w-face w-s3'>3</div>
+								</div>
+								<div class='w-box'>
+									<div class='w-face w-s3'>3</div>
+								</div>
+								<div class='w-box'>
+									<div class='w-face w-s3'>3</div>
+								</div>
+								<div class='w-box'>
+									<div class='w-face w-s3'>3</div>
+								</div>
+								<div class='w-box'>
+									<div class='w-face w-s3'>3</div>
+								</div>
+							</div>
+							<div class='r-rectangle-L'>
+								<div class='t-box'>
+									<div class='t-face t-s2'>2</div>
+									<div class='t-face t-s4'>4</div>
+									<div class='t-face t-s5'>5</div>
+								</div>
+								<div class='t-box'>
+									<div class='t-face t-s2'>2</div>
+									<div class='t-face t-s4'>4</div>
+									<div class='t-face t-s5'>5</div>
+								</div>
+							</div>
+							<div class='r-rectangle-T'>
+								<div class='t-box'>
+									<div class='t-face t-s1'>1</div>
+									<div class='t-face t-s2'>2</div>
+									<div class='t-face t-s4'>4</div>
+									<div class='t-face t-s5'>5</div>
+								</div>
+								<div class='box'>
+									<div class='face s1'>1</div>
+									<div class='face s3'>3</div>
+									<div class='face s5'>5</div>
+								</div>
+								<div class='t-box'>
+									<div class='t-face t-s1'>1</div>
+									<div class='t-face t-s2'>2</div>
+									<div class='t-face t-s4'>4</div>
+									<div class='t-face t-s5'>5</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class='pcl_table'>
+						<div class='r-rectangle furniture'>
+							<div class='r-rectangle-B'>
+								<div class='w-box'>
+									<div class='w-face w-s3'>3</div>
+								</div>
+								<div class='w-box'>
+									<div class='w-face w-s3'>3</div>
+								</div>
+								<div class='w-box'>
+									<div class='w-face w-s3'>3</div>
+								</div>
+								<div class='w-box'>
+									<div class='w-face w-s3'>3</div>
+								</div>
+								<div class='w-box'>
+									<div class='w-face w-s3'>3</div>
+								</div>
+								<div class='w-box'>
+									<div class='w-face w-s3'>3</div>
+								</div>
+							</div>
+							<div class='r-rectangle-L'>
+								<div class='t-box'>
+									<div class='t-face t-s2'>2</div>
+									<div class='t-face t-s4'>4</div>
+									<div class='t-face t-s5'>5</div>
+								</div>
+								<div class='t-box'>
+									<div class='t-face t-s2'>2</div>
+									<div class='t-face t-s4'>4</div>
+									<div class='t-face t-s5'>5</div>
+								</div>
+							</div>
+							<div class='r-rectangle-T'>
+								<div class='t-box'>
+									<div class='t-face t-s1'>1</div>
+									<div class='t-face t-s2'>2</div>
+									<div class='t-face t-s4'>4</div>
+									<div class='t-face t-s5'>5</div>
+								</div>
+								<div class='box'>
+									<div class='face s1'>1</div>
+									<div class='face s3'>3</div>
+									<div class='face s5'>5</div>
+								</div>
+								<div class='t-box'>
+									<div class='t-face t-s1'>1</div>
+									<div class='t-face t-s2'>2</div>
+									<div class='t-face t-s4'>4</div>
+									<div class='t-face t-s5'>5</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class='pcl_table'>
+						<div class='r-rectangle furniture'>
+							<div class='r-rectangle-B'>
+								<div class='w-box'>
+									<div class='w-face w-s3'>3</div>
+								</div>
+								<div class='w-box'>
+									<div class='w-face w-s3'>3</div>
+								</div>
+								<div class='w-box'>
+									<div class='w-face w-s3'>3</div>
+								</div>
+								<div class='w-box'>
+									<div class='w-face w-s3'>3</div>
+								</div>
+								<div class='w-box'>
+									<div class='w-face w-s3'>3</div>
+								</div>
+								<div class='w-box'>
+									<div class='w-face w-s3'>3</div>
+								</div>
+							</div>
+							<div class='r-rectangle-L'>
+								<div class='t-box'>
+									<div class='t-face t-s2'>2</div>
+									<div class='t-face t-s4'>4</div>
+									<div class='t-face t-s5'>5</div>
+								</div>
+								<div class='t-box'>
+									<div class='t-face t-s2'>2</div>
+									<div class='t-face t-s4'>4</div>
+									<div class='t-face t-s5'>5</div>
+								</div>
+							</div>
+							<div class='r-rectangle-T'>
+								<div class='t-box'>
+									<div class='t-face t-s1'>1</div>
+									<div class='t-face t-s2'>2</div>
+									<div class='t-face t-s4'>4</div>
+									<div class='t-face t-s5'>5</div>
+								</div>
+								<div class='box'>
+									<div class='face s1'>1</div>
+									<div class='face s3'>3</div>
+									<div class='face s5'>5</div>
+								</div>
+								<div class='t-box'>
+									<div class='t-face t-s1'>1</div>
+									<div class='t-face t-s2'>2</div>
+									<div class='t-face t-s4'>4</div>
+									<div class='t-face t-s5'>5</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class='pcl_table'>
+						<div class='r-rectangle furniture'>
+							<div class='r-rectangle-B'>
+								<div class='w-box'>
+									<div class='w-face w-s3'>3</div>
+								</div>
+								<div class='w-box'>
+									<div class='w-face w-s3'>3</div>
+								</div>
+								<div class='w-box'>
+									<div class='w-face w-s3'>3</div>
+								</div>
+								<div class='w-box'>
+									<div class='w-face w-s3'>3</div>
+								</div>
+								<div class='w-box'>
+									<div class='w-face w-s3'>3</div>
+								</div>
+								<div class='w-box'>
+									<div class='w-face w-s3'>3</div>
+								</div>
+							</div>
+							<div class='r-rectangle-L'>
+								<div class='t-box'>
+									<div class='t-face t-s2'>2</div>
+									<div class='t-face t-s4'>4</div>
+									<div class='t-face t-s5'>5</div>
+								</div>
+								<div class='t-box'>
+									<div class='t-face t-s2'>2</div>
+									<div class='t-face t-s4'>4</div>
+									<div class='t-face t-s5'>5</div>
+								</div>
+							</div>
+							<div class='r-rectangle-T'>
+								<div class='t-box'>
+									<div class='t-face t-s1'>1</div>
+									<div class='t-face t-s2'>2</div>
+									<div class='t-face t-s4'>4</div>
+									<div class='t-face t-s5'>5</div>
+								</div>
+								<div class='box'>
+									<div class='face s1'>1</div>
+									<div class='face s3'>3</div>
+									<div class='face s5'>5</div>
+								</div>
+								<div class='t-box'>
+									<div class='t-face t-s1'>1</div>
+									<div class='t-face t-s2'>2</div>
+									<div class='t-face t-s4'>4</div>
+									<div class='t-face t-s5'>5</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class='pcl_table'>
+						<div class='r-rectangle furniture'>
+							<div class='r-rectangle-B'>
+								<div class='w-box'>
+									<div class='w-face w-s3'>3</div>
+								</div>
+								<div class='w-box'>
+									<div class='w-face w-s3'>3</div>
+								</div>
+								<div class='w-box'>
+									<div class='w-face w-s3'>3</div>
+								</div>
+								<div class='w-box'>
+									<div class='w-face w-s3'>3</div>
+								</div>
+								<div class='w-box'>
+									<div class='w-face w-s3'>3</div>
+								</div>
+								<div class='w-box'>
+									<div class='w-face w-s3'>3</div>
+								</div>
+							</div>
+							<div class='r-rectangle-L'>
+								<div class='t-box'>
+									<div class='t-face t-s2'>2</div>
+									<div class='t-face t-s4'>4</div>
+									<div class='t-face t-s5'>5</div>
+								</div>
+								<div class='t-box'>
+									<div class='t-face t-s2'>2</div>
+									<div class='t-face t-s4'>4</div>
+									<div class='t-face t-s5'>5</div>
+								</div>
+							</div>
+							<div class='r-rectangle-T'>
+								<div class='t-box'>
+									<div class='t-face t-s1'>1</div>
+									<div class='t-face t-s2'>2</div>
+									<div class='t-face t-s4'>4</div>
+									<div class='t-face t-s5'>5</div>
+								</div>
+								<div class='box'>
+									<div class='face s1'>1</div>
+									<div class='face s3'>3</div>
+									<div class='face s5'>5</div>
+								</div>
+								<div class='t-box'>
+									<div class='t-face t-s1'>1</div>
+									<div class='t-face t-s2'>2</div>
+									<div class='t-face t-s4'>4</div>
+									<div class='t-face t-s5'>5</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+
+
+		</div>
+	</div>
+	<style>
+		/* Don't worry about this. These styles are just to set the size and position of the building blueprint correctly.*/
+		:root {
+			--b_w: 773.805;
+			--b_l: 609.509;
+			--b_gap: 40.76;
+			--b_L: 227.004;
+			--b_R: 13.986;
+			--b_T: 15.721;
+			--b_B: 42.711;
+			--b_width: calc(var(--b_w) - var(--b_L) - var(--b_R));
+			--b_height: calc(var(--b_l) - var(--b_T) - var(--b_B));
+		}
+		#blueprint {
+			width: calc(var(--b_w) * var(--map-width)/var(--b_width));
+			/*height: calc(var(--b_l) * var(--map-height)/var(--b_height));*/
+			position: absolute;
+			/*top: calc(-1*var(--b_T) * var(--map-height) / var(--b_height));*/
+			/*left: calc(-1*var(--b_L) * var(--map-width) / var(--b_width));*/
+			left:0;top:0;
+			opacity: .5;
+			z-index: -1;
+		}
+	</style>
+</body>
+</html>

@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>box</title>
+  <style>
+    .playground {
+      height:400px;
+      width:400px;
+      background:rgba(0,0,0,.9);
+      border:2px solid green;
+      position:absolute;
+      left:50%; top:50%;
+      transform: translate(-50%,-50%);
+      font-size: 0;
+      white-space: nowrap;
+      perspective:400px;
+      transform-style:preserve-3d;
+      overflow:scroll;
+    }
+
+    .playground::-webkit-scrollbar {
+      display:none;
+    }
+
+    .box {
+      display:inline-block;
+      transform-style:preserve-3d;
+      height:200px;
+      width:200px;
+      padding:50px;
+       /*background:rgba(255,255,255,.2); */
+       /*border:2px solid blue; */
+      box-sizing:border-box;
+      position:relative;
+    }
+
+    .wiggling {
+      animation: wiggle 6s infinite linear both;
+      will-change:transform;
+    }
+
+    @keyframes wiggle {
+      0% {transform: translate(0,0);
+          }
+      25% {transform:translate(0,100%);
+           }
+      50% {transform:translate(100%,100%);
+           }
+      75% {transform:translate(100%,0);
+           }
+      100% {transform:translate(0,0);
+           }
+    }
+
+    .raise {
+      transform:translateZ(50px);
+      transform-style: preserve-3d;
+    }
+
+    button:before {
+      content:'Click to animate ';
+    }
+
+    .face {
+      box-sizing:border-box;
+      width:100px;
+      height:100px;
+      border:2px solid red;
+      background: rgba(255,196,128,.5);
+      font: 60px/100px sans-serif;
+      color:white;
+      text-align:center;
+      position:absolute;
+    }
+
+    .s1 {
+      transform: translateZ(50px);
+      background-color:rgba(10,110,205,.5);
+    }
+
+    .s2 {
+      transform: rotateY(90deg) translateZ(50px) rotate(-90deg);
+      background-color:rgba(120,215,20,.5);
+    }
+
+    .s3 {
+      transform: rotateX(-90deg) translateZ(50px);
+      background-color:rgba(225,30,130,.5);
+    }
+
+    .s4 {
+      transform: rotateY(-90deg) translateZ(50px) rotate(90deg);
+      background-color:rgba(140,235,40,.5);
+    }
+
+    .s5 {
+      transform: rotateX(90deg) translateZ(50px) rotate(180deg);
+      background-color:rgba(50,245,150,.5);
+    }
+
+    .s6 {
+      transform: translateZ(-50px) rotateY(180deg);
+      background-color:rgba(255,160,60,.5);
+    }
+
+    .zoom-box {
+      transform: translateZ(200px);
+      transform-style: preserve-3d;
+      width:content;
+
+    }
+  </style>
+  <script>
+    var initialized = false;
+    if(document.readyState != 'complete' && !initialized)
+      document.addEventListener('readystatechange',register);
+    else
+      register();
+
+    function register(){
+      if (initialized)
+        return;
+      if (document.readyState != 'interactive' && document.readyState != 'complete')
+        setTimeout(register,300); else {
+        document.getElementsByTagName('button')[0].dispatchEvent(
+          new MouseEvent('click',
+           {'view': window,
+           'bubbles': true,
+           'cancelable': true
+         }
+         ));
+        initialized = true;
+      }
+    }
+  </script>
+</head>
+<body>
+<div class="playground">
+  <div class="zoom-box">
+    <div class="box wiggling">
+      <div class="raise">
+        <div class="s6 face">6</div>
+        <div class="s5 face">5</div>
+        <div class="s4 face">4</div>
+        <div class="s3 face">3</div>
+        <div class="s2 face">2</div>
+        <div class="s1 face">1</div>
+      </div>
+    </div>
+    <div class="box wiggling">
+      <div class="raise">
+        <div class="s6 face">6</div>
+        <div class="s5 face">5</div>
+        <div class="s4 face">4</div>
+        <div class="s3 face">3</div>
+        <div class="s2 face">2</div>
+        <div class="s1 face">1</div>
+      </div>
+    </div>
+    <div class="box wiggling">
+      <div class="raise">
+        <div class="s6 face">6</div>
+        <div class="s5 face">5</div>
+        <div class="s4 face">4</div>
+        <div class="s3 face">3</div>
+        <div class="s2 face">2</div>
+        <div class="s1 face">1</div>
+      </div>
+    </div><br>
+    <div class="box wiggling">
+      <div class="raise">
+        <div class="s6 face">6</div>
+        <div class="s5 face">5</div>
+        <div class="s4 face">4</div>
+        <div class="s3 face">3</div>
+        <div class="s2 face">2</div>
+        <div class="s1 face">1</div>
+      </div>
+    </div>
+    <div class="box wiggling">
+      <div class="raise">
+        <div class="s6 face">6</div>
+        <div class="s5 face">5</div>
+        <div class="s4 face">4</div>
+        <div class="s3 face">3</div>
+        <div class="s2 face">2</div>
+        <div class="s1 face">1</div>
+      </div>
+    </div>
+    <div class="box wiggling">
+      <div class="raise">
+        <div class="s6 face">6</div>
+        <div class="s5 face">5</div>
+        <div class="s4 face">4</div>
+        <div class="s3 face">3</div>
+        <div class="s2 face">2</div>
+        <div class="s1 face">1</div>
+      </div>
+    </div><br>
+    <div class="box wiggling">
+      <div class="raise">
+        <div class="s6 face">6</div>
+        <div class="s5 face">5</div>
+        <div class="s4 face">4</div>
+        <div class="s3 face">3</div>
+        <div class="s2 face">2</div>
+        <div class="s1 face">1</div>
+      </div>
+    </div>
+    <div class="box wiggling">
+      <div class="raise">
+        <div class="s6 face">6</div>
+        <div class="s5 face">5</div>
+        <div class="s4 face">4</div>
+        <div class="s3 face">3</div>
+        <div class="s2 face">2</div>
+        <div class="s1 face">1</div>
+      </div>
+    </div>
+    <div class="box wiggling">
+      <div class="raise">
+        <div class="s6 face">6</div>
+        <div class="s5 face">5</div>
+        <div class="s4 face">4</div>
+        <div class="s3 face">3</div>
+        <div class="s2 face">2</div>
+        <div class="s1 face">1</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<button style="position:fixed;top:50%;left:calc(0.5 * calc(50vw - 200px));transform:translate(-50%,-50%);" onclick="document.querySelectorAll('.box').forEach(function(e){e.classList.toggle('wiggling');}); if (document.querySelector('.box').classList.contains('wiggling')) this.innerHTML='&#10074;&#10074;'; else this.innerHTML='&#9658;';">&#9658;</button>
+
+</body>
+</html>

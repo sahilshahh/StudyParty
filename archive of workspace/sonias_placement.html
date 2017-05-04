@@ -1,0 +1,726 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Placing Furniture</title>
+	<style>
+		/* Basic dimension information about the map that can be used when positioning furniture.*/
+		#map {
+			--RES: 500px;
+			--map-width: var(--RES);
+			--map-height: var(--RES);
+			width: var(--map-width);
+			height: var(--map-height);
+		}
+	</style>
+</head>
+<body>
+	<!-- You can pretend this <div> is the map. It is currently sized at 500px by 500px (RES by RES), but this is only for convenience in debugging. In order to transfer the furniture positions correctly to the actual map, the furniture will need to be sized and placed using percentage units as shown in the examples. -->
+	<div id='map' style='position:absolute; left:50%; top:50%; transform:translate(-50%,-50%); border: 2px solid black;'>
+		<!-- Blueprint overlayed for convenience. -->
+		<img src='blueprints/fac1_.svg' id='blueprint'>
+
+		<div class='circle table'>1</div>
+		<div class='circle table'>2</div>
+		<div class='circle table'>3</div>
+		<div class='circle table'>4</div>
+		<div class='circle table'>5</div>
+		<div class='circle table'>6</div>
+		<div class='circle table'>7</div>
+		<div class='circle table'>8</div>
+		<div class='circle table'>9</div>
+		<div class='circle table'>10</div>
+
+		<div class='type2-wrapper'>
+			<div class='long-grey table'>1</div>
+			<div class='long-grey table'>2</div>
+			<div class='long-grey table'>3</div>
+			<div class='long-grey table'>4</div>
+			<div class='long-grey table'>5</div>
+			<div class='long-grey table'>6</div>
+			<div class='long-grey table'>7</div>
+			<div class='long-grey table'>8</div>
+			<div class='long-grey table'>9</div>
+			<div class='long-grey table'>10</div>
+			<div class='long-grey table'>11</div>
+			<div class='long-grey table'>12</div>
+			<div class='long-grey table'>13</div>
+			<div class='long-grey table'>14</div>
+			<div class='long-grey table'>15</div>
+			<div class='long-grey table'>16</div>
+			<div class='long-grey table'>17</div>
+			<div class='long-grey table'>18</div>
+			<div class='long-grey table'>19</div>
+			<div class='long-grey table'>20</div>
+			<div class='long-grey table'>21</div>
+			<div class='long-grey table'>22</div>
+			<div class='long-grey table'>23</div>
+			<div class='long-grey table'>24</div>
+			<div class='long-grey table'>25</div>
+			<div class='long-grey table'>26</div>
+			<div class='long-grey table'>27</div>
+			<div class='long-grey table'>28</div>
+			<div class='long-grey table'>29</div>
+			<div class='long-grey table'>30</div>
+			<div class='long-grey table'>31</div>
+			<div class='long-grey table'>32</div>
+			<div class='long-grey table'>33</div>
+			<div class='long-grey table'>34</div>
+			<div class='long-grey table'>35</div>
+			<div class='long-grey table'>36</div>
+			<div class='long-grey table'>37</div>
+			<div class='long-grey table'>38</div>
+			<div class='long-grey table'>39</div>
+			<div class='long-grey table'>40</div>
+			<div class='long-grey table'>41</div>
+			<div class='long-grey table'>42</div>
+			<div class='long-grey table'>43</div>
+			<div class='long-grey table'>44</div>
+			<div class='long-grey table'>45</div>
+			<div class='long-grey table'>46</div>
+			<div class='long-grey table'>47</div>
+			<div class='long-grey table'>48</div>
+			<div class='long-grey table'>49</div>
+			<div class='long-grey table'>50</div>
+			<div class='long-grey table'>51</div>
+			<div class='long-grey table'>52</div>
+			<div class='long-grey table'>53</div>
+			<div class='long-grey table'>54</div>
+		</div>
+
+		<div class= 'small-square-wrapper'>
+			<div class = 'small-square table' >1</div>
+			<div class = 'small-square table' >2</div>
+			<div class = 'small-square table' >3</div>
+			<div class = 'small-square table' >4</div>
+			<div class = 'small-square table' >5</div>
+			<div class = 'small-square table' >6</div>
+			<div class = 'small-square table' >7</div>
+			<div class = 'small-square table' >8</div>
+			<div class = 'small-square table' >9</div>
+			<div class = 'small-square table' >10</div>
+			<div class = 'small-square table' >11</div>
+			<div class = 'small-square table' >12</div>
+		</div>
+
+		<div class = 'long-rectangle-wrapper'>
+			<div class = 'long-rectangle table'>1</div>
+			<div class = 'long-rectangle table'>2</div>
+			<div class = 'long-rectangle table'>3</div>
+			<div class = 'long-rectangle table'>4</div>
+			<div class = 'long-rectangle table'>5</div>
+			<div class = 'long-rectangle table'>6</div>
+			<div class = 'long-rectangle table'>7</div>
+			<div class = 'long-rectangle table'>8</div>
+			<div class = 'long-rectangle table'>9</div>
+			<div class = 'long-rectangle table'>10</div>
+			<div class = 'long-rectangle table'>11</div>
+			<div class = 'long-rectangle table'>12</div>
+			<div class = 'long-rectangle table'>13</div>
+			<div class = 'long-rectangle table'>14</div>
+
+		</div>
+
+		<div class = 'booth-wrapper'>
+			<div class = 'booth table'>1</div>
+			<div class = 'booth table'>2</div>
+			<div class = 'booth table'>3</div>
+			<div class = 'booth table'>4</div>
+		</div>
+
+	</div>
+
+	<style>
+		/* Examples and stuff */
+		/* The "default" table size and style. Change this if you'd like. */
+		.table {
+			position:relative;
+			left:0;
+			top:0;
+			width: 2%;
+			height: 2%;
+			background: red;
+			font: calc(.02*var(--RES))/calc(.02*var(--RES)) "Segoe UI";
+			color: white;
+			text-align: center;
+		}
+		.circle {
+			position: absolute;
+			width:1.2%; /* overrides "width: 2%" in .table */
+			height: 1.2%;
+			left:13%;
+			top:82%;
+		}
+		.small-square {
+			position:absolute;
+			left:0;
+			top:0;
+			width: 1.4%;
+			height: 1.4%;
+			background: orange;
+			font: calc(.02*var(--RES))/calc(.02*var(--RES)) "Segoe UI";
+			color: white;
+			text-align: center;
+			font-size: 6px;
+		}
+		.long-rectangle {
+			position:absolute;
+			left:42.5%;
+			top:73.5%;
+			width: 2.9%;
+			height: 5.0%;
+			background: black;
+			font: calc(.02*var(--RES))/calc(.02*var(--RES)) "Segoe UI";
+			color: white;
+			text-align: center;
+			font-size: 14px;
+		}
+		.booth{
+			position:absolute;
+			left:0;
+			top:0;
+			width: 2.9%;
+			height: 4.0%;
+			background: grey;
+			font: calc(.02*var(--RES))/calc(.02*var(--RES)) "Segoe UI";
+			color: white;
+			text-align: center;
+			font-size: 14px;
+		}
+		.long-rectangle:nth-of-type(2){
+			left:42.5%;
+			top:79.75%;
+		}
+		.long-rectangle:nth-of-type(3){
+			left:42.5%;
+			top:41.5%;
+		}
+		.long-rectangle:nth-of-type(4){
+			left:42.5%;
+			top:35.5%;
+		}
+		.long-rectangle:nth-of-type(5){
+			left:55.5%;
+			top:73.5%;
+		}
+		.long-rectangle:nth-of-type(6){
+			left:42.5%;
+			top:80%;
+		}
+		.long-rectangle:nth-of-type(7){
+			left:55.5%;
+			top:73.5%;
+		}
+		.long-rectangle:nth-of-type(8){
+			left:55.5%;
+			top:80%;
+		}
+		.long-rectangle:nth-of-type(9){
+			left:55.5%;
+			top:22.5%;
+		}
+		.long-rectangle:nth-of-type(10){
+			left:55.5%;
+			top:29.0%;
+		}
+		.long-rectangle:nth-of-type(11){
+			left:68%;
+			top:22.5%;
+		}
+		.long-rectangle:nth-of-type(12){
+			left:68%;
+			top:29.0%
+		}
+		.long-rectangle:nth-of-type(13){
+			left:42.5%;
+			top:48.0%;
+		}
+		.long-rectangle:nth-of-type(14){
+			left:42.5%;
+			top:54.5%
+		}
+		.small-square:nth-of-type(1){
+			display:none;
+		}
+		.small-square:nth-of-type(2){
+			left:25%;
+			top: 74%;			
+		}
+		.small-square:nth-of-type(3){
+			left:30%;
+			top: 74%;			
+		}
+		.small-square:nth-of-type(4){
+			left:75%;
+			top: 74%;			
+		}
+		.small-square:nth-of-type(5){
+			left:80%;
+			top: 74%;			
+		}
+		.small-square:nth-of-type(6){
+			left:86%;
+			top: 78%;			
+		}
+		.small-square:nth-of-type(7){
+			left:13%;
+			top: 78%;			
+		}
+		.small-square:nth-of-type(8){
+			left:48%;
+			top: 82%;			
+		}
+		.small-square:nth-of-type(9){
+			left:52%;
+			top: 82%;			
+		}
+		.small-square:nth-of-type(10){
+			left:48%;
+			top: 78%;			
+		}
+		.small-square:nth-of-type(11){
+			left:52%;
+			top: 78%;			
+		}
+		.small-square:nth-of-type(12){
+			display:none;
+		}
+		.circle:nth-of-type(2) {
+			/* Notice the ":nth-of-type(..) selector used. This can be helpful for distinguishing otherwise inseparable pieces of furniture. */
+			left:22%;
+			top:78%;
+		}
+		.circle:nth-of-type(3) {
+			/* Notice the ":nth-of-type(..) selector used. This can be helpful for distinguishing otherwise inseparable pieces of furniture. */
+			left:26.5%;
+			top:78%;
+		}
+		.circle:nth-of-type(4) {
+			/* Notice the ":nth-of-type(..) selector used. This can be helpful for distinguishing otherwise inseparable pieces of furniture. */
+			left:77.5%;
+			top:78%;
+		}
+		.circle:nth-of-type(5) {
+			/* Notice the ":nth-of-type(..) selector used. This can be helpful for distinguishing otherwise inseparable pieces of furniture. */
+			left:73.5%;
+			top:78%;
+		}
+		.circle:nth-of-type(6) {
+			/* Notice the ":nth-of-type(..) selector used. This can be helpful for distinguishing otherwise inseparable pieces of furniture. */
+			left:86%;
+			top:82%;
+		}
+		.circle:nth-of-type(7) {
+			/* Notice the ":nth-of-type(..) selector used. This can be helpful for distinguishing otherwise inseparable pieces of furniture. */
+			left:61.5%;
+			top:38%;
+		}
+		.circle:nth-of-type(8) {
+			/* Notice the ":nth-of-type(..) selector used. This can be helpful for distinguishing otherwise inseparable pieces of furniture. */
+			left:64.5%;
+			top:38%;
+		}
+		.circle:nth-of-type(9) {
+			/* Notice the ":nth-of-type(..) selector used. This can be helpful for distinguishing otherwise inseparable pieces of furniture. */
+			left:61.5%;
+			top:41%;
+		}
+		.circle:nth-of-type(10) {
+			/* Notice the ":nth-of-type(..) selector used. This can be helpful for distinguishing otherwise inseparable pieces of furniture. */
+			left:64.5%;
+			top:41%;
+		}
+		.long-grey {
+			position: absolute;
+			width:1.0%; /* overrides "width: 2%" in .table */
+			height: 2.5%;
+			left:17%;
+			top:82%;
+			font-size: 6px;
+		}
+		.long-grey:nth-of-type(2) {
+			/* Notice the ":nth-of-type(..) selector used. This can be helpful for distinguishing otherwise inseparable pieces of furniture. */
+			left:18%;
+			top:82%;
+			background: blue;
+		}
+		.long-grey:nth-of-type(3) {
+			/* Notice the ":nth-of-type(..) selector used. This can be helpful for distinguishing otherwise inseparable pieces of furniture. */
+			left:23.6%;
+			top:82%;
+		}
+		.long-grey:nth-of-type(4) {
+			/* Notice the ":nth-of-type(..) selector used. This can be helpful for distinguishing otherwise inseparable pieces of furniture. */
+			left:24.6%;
+			top:82%;
+		}
+		.long-grey:nth-of-type(5) {
+			/* Notice the ":nth-of-type(..) selector used. This can be helpful for distinguishing otherwise inseparable pieces of furniture. */
+			left:30.2%;
+			top:82%;
+		}
+		.long-grey:nth-of-type(6) {
+			/* Notice the ":nth-of-type(..) selector used. This can be helpful for distinguishing otherwise inseparable pieces of furniture. */
+			left:31.2%;
+			top:82%;
+		}
+		.long-grey:nth-of-type(7) {
+			/* Notice the ":nth-of-type(..) selector used. This can be helpful for distinguishing otherwise inseparable pieces of furniture. */
+			left:68%;
+			top:82%;
+		}
+		.long-grey:nth-of-type(8) {
+			/* Notice the ":nth-of-type(..) selector used. This can be helpful for distinguishing otherwise inseparable pieces of furniture. */
+			left:17%;
+			top:77.3%;
+			background: green;
+		}
+		.long-grey:nth-of-type(9) {
+			/* Notice the ":nth-of-type(..) selector used. This can be helpful for distinguishing otherwise inseparable pieces of furniture. */
+			left:19.5%;
+			top:78.1%;
+			background: yellow;
+		}
+		.long-grey:nth-of-type(10) {
+			/* Notice the ":nth-of-type(..) selector used. This can be helpful for distinguishing otherwise inseparable pieces of furniture. */
+			left:29.5%;
+			top:77.3%;
+			background: pink;
+		}
+		.long-grey:nth-of-type(11) {
+			/* Notice the ":nth-of-type(..) selector used. This can be helpful for distinguishing otherwise inseparable pieces of furniture. */
+			left:32.1%;
+			top:78.1%;
+			background: blue;
+		}
+		.long-grey:nth-of-type(12) {
+			/* Notice the ":nth-of-type(..) selector used. This can be helpful for distinguishing otherwise inseparable pieces of furniture. */
+			left:69%;
+			top:82%;
+			background: blue;
+		}
+		.long-grey:nth-of-type(13) {
+			/* Notice the ":nth-of-type(..) selector used. This can be helpful for distinguishing otherwise inseparable pieces of furniture. */
+			left:18.1%;
+			top:77.0%;
+			width:2.5%; /* overrides "width: 2%" in .table */
+			height: 1.0%;
+			background: purple;
+		}
+		.long-grey:nth-of-type(14) {
+			/* Notice the ":nth-of-type(..) selector used. This can be helpful for distinguishing otherwise inseparable pieces of furniture. */
+			left:30.5%;
+			top:77.0%;
+			width:2.5%; /* overrides "width: 2%" in .table */
+			height: 1.0%;
+			background: purple;
+		}
+		.long-grey:nth-of-type(15) {
+			/* Notice the ":nth-of-type(..) selector used. This can be helpful for distinguishing otherwise inseparable pieces of furniture. */
+			left:17.0%;
+			top:80.0%;
+			width:2.5%; /* overrides "width: 2%" in .table */
+			height: 1.0%;
+			background: brown;
+		}
+		.long-grey:nth-of-type(16) {
+			/* Notice the ":nth-of-type(..) selector used. This can be helpful for distinguishing otherwise inseparable pieces of furniture. */
+			left:29.5%;
+			top:80.0%;
+			width:2.5%; /* overrides "width: 2%" in .table */
+			height: 1.0%;
+			background: brown;
+		}
+		.long-grey:nth-of-type(17) {
+			/* Notice the ":nth-of-type(..) selector used. This can be helpful for distinguishing otherwise inseparable pieces of furniture. */
+			left:67.8%;
+			top:77.3%;
+			background: green;
+		}
+		.long-grey:nth-of-type(18) {
+			/* Notice the ":nth-of-type(..) selector used. This can be helpful for distinguishing otherwise inseparable pieces of furniture. */
+			left:80.3%;
+			top:77.3%;
+			background: pink;
+		}
+		.long-grey:nth-of-type(19) {
+			/* Notice the ":nth-of-type(..) selector used. This can be helpful for distinguishing otherwise inseparable pieces of furniture. */
+			left:70.3%;
+			top:78.1%;
+			background: yellow;
+		}
+		.long-grey:nth-of-type(20) {
+			/* Notice the ":nth-of-type(..) selector used. This can be helpful for distinguishing otherwise inseparable pieces of furniture. */
+			left:19.5%;
+			top:78.1%;
+			background: yellow;
+		}
+		.long-grey:nth-of-type(21) {
+			/* Notice the ":nth-of-type(..) selector used. This can be helpful for distinguishing otherwise inseparable pieces of furniture. */
+			left:82.8%;
+			top:78.1%;
+			background: blue;
+		}
+		.long-grey:nth-of-type(22) {
+			/* Notice the ":nth-of-type(..) selector used. This can be helpful for distinguishing otherwise inseparable pieces of furniture. */
+			left:68.9%;
+			top:77.0%;
+			width:2.5%; /* overrides "width: 2%" in .table */
+			height: 1.0%;
+			background: purple;
+		}
+		.long-grey:nth-of-type(23) {
+			/* Notice the ":nth-of-type(..) selector used. This can be helpful for distinguishing otherwise inseparable pieces of furniture. */
+			left:81.4%;
+			top:77.0%;
+			width:2.5%; /* overrides "width: 2%" in .table */
+			height: 1.0%;
+			background: purple;
+		}
+		.long-grey:nth-of-type(24) {
+			/* Notice the ":nth-of-type(..) selector used. This can be helpful for distinguishing otherwise inseparable pieces of furniture. */
+			left:67.8%;
+			top:80.0%;
+			width:2.5%; /* overrides "width: 2%" in .table */
+			height: 1.0%;
+			background: brown;
+		}
+		.long-grey:nth-of-type(25) {
+			/* Notice the ":nth-of-type(..) selector used. This can be helpful for distinguishing otherwise inseparable pieces of furniture. */
+			left:80.3%;
+			top:80.0%;
+			width:2.5%; /* overrides "width: 2%" in .table */
+			height: 1.0%;
+			background: brown;
+		}
+		.long-grey:nth-of-type(26) {
+			/* Notice the ":nth-of-type(..) selector used. This can be helpful for distinguishing otherwise inseparable pieces of furniture. */
+			left:81.5%;
+			top:82%;
+		}
+		.long-grey:nth-of-type(27) {
+			/* Notice the ":nth-of-type(..) selector used. This can be helpful for distinguishing otherwise inseparable pieces of furniture. */
+			left:82.5%;
+			top:82%;
+		}
+		.long-grey:nth-of-type(28) {
+			/* Notice the ":nth-of-type(..) selector used. This can be helpful for distinguishing otherwise inseparable pieces of furniture. */
+			left:76.5%;
+			top:82%;
+		}
+		.long-grey:nth-of-type(29) {
+			/* Notice the ":nth-of-type(..) selector used. This can be helpful for distinguishing otherwise inseparable pieces of furniture. */
+			left:77.5%;
+			top:82%;
+		}
+		.long-grey:nth-of-type(30) {
+			/* Notice the ":nth-of-type(..) selector used. This can be helpful for distinguishing otherwise inseparable pieces of furniture. */
+			left:55%;
+			top:39%;
+		}
+		.long-grey:nth-of-type(31) {
+			/* Notice the ":nth-of-type(..) selector used. This can be helpful for distinguishing otherwise inseparable pieces of furniture. */
+			left:57.5%;
+			top:40.2%;
+		}
+		.long-grey:nth-of-type(32) {
+			/* Notice the ":nth-of-type(..) selector used. This can be helpful for distinguishing otherwise inseparable pieces of furniture. */
+			width:2.5%; /* overrides "width: 2%" in .table */
+			height: 1.0%;
+			left:55.1%;
+			top:41.7%;
+		}
+		.long-grey:nth-of-type(33) {
+			/* Notice the ":nth-of-type(..) selector used. This can be helpful for distinguishing otherwise inseparable pieces of furniture. */
+			width:2.5%; /* overrides "width: 2%" in .table */
+			height: 1.0%;
+			left:56.2%;
+			top:38.8%;
+		}
+		.long-grey:nth-of-type(34) {
+			width:2.5%; /* overrides "width: 2%" in .table */
+			height: 1.0%;
+			left:67.8%;
+			top:41.7%;
+		}
+		.long-grey:nth-of-type(35) {
+			width:2.5%; /* overrides "width: 2%" in .table */
+			height: 1.0%;
+			left:68.8%;
+			top:38.9%;
+		}
+		.long-grey:nth-of-type(36) {
+			left:67.7%;
+			top:39%;
+		}
+		.long-grey:nth-of-type(37) {
+			left:70.4%;
+			top:40.1%;
+		}
+		.long-grey:nth-of-type(38) {
+			left:55%;
+			top:13.9%;
+		}
+		.long-grey:nth-of-type(39) {
+			width:2.5%; /* overrides "width: 2%" in .table */
+			height: 1.0%;
+			left:56.2%;
+			top:13.5%;
+		}
+		.long-grey:nth-of-type(40) {
+			width:2.5%; /* overrides "width: 2%" in .table */
+			height: 1.0%;
+			left:55%;
+			top:16.25%;
+		}
+		.long-grey:nth-of-type(41) {
+			left:57.8%;
+			top:14.7%;
+		}
+		.long-grey:nth-of-type(42) {
+			left:67%;
+			top:13.9%;
+		}
+		.long-grey:nth-of-type(43) {
+			width:2.5%; /* overrides "width: 2%" in .table */
+			height: 1.0%;
+			left:68.2%;
+			top:13.5%;
+		}
+		.long-grey:nth-of-type(44) {
+			width:2.5%; /* overrides "width: 2%" in .table */
+			height: 1.0%;
+			left:67.2%;
+			top:16.25%;
+		}
+		.long-grey:nth-of-type(45) {
+			left:69.8%;
+			top:14.7%;
+		}
+		.long-grey:nth-of-type(46) {
+			left:80.5%;
+			top:13.9%;
+		}
+		.long-grey:nth-of-type(47) {
+			width:2.5%; /* overrides "width: 2%" in .table */
+			height: 1.0%;
+			left:81.7%;
+			top:13.5%;
+		}
+		.long-grey:nth-of-type(48) {
+			width:2.5%; /* overrides "width: 2%" in .table */
+			height: 1.0%;
+			left:80.4%;
+			top:16.25%;
+		}
+		.long-grey:nth-of-type(49) {
+			left:82.8%;
+			top:14.7%;
+		}
+		.long-grey:nth-of-type(50) {
+			left:61.5%;
+			top:30.9%;
+			width:2.5%; /* overrides "width: 2%" in .table */
+			height: 1.0%;
+		}
+		.long-grey:nth-of-type(51) {
+			left:61.5%;
+			top:29.9%;
+			width:2.5%; /* overrides "width: 2%" in .table */
+			height: 1.0%;
+		}
+		.long-grey:nth-of-type(52) {
+			left:61.5%;
+			top:28.9%;
+			width:2.5%; /* overrides "width: 2%" in .table */
+			height: 1.0%;
+		}
+		.long-grey:nth-of-type(53) {
+			left:61.5%;
+			top:27.9%;
+			width:2.5%; /* overrides "width: 2%" in .table */
+			height: 1.0%;
+		}
+		.booth:nth-of-type(1) {
+			left:56.5%;
+			top:6.9%;
+		}
+		.booth:nth-of-type(2) {
+			left:63.5%;
+			top:6.9%;
+		}
+		.booth:nth-of-type(3) {
+			left:70.5%;
+			top:6.9%;
+		}
+		.booth:nth-of-type(4) {
+			left:77.5%;
+			top:6.9%;
+		}
+		.column {
+			position: absolute;
+			left: calc(2.2/7 * var(--map-width));
+			top: calc(2/7 * var(--map-height));
+			/* Here you see another way to do "percentage" units. They're not really percents, but the attributes "left" and "top" do not depend on the actual dimensions of the map. (There is only one dimension actually, because it's a square.) So this is fine and it will transfer. The calc(...) function is useful for this kind of thing. Use it if you find it convenient. */
+			/* Use temporary styles like borders, padding, and background to help you debug.*/
+			border: 2px solid red;
+			padding: 5px;
+			background: brown;
+			width:3%;
+		}
+		.column > .table {
+			width: calc(0.02 * var(--map-width));
+			margin-bottom: 20%;
+			/* Beware that percents will be relative to the parent not necessarily the map. Like here, the margin bottom is 20% of the .column width. How unintuitive. Not only is it relative to the width rather than say the height, but also it means you can't use percents if you make a layout container. Two solutions are to do the math and use percents anyway or to use calc(..). For instance, solving x * 3% = 20% gives the correct x to use relative to the map. You can try using x=660% for margin-bottom and you will get the expected results. */
+		}
+		.example-type3 {
+			margin: 0 auto;
+			/* If you do not use position:absolute, you can use margin: 0 auto to center the element in its container. Specifically, "margin:0 auto" means "zero margins vertically" and "auto margins horizontally".*/
+		}
+		.example-type3:nth-child(even) {
+			/* Notice you can select all children in a sequence an+b with the nth-child selector as well. */
+			
+			margin-left: -2%;
+			/* Also, if you use a negative left margin, the element will shift to the left by that amount. (margin and padding percents are relative to parent WIDTH.) In this case, the elements moved a lot more than expected (compared to the even numbered siblings) because the centering from margin: 0 auto was overridden. */
+			box-sizing: border-box;
+			/* This is an important concept. All elements have their dimensions measured by default as including the padding but excluding the border and margin. For example, if you set an element to have 1px width and a 100px border, the element will appear 201px wide but it will be positioned in the layout as if it was only 1px wide. Setting the attribute "box-sizing" to "border-box" will make the border included in the dimension calculations of an element. So the element described in the example above would now be 201px wide and would be positioned as such. Some people find the default sizing of box-sizing:content-box very unintuitive, so they set box-sizing:border-box on all the elements. This is fine if you wish to do this. Or you can set it on a few elements temporarily just to help with debugging. Note in reality the furniture elements won't have borders anyway. To set box-sizing:border-box on all elements add the following style:
+			* {
+				box-sizing:border-box;
+			}
+			*/
+			background: green;
+			/* Temporary styles are very helpful for debugging. */
+		}
+	</style>
+	<style>
+		/* Write your furniture sizing and positioning information here.
+			...
+		*/
+	</style>
+
+
+
+	<style>
+		/* Don't worry about this. These styles are just to set the size and position of the building blueprint correctly.*/
+		:root {
+			--b_w: 773.805;
+			--b_l: 609.509;
+			--b_gap: 40.76;
+			--b_L: 227.004;
+			--b_R: 13.986;
+			--b_T: 15.721;
+			--b_B: 42.711;
+			--b_width: calc(var(--b_w) - var(--b_L) - var(--b_R));
+			--b_height: calc(var(--b_l) - var(--b_T) - var(--b_B));
+		}
+		#blueprint {
+			width: calc(var(--b_w) * var(--RES)/var(--b_width));
+			height: calc(var(--b_l) * var(--RES)/var(--b_height));
+			position: absolute;
+			top: calc(-1*var(--b_T) * var(--RES) / var(--b_height));
+			left: calc(-1*var(--b_L) * var(--RES) / var(--b_width));
+			opacity: .5;
+			z-index: -1;
+		}
+	</style>
+</body>
+</html>

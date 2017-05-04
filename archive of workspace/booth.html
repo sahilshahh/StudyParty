@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Booth Super Rough Sketch</title>
+  <link rel="stylesheet" type="text/css" href="furniture.css">
+</head>
+<body>
+  <div style='transform-style: preserve-3d;border: 2px solid blue;transform: translate(300px,300px) '>
+    <div class='booth furniture'>
+      <div class='t-box booth-B1'>
+        <div class='t-face t-s1'>1</div>
+        <div class='t-face t-s2'>2</div>
+        <div class='t-face t-s3'>3</div>
+        <div class='t-face t-s4'>4</div>
+        <div class='t-face t-s6'>6</div>
+      </div>
+      <div class='booth-C'>
+        <div class='w-box'>
+          <div class='w-face w-s1'>1</div>
+          <div class='w-face w-s2'>2</div>
+          <div class='w-face w-s3'>3</div>
+          <div class='w-face w-s4'>4</div>
+        </div>
+        <div class='box'>
+          <div class='face s1'>1</div>
+          <div class='face s2'>2</div>
+          <div class='face s4'>4</div>
+        </div>
+        <div class='t-box'>
+          <div class='t-face t-s1'>1</div>
+          <div class='t-face t-s2'>2</div>
+          <div class='t-face t-s4'>4</div>
+        </div>
+      </div>
+      <div class='booth-B2'>
+        <div class='t-box'>
+          <div class='t-face t-s1'>1</div>
+          <div class='t-face t-s2'>2</div>
+          <div class='t-face t-s4'>4</div>
+          <div class='t-face t-s5'>5</div>
+          <div class='t-face t-s6'>6</div>
+        </div>
+        <div class='t-box'>
+          <div class='t-face t-s1'>1</div>
+          <div class='t-face t-s2'>2</div>
+          <div class='t-face t-s4'>4</div>
+          <div class='t-face t-s5'>5</div>
+          <div class='t-face t-s6'>6</div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <h1 style="position:fixed;bottom:10px;margin:0 auto;font-size:1.7em;font-family:sans-serif; color:rgba(255,255,255,.5)">Click, hover, scroll to change perspective</h1>
+
+  <script>
+    var pg= document.querySelector('.playground');
+    pg.scrollTop= (pg.scrollHeight-pg.clientHeight)/2-pg.clientHeight/2;
+    pg.scrollLeft= (pg.scrollWidth-pg.clientWidth)/2;
+  </script>
+
+</body>
+</html>

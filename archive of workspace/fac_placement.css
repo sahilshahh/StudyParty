@@ -1,0 +1,453 @@
+.table {
+	position:relative;
+	left:0;
+	top:0;
+	width: 2%;
+	height: 2%;
+	background: red;
+	font: calc(.02*var(--RES))/calc(.02*var(--RES)) "Segoe UI";
+	color: white;
+	text-align: center;
+}
+.circle {
+	position: absolute;
+	width:1.2%; /* overrides "width: 2%" in .table */
+	height: 1.2%;
+	left:13%;
+	top:82%;
+	--RES: calc(.012 * (100vw - 2*2vw) * 1.5 * 97.106 / (147.644 - 1));
+	--SCALE: 1;
+	--W: var(--RES);
+	--L: var(--RES);
+}
+.ctable {
+	border-radius: 50%;
+	transform: translateZ(var(--RES));
+	background: blue;
+	width: var(--W);
+	height: var(--L);
+}
+
+.small-square {
+	position:absolute;
+	left:0;
+	top:0;
+	width: 1.4%;
+	height: 1.4%;
+	margin: calc(-1*var(--W));
+	padding: var(--W);
+}
+.long-rectangle {
+	position:absolute;
+	left:42.5%;
+	top:73.5%;
+	width: 2.9%;
+	height: 5.0%;
+}
+.boothset{
+	position:absolute;
+	left:0;
+	top:0;
+	width: 2.9%;
+	height: 4.0%;
+	/*transform-style: preserve-3d;transform: scale3d(5,5,5) translateY(60px);*/
+}
+.booth .face,
+.booth .t-face,
+.booth .w-face {
+	background: rgba(182,72,60,1);
+	border-color: rgba(182,72,60,1);
+}
+.booth-C .face,
+.booth-C .t-face,
+.booth-C .w-face {
+	background: rgba(199,112,92,1);
+	border-color: rgba(199,112,92,1);
+}
+
+.booth:nth-child(1) {
+	position: absolute;
+	left:0;top:100%;
+	transform-origin: 0 0;
+	transform: rotate(-90deg);
+}
+.booth:nth-child(2) {
+	position: absolute;
+	left:100%;top:0;
+	transform-origin: 0 0;
+	transform: rotate(90deg);
+}
+
+.boothset > .r-rectangle {
+	position: absolute;
+	left:50%;top:0;
+	transform-origin: 0 0;
+	transform: translate(-50%,0);
+}
+
+.long-rectangle:nth-of-type(1){
+	display:none;
+}
+.long-rectangle:nth-of-type(2){
+	left:42.5%;
+	top:41.5%;
+}
+.long-rectangle:nth-of-type(3){
+	left:42.5%;
+	top:35.5%;
+}
+.long-rectangle:nth-of-type(4){
+	left:55.5%;
+	top:73.5%;
+}
+.long-rectangle:nth-of-type(5){
+	left:42.5%;
+	top:80%;
+}
+.long-rectangle:nth-of-type(6){
+	display: none;
+}
+.long-rectangle:nth-of-type(7){
+	left:55.5%;
+	top:80%;
+}
+.long-rectangle:nth-of-type(8){
+	left:55.5%;
+	top:22.5%;
+}
+.long-rectangle:nth-of-type(9){
+	left:55.5%;
+	top:29.0%;
+}
+.long-rectangle:nth-of-type(10){
+	left:68%;
+	top:22.5%;
+}
+.long-rectangle:nth-of-type(11){
+	left:68%;
+	top:29.0%
+}
+.long-rectangle:nth-of-type(12){
+	left:42.5%;
+	top:48.0%;
+}
+.long-rectangle:nth-of-type(13){
+	left:42.5%;
+	top:54.5%
+}
+.small-square:nth-of-type(1){
+	display:none;
+}
+.small-square:nth-of-type(2){
+	left:25%;
+	top: 74%;			
+}
+.small-square:nth-of-type(3){
+	left:30%;
+	top: 74%;			
+}
+.small-square:nth-of-type(4){
+	left:75%;
+	top: 74%;			
+}
+.small-square:nth-of-type(5){
+	left:80%;
+	top: 74%;			
+}
+.small-square:nth-of-type(6){
+	left:88%;
+	top: 78%;			
+}
+.small-square:nth-of-type(7){
+	left:13%;
+	top: 78%;			
+}
+.small-square:nth-of-type(8){
+	left:48%;
+	top: 82%;			
+}
+.small-square:nth-of-type(9){
+	left:52%;
+	top: 82%;			
+}
+.small-square:nth-of-type(10){
+	left:48%;
+	top: 78%;			
+}
+.small-square:nth-of-type(11){
+	left:52%;
+	top: 78%;			
+}
+.small-square:nth-of-type(12){
+	display:none;
+}
+.circle:nth-of-type(2) {
+	/* Notice the ":nth-of-type(..) selector used. This can be helpful for distinguishing otherwise inseparable pieces of furniture. */
+	left:22%;
+	top:78%;
+}
+.circle:nth-of-type(3) {
+	/* Notice the ":nth-of-type(..) selector used. This can be helpful for distinguishing otherwise inseparable pieces of furniture. */
+	left:26.5%;
+	top:78%;
+}
+.circle:nth-of-type(4) {
+	/* Notice the ":nth-of-type(..) selector used. This can be helpful for distinguishing otherwise inseparable pieces of furniture. */
+	left:77.5%;
+	top:78%;
+}
+.circle:nth-of-type(5) {
+	/* Notice the ":nth-of-type(..) selector used. This can be helpful for distinguishing otherwise inseparable pieces of furniture. */
+	left:73.5%;
+	top:78%;
+}
+.circle:nth-of-type(6) {
+	/* Notice the ":nth-of-type(..) selector used. This can be helpful for distinguishing otherwise inseparable pieces of furniture. */
+	left:86%;
+	top:82%;
+}
+.circle:nth-of-type(7) {
+	/* Notice the ":nth-of-type(..) selector used. This can be helpful for distinguishing otherwise inseparable pieces of furniture. */
+	left:61.5%;
+	top:38%;
+}
+.circle:nth-of-type(8) {
+	/* Notice the ":nth-of-type(..) selector used. This can be helpful for distinguishing otherwise inseparable pieces of furniture. */
+	left:64.5%;
+	top:38%;
+}
+.circle:nth-of-type(9) {
+	/* Notice the ":nth-of-type(..) selector used. This can be helpful for distinguishing otherwise inseparable pieces of furniture. */
+	left:61.5%;
+	top:41%;
+}
+.circle:nth-of-type(10) {
+	/* Notice the ":nth-of-type(..) selector used. This can be helpful for distinguishing otherwise inseparable pieces of furniture. */
+	left:64.5%;
+	top:41%;
+}
+.long-grey {
+	position: absolute;
+	height:1.0%; /* overrides "width: 2%" in .table */
+	width: 2.5%;
+	left:17%;
+	top:82%;
+	transform-style: preserve-3d;
+	transform-origin: 0 0;
+	transform: rotate(-90deg) translateX(-100%);
+}
+.long-grey:nth-of-type(2) {
+	/* Notice the ":nth-of-type(..) selector used. This can be helpful for distinguishing otherwise inseparable pieces of furniture. */
+	left:18%;
+	top:82%;
+}
+.long-grey:nth-of-type(3) {
+	/* Notice the ":nth-of-type(..) selector used. This can be helpful for distinguishing otherwise inseparable pieces of furniture. */
+	left:23.6%;
+	top:82%;
+}
+.long-grey:nth-of-type(4) {
+	/* Notice the ":nth-of-type(..) selector used. This can be helpful for distinguishing otherwise inseparable pieces of furniture. */
+	left:24.6%;
+	top:82%;
+}
+.long-grey:nth-of-type(5) {
+	/* Notice the ":nth-of-type(..) selector used. This can be helpful for distinguishing otherwise inseparable pieces of furniture. */
+	left:30.2%;
+	top:82%;
+}
+.long-grey:nth-of-type(6) {
+	/* Notice the ":nth-of-type(..) selector used. This can be helpful for distinguishing otherwise inseparable pieces of furniture. */
+	left:31.2%;
+	top:82%;
+}
+.long-grey:nth-of-type(7) {
+	/* Notice the ":nth-of-type(..) selector used. This can be helpful for distinguishing otherwise inseparable pieces of furniture. */
+	left:68%;
+	top:82%;
+}
+.long-grey:nth-of-type(8) {
+	/* Notice the ":nth-of-type(..) selector used. This can be helpful for distinguishing otherwise inseparable pieces of furniture. */
+	left:69%;
+	top:82%;
+}
+.long-grey:nth-of-type(11) {
+	/* Notice the ":nth-of-type(..) selector used. This can be helpful for distinguishing otherwise inseparable pieces of furniture. */
+	left:81.5%;
+	top:82%;
+}
+.long-grey:nth-of-type(12) {
+	/* Notice the ":nth-of-type(..) selector used. This can be helpful for distinguishing otherwise inseparable pieces of furniture. */
+	left:82.5%;
+	top:82%;
+}
+.long-grey:nth-of-type(9) {
+	/* Notice the ":nth-of-type(..) selector used. This can be helpful for distinguishing otherwise inseparable pieces of furniture. */
+	left:76.5%;
+	top:82%;
+}
+.long-grey:nth-of-type(10) {
+	/* Notice the ":nth-of-type(..) selector used. This can be helpful for distinguishing otherwise inseparable pieces of furniture. */
+	left:77.5%;
+	top:82%;
+}
+.long-grey:nth-of-type(13) {
+	left:61.5%;
+	top:30.9%;
+	width:2.5%; /* overrides "width: 2%" in .table */
+	height: 1.0%;
+	transform-style: preserve-3d;
+	transform-origin: 0 0;
+	transform: initial;
+}
+.long-grey:nth-of-type(14) {
+	left:61.5%;
+	top:29.9%;
+	width:2.5%; /* overrides "width: 2%" in .table */
+	height: 1.0%;
+	transform-style: preserve-3d;
+	transform-origin: 0 0;
+	transform: initial;
+}
+.long-grey:nth-of-type(15) {
+	left:61.5%;
+	top:28.9%;
+	width:2.5%; /* overrides "width: 2%" in .table */
+	height: 1.0%;
+	transform-style: preserve-3d;
+	transform-origin: 0 0;
+	transform: initial;
+}
+.long-grey:nth-of-type(16) {
+	left:61.5%;
+	top:27.9%;
+	width:2.5%; /* overrides "width: 2%" in .table */
+	height: 1.0%;
+	transform-style: preserve-3d;
+	transform-origin: 0 0;
+	transform: initial;
+}
+
+.pillartable:nth-child(1) {
+	left: 16.5%;
+	top: 77.5%;
+}
+
+.pillartable:nth-child(2) {
+	left: 29.75%;
+	top: 77.5%;
+}
+
+.pillartable:nth-child(3) {
+	left: 69%;
+	top: 77.5%;
+}
+
+.pillartable:nth-child(4) {
+	left: 82.25%;
+	top: 77.5%;
+}
+
+.pillartable:nth-child(5) {
+	left: 56%;
+	top: 39.25%;
+}
+
+.pillartable:nth-child(6) {
+	left: 69%;
+	top: 39.25%;
+}
+
+.pillartable:nth-child(7) {
+	left: 56%;
+	top: 14%;
+}
+
+.pillartable:nth-child(8) {
+	left: 69%;
+	top: 14%;
+}
+
+.pillartable:nth-child(9) {
+	left: 82.25%;
+	top: 14%;
+}
+
+.pillartable {
+	position: absolute;
+	width: 3.5%;
+	height: 3.5%;
+}
+
+.boothset:nth-of-type(1) {
+	left:56.5%;
+	top:6.9%;
+}
+.boothset:nth-of-type(2) {
+	left:63.5%;
+	top:6.9%;
+}
+.boothset:nth-of-type(3) {
+	left:70.5%;
+	top:6.9%;
+}
+.boothset:nth-of-type(4) {
+	left:77.5%;
+	top:6.9%;
+}
+
+.hightable .face {
+	background: rgba(206,124,84,1);
+	font-size: 0;
+}
+
+.hightable-L .face.s1,
+.hightable-L .face.s3,
+.hightable-L .face.s5,
+.hightable-R .face.s1,
+.hightable-R .face.s3,
+.hightable-R .face.s5 {
+	background: rgba(117,111,111,1);
+}
+
+.pillartable .face,
+.pillartable .t-face {
+	background: rgba(244,244,244,1);
+	font-size: 0;
+}
+
+.pillartable .t-face {
+	border-color: rgba(244,244,244,1);
+}
+
+.pillartable .t-face.t-s3 {
+	background: rgba(0,0,0,1);
+	border-color: rgba(0,0,0,1);
+}
+
+.pillartable-P .face {
+	background: rgba(208,215,173,1);
+}
+
+.ctable {
+	background: rgba(254,233,175,1);
+}
+
+.fork-leg .t-face,
+.r-rectangle .face {
+	background: rgba(0,0,0,1);
+	border-color: rgba(0,0,0,1);
+	font-size: 0;
+}
+
+.fork-leg .t-s1,
+.fork-leg .face {
+	background: rgba(244,244,244,1);
+	border-color: rgba(244,244,244,1);
+	font-size: 0;
+}
+
+.r-rectangle .face.s1 {
+	background: rgba(222,222,222,1);
+	border: .001px solid rgba(0,0,0,.3);
+}

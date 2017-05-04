@@ -1,0 +1,105 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="900px" height="600px" preserveAspectRatio="xMinYMin meet">
+
+
+<image xlink:href="http://www.pulmonair.org/wp-content/uploads/2014/01/background-sky.png" width="1350" height="600" preserveAspectRatio="xMinYMax slice"/>
+<!--   <rect width="100%" height="50%"/> -->
+  <g transform="rotate(-15 2304 2889)">
+    <animateTransform attributeName="transform"
+                          attributeType="XML"
+                          type="rotate"
+                          from="-8 2304 2889"
+                          to="10 2304 2889"
+                          dur="15s"
+                          repeatCount="indefinite"/>
+  <svg width="300" height="300" x="60" y="150" preserveAspectRatio="xMidYMid meet" mask="url(#moresoft)">
+<!-- <rect width="100" height="100" /> -->
+    <image xlink:href="http://images6.fanpop.com/image/photos/39700000/Ao-the-Squirrel-akatsuki-no-yona-39779174-500-258.gif" clip-path="url(#circle2)" mask="url(#soft)" preserveAspectRatio="xMidYMid meet" width="100%" height="100%" transform="rotate(-20 150 150)"/>
+    <clipPath id="circle2">
+      <ellipse cx="150" cy="150" rx="150" ry="90"/>
+    </clipPath>
+    <mask id="soft">
+      <rect width="300" height="300" fill="url(#grad)" transform="rotate(-20 150 150)"/>
+    </mask>
+    <mask id="moresoft">
+      <rect x="0" y="0" width="300" height="300" fill="url(#lingrad)" transform="rotate(-20 150 150)"/>
+    </mask>
+<!--     <rect width="100" height="100" fill="url(#grad)"/> -->
+    <radialGradient id="grad" spreadMethod="reflect" fx=".20" r=".5">
+      <stop offset="0" stop-color="white"/>
+      <stop offset="100" stop-color="rgba(255,255,255.75)"/>
+    </radialGradient>
+    <linearGradient id="lingrad" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="rgba(0,0,0,.5)"/>
+      <stop offset=".5" stop-color="white"/>
+      <stop offset=".75" stop-color="rgba(0,0,0,.5)"/>
+    </linearGradient>
+  </svg>
+  </g>
+  <g transform="rotate(45 2304 2889)">
+    <animateTransform attributeName="transform"
+                          attributeType="XML"
+                          type="rotate"
+                          from="25 2304 2889"
+                          to="-15 2304 2889"
+                          dur="20s"
+                          repeatCount="indefinite"/>
+  <svg width="300" height="300" x="420" y="420" preserveAspectRatio="xMaxYMid meet" mask="url(#moresoftb)">
+<!-- <rect width="100" height="100" /> -->
+    <image xlink:href="https://s-media-cache-ak0.pinimg.com/originals/f6/a4/fc/f6a4fc97b95f9225557f4b139c687560.gif" clip-path="url(#circle2b)" mask="url(#softb)" preserveAspectRatio="xMidYMid meet" width="100%" height="100%" transform="rotate(-10 150 150)"/>
+    <clipPath id="circle2b">
+      <ellipse cx="150" cy="150" rx="150" ry="90"/>
+    </clipPath>
+    <mask id="softb">
+      <rect width="300" height="300" fill="url(#gradb)" transform="rotate(-10 150 150)"/>
+    </mask>
+    <mask id="moresoftb">
+      <rect x="0" y="0" width="300" height="300" fill="url(#lingradb)" transform="rotate(-10 150 150)"/>
+    </mask>
+<!--     <rect width="100" height="100" fill="url(#grad)"/> -->
+    <radialGradient id="gradb" spreadMethod="reflect" fx="0" r=".5">
+      <stop offset="0" stop-color="white"/>
+      <stop offset="100" stop-color="rgba(255,255,255,0)"/>
+    </radialGradient>
+    <linearGradient id="lingradb" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="rgba(0,0,0,0)"/>
+      <stop offset=".5" stop-color="white"/>
+      <stop offset=".75" stop-color="rgba(0,0,0,0)"/>
+    </linearGradient>
+  </svg>
+  </g>
+  <svg viewBox="0 92 768 779" height="600" width="600" x="150" preserveAspectRatio="xMinYMin meet">
+    <path fill="#FFD700"      d="
+	M530.7,479.5c0,79.7-64.6,144.3-144.3,144.3c-79.7,0-144.4-64.6-144.4-144.3c0-79.7,64.6-144.4,144.4-144.4
+	C466.1,335.2,530.7,399.8,530.7,479.5z M383.9,297.3c20,0,39.2,3.2,57.3,9.1c-23-48.5-12.9-101.1-12.9-101.1
+	C461.1,80,366.1,98.7,366.1,98.7c71.3,24.2,9.9,87.1,9.9,87.1c-67.2,60.1-69.6,103.2-63.2,125.8
+	C334.6,302.4,358.7,297.3,383.9,297.3z M158.3,294.7c0,88.2,29.2,119.3,50.2,130.3c13.5-41.9,41.6-77.2,78.3-100
+	c-48.7-16.4-79.1-56.3-79.1-56.3C136.2,160.8,86.8,244,86.8,244C152.3,207,158.3,294.7,158.3,294.7z M217.5,561.1
+	c-11.5-24.1-17.9-51-17.9-79.4c0-16.4,2.2-32.4,6.2-47.5C160,456.6,110.7,450,110.7,450c-126.9-25.7-103,68-103,68
+	c20.2-72.5,86.4-14.7,86.4-14.7C152.8,562,194,566.7,217.5,561.1z M542.7,387.9c23.6-42.8,64.4-65.5,64.4-65.5
+	c117-55.5,41.6-116.2,41.6-116.2c27.3,70.2-60.3,63.6-60.3,63.6c-99.5-14.3-131,19.5-140.8,38.9
+	C487.6,323.3,521.2,351.6,542.7,387.9z M760.2,435.4c-20.2,72.5-86.4,14.7-86.4,14.7c-62.6-62.6-105.3-63.7-127.8-56.6
+	c14.3,26.2,22.4,56.2,22.4,88.1c0,12.4-1.2,24.6-3.6,36.4c45.1-21,92.5-14.6,92.5-14.6C784.1,529.2,760.2,435.4,760.2,435.4z
+	 M616.1,660.5c-0.9-91.9-32.8-121.5-54-131c-11.3,42.2-37.2,78.4-71.9,103c47.2,16.5,76.8,54.5,76.8,54.5
+	c72.6,107.2,121.2,23.5,121.2,23.5C622.9,748.1,616.1,660.5,616.1,660.5z M383.9,666c-13.9,0-27.4-1.5-40.4-4.5
+	c18,47.2,7.4,95.1,7.4,95.1C314.6,881,410.1,865,410.1,865c-70.6-26.2-7.4-87.4-7.4-87.4c77.3-65.3,72.4-111.4,64.4-131.4
+	C442.1,658.9,413.8,666,383.9,666z M225.6,576.2c-19.7,45.7-59.4,72.5-59.4,72.5C54.4,713.9,134.7,768,134.7,768
+	c-33.2-67.6,54.7-68.5,54.7-68.5c89.7,5.1,122-23.3,133.6-43.8C282,641.4,247.6,612.9,225.6,576.2z">
+      <animateTransform attributeName="transform"
+                          attributeType="XML"
+                          type="rotate"
+                          from="0 384 481.5"
+                          to="360 384 481.5"
+                          dur="35s"
+                          repeatCount="indefinite"/>
+    </path>
+  </svg>
+  <svg width="240" height="240" x="324" y="180" viewbox="0 0 100 100" preserveAspectRatio="xMidYMid meet">
+<!--     <rect width="100%" height="100%"/> -->
+  <image xlink:href="https://s-media-cache-ak0.pinimg.com/originals/fc/60/6c/fc606cdf242c599d954a774dd94da419.jpg" width="100%" height="100%" preserveAspectRatio="xMidYMid slice" clip-path="url(#circle)"/>
+  <clipPath id="circle">
+    <circle cx="50%" cy="50%" r="50%"/>
+  </clipPath>
+  </svg>
+    <text x="60" y="540" text-anchor="right" font-size="60" fill="rgba(125,235,255,.5)" stroke="rgba(120,120,255,.5)" stroke-width=".3">Oh my, isn't it just sunny today?</text>
+    <!-- <rect width="100" height="50" stroke="blue"/> -->
+</svg>

@@ -1,0 +1,36 @@
+
+<svg id="ct" ...>
+	<defs>
+		...
+		<!-- main ellipse -->
+		<ellipse id="ellipse" .../>
+		<!-- 	glare	 -->
+		<symbol id="glare" ...>
+			...
+		</symbol>
+		<!-- clip for glare -->
+		<clipPath id="glare_clip">
+			<use id="glare_clip_def" .../>
+		</clipPath>
+	</defs>
+	<!-- 	shadow	 -->
+	<use xlink:href="#ellipse" .../>
+	<!-- 	bottom	 -->
+	<g ...>
+		<use xlink:href="#ellipse" .../>
+		<use xlink:href="#ellipse" .../>
+	</g>
+	<!-- 	leg	 -->
+	<rect id="leg" .../>
+	<!-- 	edge	 -->
+	<use id="edge" xlink:href="#ellipse" .../>
+	<!-- 	top	 -->
+	<use id="top" xlink:href="#ellipse" .../>
+	<!-- glare -->
+	<use id="glare_instance" xlink:href="#glare" .../>
+</svg>
+
+<div class="tilt_container">
+	<input id="ct_tilter" ...>
+	<output for="ct_tilter" id="ct_current_tilt"></output>
+</div>

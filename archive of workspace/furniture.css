@@ -1,0 +1,1350 @@
+/* Special mixin for wedge box */
+/* Playground */
+/* args: W,L,H */
+/* Furniture */
+/* args: W,L,H,SCALE */
+.furniture {
+  transform-style: preserve-3d;
+  width: var(--W);
+  height: var(--L);
+  transition: transform .15s;
+  transform-origin: 0 0;
+  transform: scale3d(var(--SCALE), var(--SCALE), var(--SCALE)); }
+
+/* look here for wood filter effect
+    https://www.smashingmagazine.com/2015/05/why-the-svg-filter-is-awesome/
+  */
+.furniture:active {
+  transform: scale3d(var(--SCALE), var(--SCALE), var(--SCALE)) translate(50%, 50%) scale3d(1.3, 1.3, 1.3) rotate(45deg) translate(-50%, -50%); }
+
+.pcl_table .r-rectangle {
+  --RES: 0.95355vw;
+  --SCALE: 2;
+  --W: calc(1 * var(--RES));
+  --L: calc(0.725 * var(--RES));
+  --H: calc(0.725 * var(--RES));
+  --T_bW: calc(0.0725 * var(--RES));
+  --T_t: calc(0.0725 * var(--RES));
+  --B_t: calc(0.0725 * var(--RES));
+  --B_d: calc(0.725 * var(--RES));
+  --L_d: calc(0.0725 * var(--RES)); }
+.pcl_table .r-rectangle-B {
+  /* shared box dimensions */
+  /* dimensions passed to each box through CSS inheritance */
+  --w: calc(0.3625 * var(--RES));
+  --l: calc(0 * var(--RES));
+  --h: calc(0.28254 * var(--RES));
+  --bW: calc(0.16313 * var(--RES));
+  --bL1: calc(0.0725 * var(--RES));
+  --bL2: calc(0 * var(--RES));
+  --sign: 1;
+  --theta: 0.5236rad;
+  --phi1: -0.25118rad;
+  --phi2: 0rad;
+  --hyp: calc(0.32625 * var(--RES));
+  --hyp1: calc(0.29169 * var(--RES));
+  --hyp2: calc(0.28254 * var(--RES));
+  --w1: calc(0.03625 * var(--RES));
+  --l1: calc(0.0725 * var(--RES));
+  /* global positioning */
+  transform-style: preserve-3d;
+  width: calc(0.725 * var(--RES));
+  height: calc(0.725 * var(--RES));
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  border-radius: 50%;
+  background-color: rgba(0, 0, 0, 0.5);
+  /* positioning each box */
+  /* implement border-type() mixin */ }
+  .pcl_table .r-rectangle-B > *:nth-child(1) {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%) rotate(0deg) rotateX(90deg) translateZ(calc(-0.31393 * var(--RES))); }
+  .pcl_table .r-rectangle-B > *:nth-child(2) {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%) rotate(60deg) rotateX(90deg) translateZ(calc(-0.31393 * var(--RES))); }
+  .pcl_table .r-rectangle-B > *:nth-child(3) {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%) rotate(120deg) rotateX(90deg) translateZ(calc(-0.31393 * var(--RES))); }
+  .pcl_table .r-rectangle-B > *:nth-child(4) {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%) rotate(180deg) rotateX(90deg) translateZ(calc(-0.31393 * var(--RES))); }
+  .pcl_table .r-rectangle-B > *:nth-child(5) {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%) rotate(240deg) rotateX(90deg) translateZ(calc(-0.31393 * var(--RES))); }
+  .pcl_table .r-rectangle-B > *:nth-child(6) {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%) rotate(300deg) rotateX(90deg) translateZ(calc(-0.31393 * var(--RES))); }
+  .pcl_table .r-rectangle-B .w-s2, .pcl_table .r-rectangle-B .w-s4 {
+    border-bottom: none;
+    --width: calc(var(--bL2) + var(--l) + var(--bL1));
+    --offset: var(--bL2); }
+  .pcl_table .r-rectangle-B .w-s2, .pcl_table .r-rectangle-B .w-s4 {
+    overflow: hidden; }
+.pcl_table .r-rectangle-L {
+  /* shared box dimensions */
+  /* dimensions passed to each box through CSS inheritance */
+  --w: calc(0.0725 * var(--RES));
+  --l: calc(0.03139 * var(--RES));
+  --h: calc(0.6525 * var(--RES));
+  --bW: calc(0.01812 * var(--RES));
+  --hyp: calc(0.03625 * var(--RES));
+  --theta: 0.5236rad;
+  /* global positioning */
+  transform-style: preserve-3d;
+  width: calc(0.0725 * var(--RES));
+  height: calc(0.0725 * var(--RES));
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  /* positioning each box */ }
+  .pcl_table .r-rectangle-L > *:nth-child(1) {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, 0) rotate(180deg); }
+  .pcl_table .r-rectangle-L > *:nth-child(2) {
+    position: absolute;
+    left: 50%;
+    top: 0;
+    transform: translate(-50%, 0); }
+  .pcl_table .r-rectangle-L .t-face {
+    overflow: hidden !important; }
+.pcl_table .r-rectangle-T {
+  /* shared box dimensions */
+  /* shared dimensions passed to each box through CSS inheritance */
+  --h: calc(0.0725 * var(--RES));
+  /* global positioning */
+  transform-style: preserve-3d;
+  width: calc(1 * var(--RES));
+  height: calc(0.725 * var(--RES));
+  position: relative;
+  left: 50%;
+  top: 50%;
+  transform: translate3d(-50%, -50%, calc(0.6525 * var(--RES)));
+  /* positioning each box */ }
+  .pcl_table .r-rectangle-T > *:nth-child(1) {
+    --w: calc(0.725 * var(--RES));
+    --l: calc(0.0725 * var(--RES));
+    --bW: calc(0.0725 * var(--RES));
+    --hyp: calc(0.10253 * var(--RES));
+    --theta: 0.7854rad;
+    position: absolute;
+    left: 0;
+    top: 0;
+    transform: translate(-50%, -50%) rotate(-90deg) translate(calc(-0.3625 * var(--RES)), calc(0.03625 * var(--RES))); }
+  .pcl_table .r-rectangle-T > *:nth-child(2) {
+    --w: calc(0.855 * var(--RES));
+    --l: calc(0.725 * var(--RES));
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    --hello: world; }
+  .pcl_table .r-rectangle-T > *:nth-child(3) {
+    --w: calc(0.725 * var(--RES));
+    --l: calc(0.0725 * var(--RES));
+    --bW: calc(0.0725 * var(--RES));
+    --hyp: calc(0.10253 * var(--RES));
+    --theta: 0.7854rad;
+    position: absolute;
+    left: 0;
+    top: 0;
+    transform: translate(-50%, -50%) rotate(90deg) translate(calc(0.3625 * var(--RES)), calc(-0.96375 * var(--RES))); }
+  .pcl_table .r-rectangle-T .t-face {
+    overflow: hidden !important; }
+
+.boothset {
+  /* Round Rectangle Table */ }
+  .boothset .r-rectangle {
+    --RES: 3.81421vw;
+    --SCALE: 1;
+    --W: calc(0.19773 * var(--RES));
+    --L: calc(1 * var(--RES));
+    --H: calc(0.19773 * var(--RES));
+    --T_bW: calc(0.19773 * var(--RES));
+    --T_t: calc(0.01977 * var(--RES));
+    --B_t: calc(0.01977 * var(--RES));
+    --B_d: calc(0.19773 * var(--RES));
+    --L_d: calc(0.01977 * var(--RES)); }
+  .boothset .r-rectangle-B {
+    /* shared box dimensions */
+    /* dimensions passed to each box through CSS inheritance */
+    --w: calc(0.09886 * var(--RES));
+    --l: calc(0 * var(--RES));
+    --h: calc(0.07706 * var(--RES));
+    --bW: calc(0.04449 * var(--RES));
+    --bL1: calc(0.01977 * var(--RES));
+    --bL2: calc(0 * var(--RES));
+    --sign: 1;
+    --theta: 0.5236rad;
+    --phi1: -0.25118rad;
+    --phi2: 0rad;
+    --hyp: calc(0.08898 * var(--RES));
+    --hyp1: calc(0.07955 * var(--RES));
+    --hyp2: calc(0.07706 * var(--RES));
+    --w1: calc(0.00989 * var(--RES));
+    --l1: calc(0.01977 * var(--RES));
+    /* global positioning */
+    transform-style: preserve-3d;
+    width: calc(0.19773 * var(--RES));
+    height: calc(0.19773 * var(--RES));
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    border-radius: 50%;
+    background-color: rgba(0, 0, 0, 0.5);
+    /* positioning each box */
+    /* implement border-type() mixin */ }
+    .boothset .r-rectangle-B > *:nth-child(1) {
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      transform: translate(-50%, -50%) rotate(0deg) rotateX(90deg) translateZ(calc(-0.08562 * var(--RES))); }
+    .boothset .r-rectangle-B > *:nth-child(2) {
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      transform: translate(-50%, -50%) rotate(60deg) rotateX(90deg) translateZ(calc(-0.08562 * var(--RES))); }
+    .boothset .r-rectangle-B > *:nth-child(3) {
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      transform: translate(-50%, -50%) rotate(120deg) rotateX(90deg) translateZ(calc(-0.08562 * var(--RES))); }
+    .boothset .r-rectangle-B > *:nth-child(4) {
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      transform: translate(-50%, -50%) rotate(180deg) rotateX(90deg) translateZ(calc(-0.08562 * var(--RES))); }
+    .boothset .r-rectangle-B > *:nth-child(5) {
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      transform: translate(-50%, -50%) rotate(240deg) rotateX(90deg) translateZ(calc(-0.08562 * var(--RES))); }
+    .boothset .r-rectangle-B > *:nth-child(6) {
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      transform: translate(-50%, -50%) rotate(300deg) rotateX(90deg) translateZ(calc(-0.08562 * var(--RES))); }
+    .boothset .r-rectangle-B .w-s2, .boothset .r-rectangle-B .w-s4 {
+      border-bottom: none;
+      --width: calc(var(--bL2) + var(--l) + var(--bL1));
+      --offset: var(--bL2); }
+    .boothset .r-rectangle-B .w-s2, .boothset .r-rectangle-B .w-s4 {
+      overflow: hidden; }
+  .boothset .r-rectangle-L {
+    /* shared box dimensions */
+    /* dimensions passed to each box through CSS inheritance */
+    --w: calc(0.01977 * var(--RES));
+    --l: calc(0.00856 * var(--RES));
+    --h: calc(0.17795 * var(--RES));
+    --bW: calc(0.00494 * var(--RES));
+    --hyp: calc(0.00989 * var(--RES));
+    --theta: 0.5236rad;
+    /* global positioning */
+    transform-style: preserve-3d;
+    width: calc(0.01977 * var(--RES));
+    height: calc(0.01977 * var(--RES));
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    /* positioning each box */ }
+    .boothset .r-rectangle-L > *:nth-child(1) {
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      transform: translate(-50%, 0) rotate(180deg); }
+    .boothset .r-rectangle-L > *:nth-child(2) {
+      position: absolute;
+      left: 50%;
+      top: 0;
+      transform: translate(-50%, 0); }
+    .boothset .r-rectangle-L .t-face {
+      overflow: hidden !important; }
+  .boothset .r-rectangle-T {
+    /* shared box dimensions */
+    /* shared dimensions passed to each box through CSS inheritance */
+    --h: calc(0.01977 * var(--RES));
+    /* global positioning */
+    transform-style: preserve-3d;
+    width: calc(0.19773 * var(--RES));
+    height: calc(1 * var(--RES));
+    position: relative;
+    left: 50%;
+    top: 50%;
+    transform: translate3d(-50%, -50%, calc(0.17795 * var(--RES)));
+    /* positioning each box */ }
+    .boothset .r-rectangle-T > *:nth-child(1) {
+      --w: calc(1 * var(--RES));
+      --l: calc(0.19773 * var(--RES));
+      --bW: calc(0.19773 * var(--RES));
+      --hyp: calc(0.27963 * var(--RES));
+      --theta: 0.7854rad;
+      position: absolute;
+      left: 0;
+      top: 0;
+      transform: translate(-50%, -50%) rotate(-90deg) translate(calc(-0.5 * var(--RES)), calc(0.09886 * var(--RES))); }
+    .boothset .r-rectangle-T > *:nth-child(2) {
+      --w: calc(-0.19773 * var(--RES));
+      --l: calc(1 * var(--RES));
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      transform: translate(-50%, -50%);
+      --hello: world; }
+    .boothset .r-rectangle-T > *:nth-child(3) {
+      --w: calc(1 * var(--RES));
+      --l: calc(0.19773 * var(--RES));
+      --bW: calc(0.19773 * var(--RES));
+      --hyp: calc(0.27963 * var(--RES));
+      --theta: 0.7854rad;
+      position: absolute;
+      left: 0;
+      top: 0;
+      transform: translate(-50%, -50%) rotate(90deg) translate(calc(0.5 * var(--RES)), calc(-0.09886 * var(--RES))); }
+    .boothset .r-rectangle-T .t-face {
+      overflow: hidden !important; }
+
+/* Booth */
+.booth {
+  --RES: 3.81421vw;
+  --SCALE: 1;
+  --W: calc(1 * var(--RES));
+  --L: calc(0.2 * var(--RES));
+  --H: calc(0.3 * var(--RES)); }
+.booth-B1 {
+  --w: calc(1 * var(--RES));
+  --l: calc(0.05 * var(--RES));
+  --h: calc(0.2 * var(--RES));
+  --bW: calc(0.05 * var(--RES));
+  --hyp: calc(0.07071 * var(--RES));
+  --theta: 0.7854rad;
+  transform-style: preserve-3d;
+  width: calc(1 * var(--RES));
+  height: calc(0.05 * var(--RES));
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform-origin: 50% 50% calc(0.1 * var(--RES));
+  transform: translate3d(-50%, -50%, calc(0.175 * var(--RES))) rotateX(-90deg) rotate(180deg); }
+  .booth-B1 .t-face {
+    overflow: hidden !important; }
+.booth-C {
+  /* shared box dimensions */
+  /* shared dimensions passed to each box through CSS inheritance */
+  /* global positioning */
+  transform-style: preserve-3d;
+  width: calc(1 * var(--RES));
+  height: calc(0.191 * var(--RES));
+  position: absolute;
+  left: 50%;
+  top: calc(0.025 * var(--RES));
+  transform: translate3d(-50%, 0, calc(0.3 * var(--RES)));
+  /* positioning each box */ }
+  .booth-C > *:nth-child(1) {
+    --w: calc(1 * var(--RES));
+    --l: calc(0.05 * var(--RES));
+    --h: calc(0.08 * var(--RES));
+    --bW: calc(0.05 * var(--RES));
+    --bL1: calc(0.025 * var(--RES));
+    --bL2: calc(0.005 * var(--RES));
+    --sign: -1;
+    --theta: 0.5586rad;
+    --phi1: 0.30288rad;
+    --phi2: 0.06242rad;
+    --hyp: calc(0.09434 * var(--RES));
+    --hyp1: calc(0.08382 * var(--RES));
+    --hyp2: calc(0.08016 * var(--RES));
+    --w1: calc(0.9 * var(--RES));
+    --l1: calc(0.02 * var(--RES));
+    position: absolute;
+    left: 50%;
+    top: 0;
+    transform: translate(-50%, 0) translate3d(0, calc(0.086 * var(--RES)), calc(0.025 * var(--RES))) rotateX(-90deg) rotate(180deg); }
+    .booth-C > *:nth-child(1) .w-s2, .booth-C > *:nth-child(1) .w-s4 {
+      border-top: none;
+      --width: calc(var(--bL2) + var(--l1) + var(--bL1));
+      --offset: 0px; }
+  .booth-C > *:nth-child(2) {
+    --w: calc(1 * var(--RES));
+    --l: calc(-0.029 * var(--RES));
+    --h: calc(0.05 * var(--RES));
+    position: absolute;
+    left: 50%;
+    top: 0;
+    transform: translate(-50%, calc(0.14 * var(--RES))); }
+  .booth-C > *:nth-child(3) {
+    --w: calc(1 * var(--RES));
+    --l: calc(0.14 * var(--RES));
+    --h: calc(0.05 * var(--RES));
+    --bW: calc(0.025 * var(--RES));
+    --hyp: calc(0.14221 * var(--RES));
+    --theta: 0.17671rad;
+    position: absolute;
+    left: 50%;
+    top: 0;
+    transform: translate(-50%, 0); }
+  .booth-C .t-face {
+    overflow: hidden !important; }
+.booth-B2 {
+  /* shared box dimensions */
+  /* global positioning */
+  transform-style: preserve-3d;
+  width: calc(1 * var(--RES));
+  height: calc(0.025 * var(--RES));
+  position: absolute;
+  left: 50%;
+  top: 0;
+  transform: translate3d(-50%, 0, calc(0.3 * var(--RES))) matrix3d(1, 0, 0, 0, 0, 1, 0, 0, 0, -0.08749, 1, 0, 0, 0, 0, 1);
+  /* positioning each box */ }
+  .booth-B2 > *:nth-child(1) {
+    --w: calc(1 * var(--RES));
+    --l: calc(0.24 * var(--RES));
+    --h: calc(0.025 * var(--RES));
+    --bW: calc(0 * var(--RES));
+    --hyp: calc(0.24 * var(--RES));
+    --theta: 0deg;
+    position: absolute;
+    transform-origin: 50% 50% calc(0.0125 * var(--RES));
+    transform: translate3d(-50%, -50%, calc(-0.0125 * var(--RES))) rotateX(-90deg) rotate(180deg) translate3d(calc(-0.5 * var(--RES)), calc(0.12 * var(--RES)), calc(0.0125 * var(--RES))); }
+  .booth-B2 > *:nth-child(2) {
+    --w: calc(1 * var(--RES));
+    --l: calc(0.26 * var(--RES));
+    --h: calc(0.025 * var(--RES));
+    --bW: calc(0 * var(--RES));
+    --hyp: calc(0.26 * var(--RES));
+    --theta: 0rad;
+    position: absolute;
+    transform-origin: 50% 50% calc(0.0125 * var(--RES));
+    transform: translate3d(-50%, -50%, calc(-0.0125 * var(--RES))) rotateX(-90deg) translate3d(calc(0.5 * var(--RES)), calc(-0.37 * var(--RES)), calc(0.0125 * var(--RES))); }
+  .booth-B2 .t-face {
+    overflow: hidden !important; }
+
+/* Comfy Chair */
+.comfy-chair {
+  --RES: 80px;
+  --SCALE: 3;
+  --W: calc(1 * var(--RES));
+  --L: calc(1 * var(--RES));
+  --H: calc(0.3 * var(--RES)); }
+.comfy-chair-B {
+  /* shared box dimensions */
+  /* dimensions passed to each box through CSS inheritance */
+  --w: calc(0.05 * var(--RES));
+  --l: calc(0.05 * var(--RES));
+  --h: calc(0.05 * var(--RES));
+  --bW: calc(0.00625 * var(--RES));
+  --bL1: calc(0.00625 * var(--RES));
+  --bL2: calc(0.00625 * var(--RES));
+  --sign: -1;
+  --theta: 0.12435rad;
+  --phi1: 0.12435rad;
+  --phi2: 0.12435rad;
+  --hyp: calc(0.05039 * var(--RES));
+  --hyp1: calc(0.05039 * var(--RES));
+  --hyp2: calc(0.05039 * var(--RES));
+  --w1: calc(0.0375 * var(--RES));
+  --l1: calc(0.0375 * var(--RES));
+  /* global positioning */
+  transform-style: preserve-3d;
+  width: calc(0.85 * var(--RES));
+  height: calc(0.85 * var(--RES));
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%) rotate(45deg);
+  /* positioning each box */
+  /* implement border-type() mixin */
+  /* for debugging mode: clip text overflow */ }
+  .comfy-chair-B > *:nth-child(1) {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate3d(-50%, -50%, calc(0.05 * var(--RES))) rotateX(180deg) rotate(0deg) matrix3d(1, 0, 0, 0, 0, 1, 0, 0, 0, -7.625, 1, 0, 0, 0, 0, 1) translate(0, calc(-0.025 * var(--RES))); }
+  .comfy-chair-B > *:nth-child(2) {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate3d(-50%, -50%, calc(0.05 * var(--RES))) rotateX(180deg) rotate(90deg) matrix3d(1, 0, 0, 0, 0, 1, 0, 0, 0, -7.625, 1, 0, 0, 0, 0, 1) translate(0, calc(-0.025 * var(--RES))); }
+  .comfy-chair-B > *:nth-child(3) {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate3d(-50%, -50%, calc(0.05 * var(--RES))) rotateX(180deg) rotate(180deg) matrix3d(1, 0, 0, 0, 0, 1, 0, 0, 0, -7.625, 1, 0, 0, 0, 0, 1) translate(0, calc(-0.025 * var(--RES))); }
+  .comfy-chair-B > *:nth-child(4) {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate3d(-50%, -50%, calc(0.05 * var(--RES))) rotateX(180deg) rotate(270deg) matrix3d(1, 0, 0, 0, 0, 1, 0, 0, 0, -7.625, 1, 0, 0, 0, 0, 1) translate(0, calc(-0.025 * var(--RES))); }
+  .comfy-chair-B .w-s2, .comfy-chair-B .w-s4 {
+    border-top: none;
+    --width: calc(var(--bL2) + var(--l1) + var(--bL1));
+    --offset: 0px; }
+  .comfy-chair-B .w-face {
+    overflow: hidden !important; }
+.comfy-chair-L {
+  /* shared box dimensions */
+  /* dimensions passed to each box through CSS inheritance */
+  --w: calc(0.05 * var(--RES));
+  --l: calc(0.02165 * var(--RES));
+  --h: calc(0.2 * var(--RES));
+  --bW: calc(0.0125 * var(--RES));
+  --hyp: calc(0.025 * var(--RES));
+  --theta: 0.5236rad;
+  /* global positioning */
+  transform-style: preserve-3d;
+  width: calc(0.05 * var(--RES));
+  height: calc(0.05 * var(--RES));
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate3d(-50%, -50%, calc(0.05 * var(--RES)));
+  /* positioning each box */ }
+  .comfy-chair-L > *:nth-child(1) {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, 0) rotate(180deg); }
+  .comfy-chair-L > *:nth-child(2) {
+    position: absolute;
+    left: 50%;
+    top: 0;
+    transform: translate(-50%, 0); }
+  .comfy-chair-L .t-face {
+    overflow: hidden !important; }
+.comfy-chair-B1 {
+  --w: calc(1 * var(--RES));
+  --l: calc(0.05 * var(--RES));
+  --h: calc(1 * var(--RES));
+  --bW: calc(0.05 * var(--RES));
+  --hyp: calc(0.07071 * var(--RES));
+  --theta: 0.7854rad;
+  transform-style: preserve-3d;
+  width: calc(1 * var(--RES));
+  height: calc(0.05 * var(--RES));
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform-origin: 50% 50% calc(0.5 * var(--RES));
+  transform: translate3d(-50%, -50%, calc(-0.225 * var(--RES))) rotateX(-90deg) rotate(180deg); }
+  .comfy-chair-B1 .t-face {
+    overflow: hidden !important; }
+.comfy-chair-C {
+  /* shared box dimensions */
+  /* shared dimensions passed to each box through CSS inheritance */
+  /* global positioning */
+  transform-style: preserve-3d;
+  width: calc(0.91 * var(--RES));
+  height: calc(0.966 * var(--RES));
+  position: absolute;
+  left: 50%;
+  top: calc(0.05 * var(--RES));
+  transform: translate3d(-50%, 0, calc(0.3 * var(--RES)));
+  /* positioning each box */ }
+  .comfy-chair-C > *:nth-child(1) {
+    --w: calc(0.91 * var(--RES));
+    --l: calc(0.05 * var(--RES));
+    --h: calc(0.08 * var(--RES));
+    --bW: calc(0.05 * var(--RES));
+    --bL1: calc(0.025 * var(--RES));
+    --bL2: calc(0.005 * var(--RES));
+    --sign: -1;
+    --theta: 0.5586rad;
+    --phi1: 0.30288rad;
+    --phi2: 0.06242rad;
+    --hyp: calc(0.09434 * var(--RES));
+    --hyp1: calc(0.08382 * var(--RES));
+    --hyp2: calc(0.08016 * var(--RES));
+    --w1: calc(0.81 * var(--RES));
+    --l1: calc(0.02 * var(--RES));
+    position: absolute;
+    left: 50%;
+    top: 0;
+    transform: translate(-50%, 0) translate3d(0, calc(0.861 * var(--RES)), calc(0.025 * var(--RES))) rotateX(-90deg) rotate(180deg); }
+    .comfy-chair-C > *:nth-child(1) .w-s2, .comfy-chair-C > *:nth-child(1) .w-s4 {
+      border-top: none;
+      --width: calc(var(--bL2) + var(--l1) + var(--bL1));
+      --offset: 0px; }
+  .comfy-chair-C > *:nth-child(2) {
+    --w: calc(0.91 * var(--RES));
+    --l: calc(0.746 * var(--RES));
+    --h: calc(0.05 * var(--RES));
+    position: absolute;
+    left: 50%;
+    top: 0;
+    transform: translate(-50%, calc(0.14 * var(--RES))); }
+  .comfy-chair-C > *:nth-child(3) {
+    --w: calc(0.91 * var(--RES));
+    --l: calc(0.14 * var(--RES));
+    --h: calc(0.05 * var(--RES));
+    --bW: calc(0.2 * var(--RES));
+    --hyp: calc(0.24413 * var(--RES));
+    --theta: 0.96007rad;
+    position: absolute;
+    left: 50%;
+    top: 0;
+    transform: translate(-50%, 0); }
+  .comfy-chair-C .t-face {
+    overflow: hidden !important; }
+.comfy-chair-A1, .comfy-chair-A2 {
+  /* shared box dimensions */
+  /* shared dimensions passed to each box through CSS inheritance */
+  /* global positioning */
+  transform-style: preserve-3d;
+  width: calc(0.95 * var(--RES));
+  height: calc(0.05 * var(--RES));
+  position: absolute;
+  left: 0;
+  top: 0;
+  transform: translate3d(-50%, -50%, calc(0.3 * var(--RES))) rotate(-90deg) translate(calc(-0.525 * var(--RES)), calc(0.025 * var(--RES)));
+  /* positioning each box */ }
+  .comfy-chair-A1 > *:nth-child(1), .comfy-chair-A2 > *:nth-child(1) {
+    --w: calc(0.2554 * var(--RES));
+    --l: calc(0.04698 * var(--RES));
+    --h: calc(0.95 * var(--RES));
+    --bW: calc(0.0171 * var(--RES));
+    --hyp: calc(0.05 * var(--RES));
+    --theta: 20deg;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform-origin: 50% 100% calc(0.475 * var(--RES));
+    transform: translate3d(-50%, -50%, calc(-0.475 * var(--RES))) rotateY(-90deg) rotate(-20deg) translate(calc(0.1277 * var(--RES)), 0); }
+  .comfy-chair-A1 > *:nth-child(2), .comfy-chair-A2 > *:nth-child(2) {
+    --w: calc(0.95 * var(--RES));
+    --l: calc(0.2 * var(--RES));
+    --h: calc(0.05 * var(--RES));
+    --bW: calc(0.2 * var(--RES));
+    --hyp: calc(0.28284 * var(--RES));
+    --theta: 0.7854rad;
+    position: absolute;
+    left: 50%;
+    top: 100%;
+    transform-origin: 50% 100% calc(0.025 * var(--RES));
+    transform: translate3d(-50%, -100%, calc(-0.025 * var(--RES))) rotateX(-70deg) translate(0, calc(-0.2554 * var(--RES))) rotateX(20deg) translateZ(calc(-0.025 * var(--RES))); }
+  .comfy-chair-A1 .t-face, .comfy-chair-A2 .t-face {
+    overflow: hidden !important; }
+.comfy-chair-A2 {
+  left: 0;
+  top: 0;
+  transform: translate3d(-50%, -50%, calc(0.3 * var(--RES))) rotate(90deg) translate(calc(0.525 * var(--RES)), calc(-0.975 * var(--RES))) scale(-1, 1); }
+.comfy-chair-B2 {
+  /* shared box dimensions */
+  /* global positioning */
+  transform-style: preserve-3d;
+  width: calc(1 * var(--RES));
+  height: calc(0.05 * var(--RES));
+  position: absolute;
+  left: 50%;
+  top: 0;
+  transform: translate3d(-50%, 0, calc(0.3 * var(--RES))) matrix3d(1, 0, 0, 0, 0, 1, 0, 0, 0, -0.57735, 1, 0, 0, 0, 0, 1);
+  /* positioning each box */ }
+  .comfy-chair-B2 > *:nth-child(1) {
+    --w: calc(1.17471 * var(--RES));
+    --l: calc(0.24 * var(--RES));
+    --h: calc(0.05 * var(--RES));
+    --bW: calc(0.08735 * var(--RES));
+    --hyp: calc(0.2554 * var(--RES));
+    --theta: 20deg;
+    position: absolute;
+    transform-origin: 50% 50% calc(0.025 * var(--RES));
+    transform: translate3d(-50%, -50%, calc(-0.025 * var(--RES))) rotateX(-90deg) rotate(180deg) translate3d(calc(-0.5 * var(--RES)), calc(0.12 * var(--RES)), calc(0.025 * var(--RES))); }
+  .comfy-chair-B2 > *:nth-child(2) {
+    --w: calc(1.17471 * var(--RES));
+    --l: calc(0.56 * var(--RES));
+    --h: calc(0.05 * var(--RES));
+    --bW: calc(0.08735 * var(--RES));
+    --hyp: calc(0.56677 * var(--RES));
+    --theta: 0.15474rad;
+    position: absolute;
+    transform-origin: 50% 50% calc(0.025 * var(--RES));
+    transform: translate3d(-50%, -50%, calc(-0.025 * var(--RES))) rotateX(-90deg) translate3d(calc(0.5 * var(--RES)), calc(-0.52 * var(--RES)), calc(0.025 * var(--RES))); }
+  .comfy-chair-B2 .t-face {
+    overflow: hidden !important; }
+.comfy-chair-J1, .comfy-chair-J2 {
+  --w: calc(0.05 * var(--RES));
+  --l: calc(0 * var(--RES));
+  --h: calc(0.24 * var(--RES));
+  --bW: calc(0 * var(--RES));
+  --bL1: calc(0 * var(--RES));
+  --bL2: calc(0.13856 * var(--RES));
+  --sign: 1;
+  --theta: 0rad;
+  --phi1: 0rad;
+  --phi2: -30deg;
+  --hyp: calc(0.24 * var(--RES));
+  --hyp1: calc(0.24 * var(--RES));
+  --hyp2: calc(0.27713 * var(--RES));
+  --w1: calc(0.05 * var(--RES));
+  --l1: calc(0.13856 * var(--RES));
+  transform-style: preserve-3d;
+  width: calc(0.05 * var(--RES));
+  height: calc(0 * var(--RES));
+  position: absolute;
+  transform: translate3d(0, calc(0.05 * var(--RES)), calc(0.3 * var(--RES))) matrix3d(1, 0, 0, 0, 0, 1, 0, 0, -0.36397, 0, 1, 0, 0, 0, 0, 1); }
+  .comfy-chair-J1 .w-face, .comfy-chair-J2 .w-face {
+    overflow: hidden !important; }
+  .comfy-chair-J1 .w-s2, .comfy-chair-J1 .w-s4, .comfy-chair-J2 .w-s2, .comfy-chair-J2 .w-s4 {
+    border-bottom: none;
+    --width: calc(var(--bL2) + var(--l) + var(--bL1));
+    --offset: var(--bL2); }
+.comfy-chair-J2 {
+  right: 0;
+  transform: translate3d(0, calc(0.05 * var(--RES)), calc(0.3 * var(--RES))) scaleX(-1) matrix3d(1, 0, 0, 0, 0, 1, 0, 0, -0.36397, 0, 1, 0, 0, 0, 0, 1); }
+.comfy-chair-F1, .comfy-chair-F2 {
+  --w: calc(0.24 * var(--RES));
+  --l: calc(0 * var(--RES));
+  --h: calc(0.14 * var(--RES));
+  --bW: calc(0 * var(--RES));
+  --bL1: calc(0 * var(--RES));
+  --bL2: calc(0.2 * var(--RES));
+  --sign: 1;
+  --theta: 0rad;
+  --phi1: 0rad;
+  --phi2: -0.96007rad;
+  --hyp: calc(0.14 * var(--RES));
+  --hyp1: calc(0.14 * var(--RES));
+  --hyp2: calc(0.24413 * var(--RES));
+  --w1: calc(0.24 * var(--RES));
+  --l1: calc(0.2 * var(--RES));
+  transform-style: preserve-3d;
+  width: calc(0.24 * var(--RES));
+  height: calc(0 * var(--RES));
+  position: absolute;
+  transform-origin: 0% 0%;
+  transform: translate3d(calc(0.05 * var(--RES)), calc(0.05 * var(--RES)), calc(0.3 * var(--RES))) rotate(90deg) rotateY(-90deg) translateZ(calc(-0.14 * var(--RES))) matrix3d(1, 0.36397, 0.57735, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1); }
+  .comfy-chair-F1 .w-face, .comfy-chair-F2 .w-face {
+    overflow: hidden; }
+  .comfy-chair-F1 .w-s2, .comfy-chair-F1 .w-s4, .comfy-chair-F2 .w-s2, .comfy-chair-F2 .w-s4 {
+    border-bottom: none;
+    --width: calc(var(--bL2) + var(--l) + var(--bL1));
+    --offset: var(--bL2); }
+.comfy-chair-F2 {
+  right: 0;
+  transform-origin: 100% 0%;
+  transform: translate3d(calc(-0.05 * var(--RES)), calc(0.05 * var(--RES)), calc(0.3 * var(--RES))) rotate(-90deg) rotateY(90deg) translateZ(calc(-0.14 * var(--RES))) matrix3d(1, -0.36397, -0.57735, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1); }
+.comfy-chair-U1, .comfy-chair-U2 {
+  --w: calc(0.79196 * var(--RES));
+  --l: calc(0.25 * var(--RES));
+  --h: calc(0.39598 * var(--RES));
+  --bW: calc(0.39598 * var(--RES));
+  --bL1: calc(0 * var(--RES));
+  --bL2: calc(0.2 * var(--RES));
+  --sign: -1;
+  --theta: 0.7854rad;
+  --phi1: 0rad;
+  --phi2: 0.4677rad;
+  --hyp: calc(0.56 * var(--RES));
+  --hyp1: calc(0.39598 * var(--RES));
+  --hyp2: calc(0.44362 * var(--RES));
+  --w1: calc(0 * var(--RES));
+  --l1: calc(0.05 * var(--RES));
+  transform-style: preserve-3d;
+  width: calc(0.79196 * var(--RES));
+  height: calc(0.25 * var(--RES));
+  position: absolute;
+  transform-origin: 0% 100%;
+  transform: translate3d(calc(-0.08208 * var(--RES)), calc(-0.2 * var(--RES)), calc(0.54 * var(--RES))) rotate(90deg) rotateY(-90deg) translate3d(0, 0, calc(0.13856 * var(--RES))) scale3d(1, 1, -1) rotateY(-45deg) matrix3d(1, 0, 0, 0, 0, 1, 0, 0, -0.75256, 0, 0.24744, 0, 0, 0, 0, 1) rotateY(45deg) matrix3d(1, -0.15599, -6.37479, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1) rotateY(-45deg); }
+  .comfy-chair-U1 .w-face, .comfy-chair-U2 .w-face {
+    overflow: hidden; }
+  .comfy-chair-U1 .w-s2, .comfy-chair-U1 .w-s4, .comfy-chair-U2 .w-s2, .comfy-chair-U2 .w-s4 {
+    border-top: none;
+    --width: calc(var(--bL2) + var(--l1) + var(--bL1));
+    --offset: 0px; }
+.comfy-chair-U2 {
+  transform: translate(calc(1 * var(--RES)), 0) scaleX(-1) translate3d(calc(-0.08208 * var(--RES)), calc(-0.2 * var(--RES)), calc(0.54 * var(--RES))) rotate(90deg) rotateY(-90deg) translate3d(0, 0, calc(0.13856 * var(--RES))) scale3d(1, 1, -1) rotateY(-45deg) matrix3d(1, 0, 0, 0, 0, 1, 0, 0, -0.75256, 0, 0.24744, 0, 0, 0, 0, 1) rotateY(45deg) matrix3d(1, -0.15599, -6.37479, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1) rotateY(-45deg); }
+
+/* Fork-Legged Table */
+.fork-leg {
+  --RES: 1.33497vw;
+  --SCALE: 1;
+  --W: calc(1 * var(--RES));
+  --L: calc(1 * var(--RES));
+  --H: calc(0.5 * var(--RES));
+  --T_bW: calc(0.025 * var(--RES));
+  --T_t: calc(0.025 * var(--RES));
+  --B_t: calc(0.05 * var(--RES));
+  --B_d: calc(0.75 * var(--RES));
+  --L_d: calc(0.05 * var(--RES)); }
+.fork-leg-B {
+  /* shared box dimensions */
+  /* dimensions passed to each box through CSS inheritance */
+  --w: calc(0.0335 * var(--RES));
+  --l: calc(0.0335 * var(--RES));
+  --h: calc(0.05 * var(--RES));
+  --bW: calc(0.00838 * var(--RES));
+  --bL1: calc(0.00838 * var(--RES));
+  --bL2: calc(0.00838 * var(--RES));
+  --sign: -1;
+  --theta: 0.16596rad;
+  --phi1: 0.16596rad;
+  --phi2: 0.16596rad;
+  --hyp: calc(0.0507 * var(--RES));
+  --hyp1: calc(0.0507 * var(--RES));
+  --hyp2: calc(0.0507 * var(--RES));
+  --w1: calc(0.01675 * var(--RES));
+  --l1: calc(0.01675 * var(--RES));
+  /* global positioning */
+  transform-style: preserve-3d;
+  width: calc(0.75 * var(--RES));
+  height: calc(0.75 * var(--RES));
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%) rotate(45deg);
+  /* positioning each box */
+  /* implement border-type() mixin */
+  /* for debugging mode: clip text overflow */ }
+  .fork-leg-B > *:nth-child(1) {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate3d(-50%, -50%, calc(0.05 * var(--RES))) rotateX(180deg) rotate(0deg) matrix3d(1, 0, 0, 0, 0, 1, 0, 0, 0, -6.9975, 1, 0, 0, 0, 0, 1) translate(0, calc(-0.01675 * var(--RES))); }
+  .fork-leg-B > *:nth-child(2) {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate3d(-50%, -50%, calc(0.05 * var(--RES))) rotateX(180deg) rotate(90deg) matrix3d(1, 0, 0, 0, 0, 1, 0, 0, 0, -6.9975, 1, 0, 0, 0, 0, 1) translate(0, calc(-0.01675 * var(--RES))); }
+  .fork-leg-B > *:nth-child(3) {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate3d(-50%, -50%, calc(0.05 * var(--RES))) rotateX(180deg) rotate(180deg) matrix3d(1, 0, 0, 0, 0, 1, 0, 0, 0, -6.9975, 1, 0, 0, 0, 0, 1) translate(0, calc(-0.01675 * var(--RES))); }
+  .fork-leg-B > *:nth-child(4) {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate3d(-50%, -50%, calc(0.05 * var(--RES))) rotateX(180deg) rotate(270deg) matrix3d(1, 0, 0, 0, 0, 1, 0, 0, 0, -6.9975, 1, 0, 0, 0, 0, 1) translate(0, calc(-0.01675 * var(--RES))); }
+  .fork-leg-B .w-s2, .fork-leg-B .w-s4 {
+    border-top: none;
+    --width: calc(var(--bL2) + var(--l1) + var(--bL1));
+    --offset: 0px; }
+  .fork-leg-B .w-face {
+    overflow: hidden !important; }
+.fork-leg-L {
+  /* shared box dimensions */
+  /* dimensions passed to each box through CSS inheritance */
+  --w: calc(0.05 * var(--RES));
+  --l: calc(0.02165 * var(--RES));
+  --h: calc(0.425 * var(--RES));
+  --bW: calc(0.0125 * var(--RES));
+  --hyp: calc(0.025 * var(--RES));
+  --theta: 0.5236rad;
+  /* global positioning */
+  transform-style: preserve-3d;
+  width: calc(0.05 * var(--RES));
+  height: calc(0.05 * var(--RES));
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate3d(-50%, -50%, calc(0.05 * var(--RES)));
+  /* positioning each box */ }
+  .fork-leg-L > *:nth-child(1) {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, 0) rotate(180deg); }
+  .fork-leg-L > *:nth-child(2) {
+    position: absolute;
+    left: 50%;
+    top: 0;
+    transform: translate(-50%, 0); }
+  .fork-leg-L .t-face {
+    overflow: hidden !important; }
+.fork-leg-T {
+  /* shared box dimensions */
+  /* shared dimensions passed to each box through CSS inheritance */
+  --h: calc(0.025 * var(--RES));
+  /* global positioning */
+  transform-style: preserve-3d;
+  width: calc(1 * var(--RES));
+  height: calc(1 * var(--RES));
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate3d(-50%, -50%, calc(0.475 * var(--RES)));
+  /* positioning each box */ }
+  .fork-leg-T > *:nth-child(1) {
+    --w: calc(1 * var(--RES));
+    --l: calc(0.025 * var(--RES));
+    --bW: calc(0.025 * var(--RES));
+    --hyp: calc(0.03536 * var(--RES));
+    --theta: 0.7854rad;
+    position: absolute;
+    left: 0;
+    top: 0;
+    transform: translate(-50%, -50%) rotate(-90deg) translate(calc(-0.5 * var(--RES)), calc(0.0125 * var(--RES))); }
+  .fork-leg-T > *:nth-child(2) {
+    --w: calc(0.95 * var(--RES));
+    --l: calc(1 * var(--RES));
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%); }
+  .fork-leg-T > *:nth-child(3) {
+    --w: calc(1 * var(--RES));
+    --l: calc(0.025 * var(--RES));
+    --bW: calc(0.025 * var(--RES));
+    --hyp: calc(0.03536 * var(--RES));
+    --theta: 0.7854rad;
+    position: absolute;
+    left: 0;
+    top: 0;
+    transform: translate(-50%, -50%) rotate(90deg) translate(calc(0.5 * var(--RES)), calc(-0.9875 * var(--RES))); }
+  .fork-leg-T .t-face {
+    overflow: hidden !important; }
+
+/* Round Rectangle Table */
+.r-rectangle {
+  --RES: 2.38388vw;
+  --SCALE: 1;
+  --W: calc(1 * var(--RES));
+  --L: calc(0.4 * var(--RES));
+  --H: calc(0.4 * var(--RES));
+  --T_bW: calc(0.04 * var(--RES));
+  --T_t: calc(0.04 * var(--RES));
+  --B_t: calc(0.04 * var(--RES));
+  --B_d: calc(0.4 * var(--RES));
+  --L_d: calc(0.04 * var(--RES)); }
+.r-rectangle-B {
+  /* shared box dimensions */
+  /* dimensions passed to each box through CSS inheritance */
+  --w: calc(0.2 * var(--RES));
+  --l: calc(0 * var(--RES));
+  --h: calc(0.15588 * var(--RES));
+  --bW: calc(0.09 * var(--RES));
+  --bL1: calc(0.04 * var(--RES));
+  --bL2: calc(0 * var(--RES));
+  --sign: 1;
+  --theta: 0.5236rad;
+  --phi1: -0.25118rad;
+  --phi2: 0rad;
+  --hyp: calc(0.18 * var(--RES));
+  --hyp1: calc(0.16093 * var(--RES));
+  --hyp2: calc(0.15588 * var(--RES));
+  --w1: calc(0.02 * var(--RES));
+  --l1: calc(0.04 * var(--RES));
+  /* global positioning */
+  transform-style: preserve-3d;
+  width: calc(0.4 * var(--RES));
+  height: calc(0.4 * var(--RES));
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  border-radius: 50%;
+  background-color: rgba(0, 0, 0, 0.5);
+  /* positioning each box */
+  /* implement border-type() mixin */ }
+  .r-rectangle-B > *:nth-child(1) {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%) rotate(0deg) rotateX(90deg) translateZ(calc(-0.17321 * var(--RES))); }
+  .r-rectangle-B > *:nth-child(2) {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%) rotate(60deg) rotateX(90deg) translateZ(calc(-0.17321 * var(--RES))); }
+  .r-rectangle-B > *:nth-child(3) {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%) rotate(120deg) rotateX(90deg) translateZ(calc(-0.17321 * var(--RES))); }
+  .r-rectangle-B > *:nth-child(4) {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%) rotate(180deg) rotateX(90deg) translateZ(calc(-0.17321 * var(--RES))); }
+  .r-rectangle-B > *:nth-child(5) {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%) rotate(240deg) rotateX(90deg) translateZ(calc(-0.17321 * var(--RES))); }
+  .r-rectangle-B > *:nth-child(6) {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%) rotate(300deg) rotateX(90deg) translateZ(calc(-0.17321 * var(--RES))); }
+  .r-rectangle-B .w-s2, .r-rectangle-B .w-s4 {
+    border-bottom: none;
+    --width: calc(var(--bL2) + var(--l) + var(--bL1));
+    --offset: var(--bL2); }
+  .r-rectangle-B .w-s2, .r-rectangle-B .w-s4 {
+    overflow: hidden; }
+.r-rectangle-L {
+  /* shared box dimensions */
+  /* dimensions passed to each box through CSS inheritance */
+  --w: calc(0.04 * var(--RES));
+  --l: calc(0.01732 * var(--RES));
+  --h: calc(0.36 * var(--RES));
+  --bW: calc(0.01 * var(--RES));
+  --hyp: calc(0.02 * var(--RES));
+  --theta: 0.5236rad;
+  /* global positioning */
+  transform-style: preserve-3d;
+  width: calc(0.04 * var(--RES));
+  height: calc(0.04 * var(--RES));
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  /* positioning each box */ }
+  .r-rectangle-L > *:nth-child(1) {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, 0) rotate(180deg); }
+  .r-rectangle-L > *:nth-child(2) {
+    position: absolute;
+    left: 50%;
+    top: 0;
+    transform: translate(-50%, 0); }
+  .r-rectangle-L .t-face {
+    overflow: hidden !important; }
+.r-rectangle-T {
+  /* shared box dimensions */
+  /* shared dimensions passed to each box through CSS inheritance */
+  --h: calc(0.04 * var(--RES));
+  /* global positioning */
+  transform-style: preserve-3d;
+  width: calc(1 * var(--RES));
+  height: calc(0.4 * var(--RES));
+  position: relative;
+  left: 50%;
+  top: 50%;
+  transform: translate3d(-50%, -50%, calc(0.36 * var(--RES)));
+  /* positioning each box */ }
+  .r-rectangle-T > *:nth-child(1) {
+    --w: calc(0.4 * var(--RES));
+    --l: calc(0.04 * var(--RES));
+    --bW: calc(0.04 * var(--RES));
+    --hyp: calc(0.05657 * var(--RES));
+    --theta: 0.7854rad;
+    position: absolute;
+    left: 0;
+    top: 0;
+    transform: translate(-50%, -50%) rotate(-90deg) translate(calc(-0.2 * var(--RES)), calc(0.02 * var(--RES))); }
+  .r-rectangle-T > *:nth-child(2) {
+    --w: calc(0.92 * var(--RES));
+    --l: calc(0.4 * var(--RES));
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    --hello: world; }
+  .r-rectangle-T > *:nth-child(3) {
+    --w: calc(0.4 * var(--RES));
+    --l: calc(0.04 * var(--RES));
+    --bW: calc(0.04 * var(--RES));
+    --hyp: calc(0.05657 * var(--RES));
+    --theta: 0.7854rad;
+    position: absolute;
+    left: 0;
+    top: 0;
+    transform: translate(-50%, -50%) rotate(90deg) translate(calc(0.2 * var(--RES)), calc(-0.98 * var(--RES))); }
+  .r-rectangle-T .t-face {
+    overflow: hidden !important; }
+
+/* Glass Divider */
+.g-divider {
+  --RES: 240px;
+  --SCALE: 1;
+  --W: calc(1 * var(--RES));
+  --L: calc(0.1 * var(--RES));
+  --H: calc(0.7 * var(--RES));
+  --bH: calc(1.5*var(--L));
+  --P: calc(0.05 * var(--RES));
+  --T: calc(0.005 * var(--RES)); }
+.g-divider-B {
+  --w: var(--W);
+  --l: var(--L);
+  --h: var(--bH);
+  --raise: calc(0.5*var(--h)); }
+.g-divider-G {
+  --w: calc(var(--W) - calc(2*var(--P)));
+  --l: var(--T);
+  --h: calc(var(--H) - var(--bH));
+  --raise: calc(0.5*var(--h));
+  transform: translate3d(-50%, -50%, var(--bH)) translate(calc(0.5*var(--W)), calc(0.5*var(--L))); }
+
+/* Pillar Table */
+.pillartable {
+  --RES: 1.11248vw;
+  --SCALE: 3;
+  --W: calc(1 * var(--RES));
+  --L: calc(1 * var(--RES));
+  --H: calc(0.35 * var(--RES));
+  --T: calc(0.03 * var(--RES));
+  --G: calc(0.4 * var(--RES));
+  --pH: calc(1.5 * var(--RES));
+  /* Shared face dimensions */
+  --w: var(--W);
+  --l: calc(0.5*calc(var(--L) - var(--G)));
+  --h: var(--T);
+  --bW: calc(0.5*calc(var(--w) - var(--G)));
+  /* Manually calculated */
+  --hyp: calc(0.70711*calc(var(--W) - var(--G)));
+  /* hyp = sqrt((L-G)^2/4+(W-G)^2/4) */
+  /* or hyp = sqrt(2) * (W-G)/2 assuming symmetrical W-L */
+  --theta: 45deg;
+  /* theta = atan((W-G)/2 / ((L-G)/2)) */ }
+.pillartable-F {
+  transform: translate3d(-50%, -50%, calc(var(--H) - var(--T))) translate(calc(0.5*var(--W)), calc(var(--L) - calc(0.5*var(--l)))); }
+.pillartable-L {
+  transform: translate3d(-50%, -50%, calc(var(--H) - var(--T))) rotate(90deg) translate(calc(0.5*var(--L)), calc(-0.5*var(--l))); }
+.pillartable-B {
+  transform: translate3d(-50%, -50%, calc(var(--H) - var(--T))) rotate(180deg) translate(calc(-0.5*var(--W)), calc(-0.5*var(--l))); }
+.pillartable-R {
+  transform: translate3d(-50%, -50%, calc(var(--H) - var(--T))) rotate(-90deg) translate(calc(-0.5*var(--L)), calc(var(--W) + calc(-0.5*var(--l)))); }
+.pillartable-P {
+  --w: var(--G);
+  --l: var(--G);
+  --h: var(--pH);
+  transform: translate(-50%, -50%) translate(calc(0.5*var(--W)), calc((0.5*var(--L)))); }
+
+/* High Table */
+.hightable {
+  --RES: 1.58925vw;
+  --SCALE: 3;
+  --W: calc(1 * var(--RES));
+  --L: calc(0.58 * var(--RES));
+  --H: calc(0.725 * var(--RES));
+  --T: calc(0.0696 * var(--RES));
+  --U: calc(0.18125 * var(--RES)); }
+.hightable-R {
+  --w: var(--T);
+  --l: var(--L);
+  --h: var(--H);
+  transform: translate(calc(var(--W) - var(--T)), 0); }
+.hightable-L {
+  --w: var(--T);
+  --l: var(--L);
+  --h: var(--H);
+  transform: scale(-1, 1); }
+.hightable-T {
+  --w: calc(var(--W) - calc(2*var(--T)));
+  --l: var(--L);
+  --h: var(--T);
+  transform: translate3d(var(--T), 0, calc(var(--H) - var(--T))); }
+.hightable-U {
+  --w: calc(var(--W) - calc(2*var(--T)));
+  --l: var(--T);
+  --h: var(--U);
+  transform: translate(0, -50%) translate3d(var(--T), calc(0.5*var(--L)), calc(var(--H) - calc(var(--U) + var(--T)))); }
+
+/* Box */
+/* args: w,l,h */
+.box {
+  --raise: calc(0.5*var(--h));
+  width: var(--w);
+  height: var(--l);
+  transform-style: preserve-3d;
+  position: absolute;
+  left: 0;
+  top: 0;
+  user-select: none; }
+
+.face {
+  position: absolute;
+  transform-style: flat;
+  overflow: hidden;
+  color: white;
+  text-align: center; }
+
+.s1 {
+  width: var(--w);
+  height: var(--l);
+  transform: translateZ(var(--h));
+  background-color: rgba(10, 110, 205, 0.5);
+  font: calc(0.6*var(--l))/var(--l) sans-serif; }
+
+.s2 {
+  width: var(--l);
+  height: var(--h);
+  transform: translate3d(-50%, -50%, var(--raise)) rotateX(-90deg) rotateY(90deg) translate3d(calc(-0.5*var(--l)), 0, var(--w));
+  background-color: rgba(120, 215, 20, 0.5);
+  font: calc(0.6*var(--h))/var(--h) sans-serif; }
+
+.s3 {
+  width: var(--w);
+  height: var(--h);
+  transform: translate3d(-50%, -50%, var(--raise)) rotateX(-90deg) translate3d(calc(0.5*var(--w)), 0, var(--l));
+  background-color: rgba(225, 30, 130, 0.5);
+  font: calc(0.6*var(--h))/var(--h) sans-serif; }
+
+.s4 {
+  width: var(--l);
+  height: var(--h);
+  transform: translate3d(-50%, -50%, var(--raise)) rotateX(-90deg) rotateY(-90deg) translate3d(calc(0.5*var(--l)), 0, 0);
+  background-color: rgba(255, 196, 128, 0.5);
+  font: calc(0.6*var(--h))/var(--h) sans-serif; }
+
+.s5 {
+  width: var(--w);
+  height: var(--h);
+  transform: translate3d(-50%, -50%, var(--raise)) rotateX(-90deg) rotateY(180deg) translate3d(calc(-0.5*var(--w)), 0, 0);
+  background-color: rgba(50, 245, 150, 0.5);
+  font: calc(0.6*var(--h))/var(--h) sans-serif; }
+
+.s6 {
+  width: var(--w);
+  height: var(--l);
+  transform: rotateY(180deg);
+  background-color: rgba(255, 160, 60, 0.5);
+  font: calc(0.6*var(--l))/var(--l) sans-serif; }
+
+/* Trapezoid Box */
+/* args: w,l,h,bW,hyp,theta */
+.t-box {
+  --raise: calc(0.5*var(--h));
+  --w1: calc(var(--w) - calc(2*var(--bW)));
+  width: var(--w);
+  height: var(--l);
+  transform-style: preserve-3d;
+  position: absolute;
+  user-select: none; }
+
+.t-face {
+  position: absolute;
+  transform-style: flat;
+  color: white;
+  text-align: center; }
+
+.t-s1 {
+  width: var(--w1);
+  height: 0;
+  border: var(--bW) solid transparent;
+  border-top: none;
+  border-bottom: var(--l) solid rgba(10, 110, 205, 0.5);
+  transform: translateZ(var(--h));
+  font: calc(0.6*var(--l))/var(--l) sans-serif; }
+
+.t-s2 {
+  width: var(--hyp);
+  height: var(--h);
+  transform: translate3d(-50%, -50%, var(--raise)) rotateX(-90deg) rotateY(90deg) translate3d(calc(-0.5*var(--l)), 0, calc(var(--w) - calc(0.5*var(--bW)))) rotateY(var(--theta));
+  background-color: rgba(120, 215, 20, 0.5);
+  font: calc(0.6*var(--h))/var(--h) sans-serif; }
+
+.t-s3 {
+  width: var(--w);
+  height: var(--h);
+  transform: translate3d(-50%, -50%, var(--raise)) rotateX(-90deg) translate3d(calc(0.5*var(--w)), 0, var(--l));
+  background-color: rgba(225, 30, 130, 0.5);
+  font: calc(0.6*var(--h))/var(--h) sans-serif; }
+
+.t-s4 {
+  width: var(--hyp);
+  height: var(--h);
+  transform: translate3d(-50%, -50%, var(--raise)) rotateX(-90deg) rotateY(-90deg) translate3d(calc(0.5*var(--l)), 0, calc(-0.5*var(--bW))) rotateY(calc(-1*var(--theta)));
+  background-color: rgba(255, 196, 128, 0.5);
+  font: calc(0.6*var(--h))/var(--h) sans-serif; }
+
+.t-s5 {
+  width: var(--w1);
+  height: var(--h);
+  transform: translate3d(-50%, -50%, var(--raise)) rotateX(-90deg) rotateY(180deg) translate3d(calc(-0.5*var(--w)), 0, 0);
+  background-color: rgba(50, 245, 150, 0.5);
+  font: calc(0.6*var(--h))/var(--h) sans-serif; }
+
+.t-s6 {
+  width: var(--w1);
+  height: 0;
+  border: var(--bW) solid transparent;
+  border-top: none;
+  border-bottom: var(--l) solid rgba(255, 160, 60, 0.5);
+  transform: rotateY(180deg);
+  font: calc(0.6*var(--l))/var(--l) sans-serif; }
+
+/* Wedge Box */
+/* args: w,l,h,bW,bL1,bL2,sign,theta,phi1,phi2,hyp,hyp1,hyp2,w1,l1
+   special: must implement the border-type() mixin (defaults to border-bottom). */
+/* [code-folding placeholder] */
+.w-box {
+  --raise: calc(0.5*var(--h));
+  width: var(--w);
+  height: var(--l);
+  transform-style: preserve-3d;
+  position: absolute;
+  left: 0;
+  top: 0;
+  user-select: none; }
+
+.w-face {
+  position: absolute;
+  transform-style: flat;
+  color: white;
+  text-align: center; }
+
+.w-s1 {
+  width: var(--w1);
+  height: var(--l1);
+  transform: translate3d(-50%, 0, var(--h)) translate(calc(0.5*var(--w)), calc(-1*calc(var(--sign)*var(--bL2))));
+  background-color: rgba(50, 245, 150, 0.5);
+  font: calc(0.6*var(--l1))/var(--l1) sans-serif; }
+
+.w-s2 {
+  box-sizing: border-box;
+  width: var(--width);
+  height: var(--hyp);
+  border: var(--hyp) solid rgba(120, 215, 20, 0.5);
+  border-right: var(--bL2) solid transparent;
+  border-left: var(--bL1) solid transparent;
+  transform: translate3d(-50%, -50%, var(--raise)) rotate(-90deg) translate(calc(-50% + var(--offset)), calc(var(--w) - calc(0.5*var(--bW)))) rotateX(calc(-90deg + var(--theta)));
+  font: calc(0.6*var(--h))/var(--h) sans-serif; }
+
+.w-s3 {
+  width: var(--w1);
+  height: 0;
+  border: var(--hyp1) solid rgba(10, 110, 205, 0.5);
+  border-right: var(--bW) solid transparent;
+  border-left: var(--bW) solid transparent;
+  border-top: none;
+  transform: translate3d(-50%, -50%, var(--raise)) translate(calc(0.5*var(--w)), calc(var(--l) + calc(var(--sign)*calc(0.5*var(--bL1))))) rotateX(calc(-90deg + var(--phi1)));
+  font: calc(0.6*var(--h))/var(--h) sans-serif; }
+
+.w-s4 {
+  box-sizing: border-box;
+  width: var(--width);
+  height: var(--hyp);
+  border: var(--hyp) solid rgba(255, 196, 128, 0.5);
+  border-right: var(--bL1) solid transparent;
+  border-left: var(--bL2) solid transparent;
+  transform: translate3d(-50%, -50%, var(--raise)) rotate(90deg) translate(calc(50% - var(--offset)), calc(-0.5*var(--bW))) rotateX(calc(-90deg + var(--theta)));
+  font: calc(0.6*var(--h))/var(--h) sans-serif; }
+
+.w-s5 {
+  width: var(--w1);
+  height: 0;
+  border: var(--hyp2) solid rgba(255, 160, 60, 0.5);
+  border-right: var(--bW) solid transparent;
+  border-left: var(--bW) solid transparent;
+  border-top: none;
+  transform: translate3d(-50%, -50%, var(--raise)) rotate(180deg) translate(calc(-0.5*var(--w)), calc(var(--sign)*calc(0.5*var(--bL2)))) rotateX(calc(-90deg + var(--phi2)));
+  font: calc(0.6*var(--h))/var(--h) sans-serif; }
+
+.w-s6 {
+  width: var(--w);
+  height: var(--l);
+  transform: rotateY(180deg);
+  background-color: rgba(225, 30, 130, 0.5);
+  font: calc(0.6*var(--l))/var(--l) sans-serif; }
+
+/*# sourceMappingURL=furniture.css.map */

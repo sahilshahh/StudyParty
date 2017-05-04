@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Placing Furniture</title>
+	<style>
+		/* Basic dimension information about the map that can be used when positioning furniture.*/
+		#map {
+			--RES: 500px;
+			--map-width: var(--RES);
+			--map-height: var(--RES);
+
+			width: var(--map-width);
+			height: var(--map-height);
+		}
+	</style>
+</head>
+<body>
+	<!-- You can pretend this <div> is the map. It is currently sized at 500px by 500px (RES by RES), but this is only for convenience in debugging. In order to transfer the furniture positions correctly to the actual map, the furniture will need to be sized and placed using percentage units as shown in the examples. -->
+	<div id='map' style='position:absolute; left:50%; top:50%; transform:translate(-50%,-50%); border: 2px solid black;'>
+		<!-- Blueprint overlayed for convenience. -->
+		<img src='blueprints/fac1_.svg' id='blueprint'>
+
+		<div class='example-type1 table'>1</div>
+		<div class='example-type1 table'>2</div>
+
+		<div class='column'>
+			<div class='example-type2 table'>3</div>
+			<div class='example-type2 table'>4</div>
+			<div class='example-type2 table'>5</div>
+			<div class='example-type2 table'>6</div>
+		</div>
+
+		<div class='type3-wrapper'>
+			<div class='example-type3 table'>7</div>
+			<div class='example-type3 table'>8</div>
+			<div class='example-type3 table'>9</div>
+			<div class='example-type3 table'>10</div>
+			<div class='example-type3 table'>11</div>
+			<div class='example-type3 table'>12</div>
+			<div class='example-type3 table'>13</div>
+			<div class='example-type3 table'>14</div>
+		</div>
+	</div>
+
+	<style>
+		/* Examples and stuff */
+
+		/* The "default" table size and style. Change this if you'd like. */
+		.table {
+			position:relative;
+			left:0;
+			top:0;
+			width: 2%;
+			height: 2%;
+
+			border: 1px solid cyan;
+			background: red;
+			font: calc(.02*var(--RES))/calc(.02*var(--RES)) "Segoe UI";
+			color: white;
+			text-align: center;
+		}
+
+		.example-type1 {
+			position: absolute;
+			width:4%; /* overrides "width: 2%" in .table */
+			left:50%;
+			top:50%;
+		}
+
+		.example-type1:nth-of-type(2) {
+			/* Notice the ":nth-of-type(..) selector used. This can be helpful for distinguishing otherwise inseparable pieces of furniture. */
+			left:45%;
+			top:50%;
+		}
+
+		.column {
+			position: absolute;
+			left: calc(2.2/7 * var(--map-width));
+			top: calc(2/7 * var(--map-height));
+			/* Here you see another way to do "percentage" units. They're not really percents, but the attributes "left" and "top" do not depend on the actual dimensions of the map. (There is only one dimension actually, because it's a square.) So this is fine and it will transfer. The calc(...) function is useful for this kind of thing. Use it if you find it convenient. */
+
+			/* Use temporary styles like borders, padding, and background to help you debug.*/
+			border: 2px solid red;
+			padding: 5px;
+			background: brown;
+			width:3%;
+		}
+
+		.column > .table {
+			width: calc(0.02 * var(--map-width));
+			margin-bottom: 20%;
+			/* Beware that percents will be relative to the parent not necessarily the map. Like here, the margin bottom is 20% of the .column width. How unintuitive. Not only is it relative to the width rather than say the height, but also it means you can't use percents if you make a layout container. Two solutions are to do the math and use percents anyway or to use calc(..). For instance, solving x * 3% = 20% gives the correct x to use relative to the map. You can try using x=660% for margin-bottom and you will get the expected results. */
+		}
+
+		.example-type3 {
+			margin: 0 auto;
+			/* If you do not use position:absolute, you can use margin: 0 auto to center the element in its container. Specifically, "margin:0 auto" means "zero margins vertically" and "auto margins horizontally".*/
+		}
+
+		.example-type3:nth-child(2n-1) {
+			/* Notice you can select all children in a sequence an+b with the nth-child selector as well. */
+			
+			margin-left: -2%;
+			/* Also, if you use a negative left margin, the element will shift to the left by that amount. (margin and padding percents are relative to parent WIDTH.) In this case, the elements moved a lot more than expected (compared to the even numbered siblings) because the centering from margin: 0 auto was overridden. */
+
+			box-sizing: border-box;
+			/* This is an important concept. All elements have their dimensions measured by default as including the padding but excluding the border and margin. For example, if you set an element to have 1px width and a 100px border, the element will appear 201px wide but it will be positioned in the layout as if it was only 1px wide. Setting the attribute "box-sizing" to "border-box" will make the border included in the dimension calculations of an element. So the element described in the example above would now be 201px wide and would be positioned as such. Some people find the default sizing of box-sizing:content-box very unintuitive, so they set box-sizing:border-box on all the elements. This is fine if you wish to do this. Or you can set it on a few elements temporarily just to help with debugging. Note in reality the furniture elements won't have borders anyway. To set box-sizing:border-box on all elements add the following style:
+
+			* {
+				box-sizing:border-box;
+			}
+
+			*/
+
+			background: green;
+			/* Temporary styles are very helpful for debugging. */
+		}
+	</style>
+	<style>
+		/* Write your furniture sizing and positioning information here.
+
+			...
+
+		*/
+	</style>
+
+
+
+	<style>
+		/* Don't worry about this. These styles are just to set the size and position of the building blueprint correctly.*/
+		:root {
+			--b_w: 773.805;
+			--b_l: 609.509;
+			--b_gap: 40.76;
+			--b_L: 227.004;
+			--b_R: 13.986;
+			--b_T: 15.721;
+			--b_B: 42.711;
+			--b_width: calc(var(--b_w) - var(--b_L) - var(--b_R));
+			--b_height: calc(var(--b_l) - var(--b_T) - var(--b_B));
+		}
+		#blueprint {
+			width: calc(var(--b_w) * var(--RES)/var(--b_width));
+			height: calc(var(--b_l) * var(--RES)/var(--b_height));
+			position: absolute;
+			top: calc(-1*var(--b_T) * var(--RES) / var(--b_height));
+			left: calc(-1*var(--b_L) * var(--RES) / var(--b_width));
+			opacity: .5;
+			z-index: -1;
+		}
+	</style>
+</body>
+</html>

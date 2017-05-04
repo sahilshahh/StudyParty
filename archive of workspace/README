@@ -1,0 +1,6 @@
+new_fac.html		should replace:	templates/building/fac.html
+new_template.html	should replace:	templates/building/template.html
+demostyles.css		should replace: static/css/demostyles.css
+fac_placement.css	should go to: static/css/fac_placement.css
+furniture.css		should go to: static/css/furniture.css
+FACnew.svg			should go to: static/img/FACnew.svg
