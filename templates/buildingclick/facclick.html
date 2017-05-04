@@ -135,7 +135,7 @@
 	<div id="map-container">
 		<!-- 147.64587/114.39804 = 1.290633 -->
 		<div id="newcontainer">
-			<img id="map" src="{{ url_for('static', filename='img/FAC.svg') }}" onload="dotPositions()">
+			<img id="map" src="{{ url_for('static', filename='img/FAC.svg') }}">
 			<div id='furniture-container'>
 				<div class='placement'>
 					<!-- <img src='blueprints/fac1_.svg' id='blueprint'> -->
@@ -1692,6 +1692,7 @@
 		if (document.readyState === 'interactive' || document.readyState === 'complete') {
 			initialized = true;
 			console.log(" initialized.");
+			dotPositions();
 			scrollToCenter();
 			setBgColor();
 		}

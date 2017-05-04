@@ -142,7 +142,7 @@
 	<div id="map-container">
 		<!-- 147.64587/114.39804 = 1.290633 -->
 		<div id="newcontainer">
-			<img id="map" src="{{ url_for('static', filename='img/'+image) }}" onload='dotPositions()'>
+			<img id="map" src="{{ url_for('static', filename='img/'+image) }}">
 			<!-- INSERT FURNITURE HERE -->
 			{% for i in range(length)%}
 				<img id="dot{{i}}" src="{{ url_for('static', filename='img/dot.svg') }}" width="30" height="30" />
@@ -360,6 +360,7 @@ function initPoint() {
 		pointInitialized = true;
 		point = new Point(meID,mapID);
 		console.log("Point initialized.");
+		dotPositions();
 		scrollToCenter();
 		setBgColor();
 	}
