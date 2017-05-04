@@ -49,7 +49,7 @@ def building_list():
     for name in os.listdir(os.path.join(mydir, "templates/building")):
         print(name[:-5])
         if name[:-5] != 'template':
-            buildings.append(name[:-5])
+            buildings.append(name[:-5]..replace(' ', ''))
     print(buildings)
     return buildings
 

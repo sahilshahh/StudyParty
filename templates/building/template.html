@@ -326,8 +326,6 @@ class Point {
 		this.map.addEventListener('resize',(e) => this.resizeHandler(e));
 	}
 }*/
-	var dot_flag = false;
-						
 	function dotPositions(){
 		var map = document.getElementById("map");
 		var currentScreenX = map.offsetWidth - 100.0;
@@ -368,12 +366,7 @@ class Point {
 			dot_flag = true;
 		}
 	}
-						
-	window.onload = dotPositions;
-	if (!dot_flag)
-		dotPositions();
-</script>
-<script>
+	
 function distance(x1,y1,x2,y2) {
 	return Math.sqrt((x1-x2)**2+(y1-y2)**2);
 }
