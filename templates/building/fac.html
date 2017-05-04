@@ -1,116 +1,115 @@
-					</div>
-<html>
-<head>
-<meta charset="UTF-8">
-<meta http-equiv="Content-Type" content="application/xhtml+xml">
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-	<title>FAC Map</title>
-	<!-- Styles -->
-	<link type="text/css" rel="stylesheet" href="{{ url_for('static', filename='css/demostyles.css') }}" async>
-	<link type="text/css" rel="stylesheet" href="{{ url_for('static', filename='css/furniture.css') }}" async>
-	<link type="text/css" rel="stylesheet" href="{{ url_for('static', filename='css/fac_placement.css') }}" async>
-	<link href="https://fonts.googleapis.com/css?family=Lora|Nunito" rel="stylesheet" async>
-	<svg style="height:0;">
-		<defs>
-			<rect id="vert_box" x="1" y="-.1" width="98" height="100.2" rx="24.5" ry="24.5"/>
-			<rect id="hor_box" x="-.1" y="1" width="100.2" height="98" rx="24.5" ry="24.5"/>
-			<mask id="border_mask">
-				<rect width="100" height="100" fill="white"/>
-				<use href="#vert_box"/>
-				<use href="#hor_box"/>
-			</mask>
-			<clipPath id="border_clip">
-				<use href="#vert_box"/>
-				<use href="#hor_box"/>
-			</clipPath>
-		</defs>
-		
-		<rect id="cb" width="100" height="100" rx="25" ry="25" mask="url(#border_mask)"/>
+					<html>
+					<head>
+						<meta charset="UTF-8">
+						<meta http-equiv="Content-Type" content="application/xhtml+xml">
+						<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+						<title>FAC Map</title>
+						<!-- Styles -->
+						<link type="text/css" rel="stylesheet" href="{{ url_for('static', filename='css/demostyles.css') }}" async>
+						<link type="text/css" rel="stylesheet" href="{{ url_for('static', filename='css/furniture.css') }}" async>
+						<link type="text/css" rel="stylesheet" href="{{ url_for('static', filename='css/fac_placement.css') }}" async>
+						<link href="https://fonts.googleapis.com/css?family=Lora|Nunito" rel="stylesheet" async>
+						<svg style="height:0;">
+							<defs>
+								<rect id="vert_box" x="1" y="-.1" width="98" height="100.2" rx="24.5" ry="24.5"/>
+								<rect id="hor_box" x="-.1" y="1" width="100.2" height="98" rx="24.5" ry="24.5"/>
+								<mask id="border_mask">
+									<rect width="100" height="100" fill="white"/>
+									<use href="#vert_box"/>
+									<use href="#hor_box"/>
+								</mask>
+								<clipPath id="border_clip">
+									<use href="#vert_box"/>
+									<use href="#hor_box"/>
+								</clipPath>
+							</defs>
 
-		<symbol id="g" viewbox="-50 -50 100 100" fill="none">
-			<g id="hor">
-				<path d="M-150,0 C-150,-65 150,-65 150,0" />
-				<path d="M-150,0 C-150,-55 150,-55 150,0" />
-				<path d="M-150,0 C-150,-45 150,-45 150,0" />
-				<path d="M-150,0 C-150,-35 150,-35 150,0" />
-				<path d="M-150,0 C-150,-25 150,-25 150,0" />
-				<path d="M-150,0 C-150,-15 150,-15 150,0" />
-				<path d="M-150,0 C-150,-5 150,-5 150,0" />
-				<path d="M-150,0 C-150,5 150,5 150,0" />
-				<path d="M-150,0 C-150,15 150,15 150,0" />
-				<path d="M-150,0 C-150,25 150,25 150,0" />
-				<path d="M-150,0 C-150,35 150,35 150,0" />
-				<path d="M-150,0 C-150,45 150,45 150,0" />
-				<path d="M-150,0 C-150,55 150,55 150,0" />
-				<path d="M-150,0 C-150,65 150,65 150,0" />
-			</g>
-			<g id="vert">
-				<path d="M0,-150 C-65,-150 -65,150 0,150" />
-				<path d="M0,-150 C-55,-150 -55,150 0,150" />
-				<path d="M0,-150 C-45,-150 -45,150 0,150" />
-				<path d="M0,-150 C-35,-150 -35,150 0,150" />
-				<path d="M0,-150 C-25,-150 -25,150 0,150" />
-				<path d="M0,-150 C-15,-150 -15,150 0,150" />
-				<path d="M0,-150 C-5,-150 -5,150 0,150" />
-				<path d="M0,-150 C5,-150 5,150 0,150" />
-				<path d="M0,-150 C15,-150 15,150 0,150" />
-				<path d="M0,-150 C25,-150 25,150 0,150" />
-				<path d="M0,-150 C35,-150 35,150 0,150" />
-				<path d="M0,-150 C45,-150 45,150 0,150" />
-				<path d="M0,-150 C55,-150 55,150 0,150" />
-				<path d="M0,-150 C65,-150 65,150 0,150" />
-			</g>
-	</symbol>
-	</svg>
-	<style> 
-        {% for i in range(length)%}
-        #dot{{i}} {
-			position:absolute;
-			box-sizing: content-box;
-			transform-origin:0 0;
-			top: 0px;
-			left: 0px;
-			width: 150%;
-            z-index: 2;   
-        }
-        {%endfor%}
-		
-		#newcontainer
-			overflow: auto;   
-        }
-	</style>
-	<script>
+							<rect id="cb" width="100" height="100" rx="25" ry="25" mask="url(#border_mask)"/>
+
+							<symbol id="g" viewbox="-50 -50 100 100" fill="none">
+								<g id="hor">
+									<path d="M-150,0 C-150,-65 150,-65 150,0" />
+									<path d="M-150,0 C-150,-55 150,-55 150,0" />
+									<path d="M-150,0 C-150,-45 150,-45 150,0" />
+									<path d="M-150,0 C-150,-35 150,-35 150,0" />
+									<path d="M-150,0 C-150,-25 150,-25 150,0" />
+									<path d="M-150,0 C-150,-15 150,-15 150,0" />
+									<path d="M-150,0 C-150,-5 150,-5 150,0" />
+									<path d="M-150,0 C-150,5 150,5 150,0" />
+									<path d="M-150,0 C-150,15 150,15 150,0" />
+									<path d="M-150,0 C-150,25 150,25 150,0" />
+									<path d="M-150,0 C-150,35 150,35 150,0" />
+									<path d="M-150,0 C-150,45 150,45 150,0" />
+									<path d="M-150,0 C-150,55 150,55 150,0" />
+									<path d="M-150,0 C-150,65 150,65 150,0" />
+								</g>
+								<g id="vert">
+									<path d="M0,-150 C-65,-150 -65,150 0,150" />
+									<path d="M0,-150 C-55,-150 -55,150 0,150" />
+									<path d="M0,-150 C-45,-150 -45,150 0,150" />
+									<path d="M0,-150 C-35,-150 -35,150 0,150" />
+									<path d="M0,-150 C-25,-150 -25,150 0,150" />
+									<path d="M0,-150 C-15,-150 -15,150 0,150" />
+									<path d="M0,-150 C-5,-150 -5,150 0,150" />
+									<path d="M0,-150 C5,-150 5,150 0,150" />
+									<path d="M0,-150 C15,-150 15,150 0,150" />
+									<path d="M0,-150 C25,-150 25,150 0,150" />
+									<path d="M0,-150 C35,-150 35,150 0,150" />
+									<path d="M0,-150 C45,-150 45,150 0,150" />
+									<path d="M0,-150 C55,-150 55,150 0,150" />
+									<path d="M0,-150 C65,-150 65,150 0,150" />
+								</g>
+							</symbol>
+						</svg>
+						<style> 
+							{% for i in range(length)%}
+							#dot{{i}} {
+								position:absolute;
+								box-sizing: content-box;
+								transform-origin:0 0;
+								top: 0px;
+								left: 0px;
+								width: 150%;
+								z-index: 2;   
+							}
+							{%endfor%}
+
+							#newcontainer
+							overflow: auto;   
+						}
+					</style>
+					<script>
 						
-	function dotPositions(){
-		var map = document.getElementById("map");
-		var currentScreenX = map.offsetWidth - 100.0;
-		var currentScreenY = map.offsetHeight - 100.0;
-		var i;
-		var l = {{length}};
-		for(i = 0; i < l; i++){
-			var s = document.getElementById("dot" + i);
-			console.log(s);
-			
-			var scale = currentScreenX/2000;
-			
-			
-			var screenXArr = {{screen_xs}};
-			var screenYArr = {{screen_ys}};
-			var preXArr = {{x_coord}};
-			var preYArr = {{y_coord}};
-			var screenX = screenXArr[i] - 100.0;
-			var screenY = screenYArr[i] - 100.0;
-			
-			var prevScale = screenX/2000;
-			
-			var preX = preXArr[i] - 50.0;
-			var preY = preYArr[i] - 50.0;
-		
-			var x = ((currentScreenX*preX)/screenX) + 50.0;
-			var y = ((currentScreenY*preY)/screenY) + 50.0;
-		
+						function dotPositions(){
+							var map = document.getElementById("map");
+							var currentScreenX = map.offsetWidth - 100.0;
+							var currentScreenY = map.offsetHeight - 100.0;
+							var i;
+							var l = {{length}};
+							for(i = 0; i < l; i++){
+								var s = document.getElementById("dot" + i);
+								console.log(s);
+
+								var scale = currentScreenX/2000;
+
+
+								var screenXArr = {{screen_xs}};
+								var screenYArr = {{screen_ys}};
+								var preXArr = {{x_coord}};
+								var preYArr = {{y_coord}};
+								var screenX = screenXArr[i] - 100.0;
+								var screenY = screenYArr[i] - 100.0;
+
+								var prevScale = screenX/2000;
+
+								var preX = preXArr[i] - 50.0;
+								var preY = preYArr[i] - 50.0;
+
+								var x = ((currentScreenX*preX)/screenX) + 50.0;
+								var y = ((currentScreenY*preY)/screenY) + 50.0;
+
 			//var yScale = currentScreenX/1000;
-		
+
 			//s.style.transform = 'scale('+scale+','+scale+')';
 			s.style.width = 30 + "px";
 			s.style.height = 30 + "px";
@@ -123,1550 +122,1610 @@
 </script>
 </head>
 <body>
-<div class="container-full">
-    <div class="row">
-    	<div class="dropdown">
-  			<button class="dropbtn">Buildings</button>
-  			<div class="dropdown-content">
-  				{%for item in buildings%}
-				    <a href="{{url_for('index', building = item)}}">{{item.replace('*','')}}</a>
-				{%endfor%}
-  			</div>
+	<div class="container-full">
+		<div class="row">
+			<div class="dropdown">
+				<button class="dropbtn">Buildings</button>
+				<div class="dropdown-content">
+					{%for item in buildings%}
+					<a href="{{url_for('index', building = item)}}">{{item.replace('*','')}}</a>
+					{%endfor%}
+				</div>
+			</div>
+			<button class="dropbtn" onclick="location.href='{{url_for('upload')}}'">Upload</button>
 		</div>
-		<button class="dropbtn" onclick="location.href='{{url_for('upload')}}'">Upload</button>
-    </div>
-</div>
-<header>
-	<span class="highlight-white line-bg">FAC</span>
-</header>
-<main>
-	<div id="map-container">
-		<!-- 147.64587/114.39804 = 1.290633 -->
-		<div id="newcontainer">
-			<img id="map" src="{{ url_for('static', filename='img/FAC.svg') }}" onload="dotPositions()">
-<div id='furniture-container'>
-				<div class='placement'>
-					<!-- <img src='blueprints/fac1_.svg' id='blueprint'> -->
-		<div class='circle furniture'><div class='ctable'></div></div>
-		<div class='circle furniture'><div class='ctable'></div></div>
-		<div class='circle furniture'><div class='ctable'></div></div>
-		<div class='circle furniture'><div class='ctable'></div></div>
-		<div class='circle furniture'><div class='ctable'></div></div>
-		<div class='circle furniture'><div class='ctable'></div></div>
-		<div class='circle furniture'><div class='ctable'></div></div>
-		<div class='circle furniture'><div class='ctable'></div></div>
-		<div class='circle furniture'><div class='ctable'></div></div>
-		<div class='circle furniture'><div class='ctable'></div></div>
+	</div>
+	<header>
+		<span class="highlight-white line-bg">FAC</span>
+	</header>
+	<main>
+		<div id="map-container">
+			<!-- 147.64587/114.39804 = 1.290633 -->
+			<div id="newcontainer">
+				<img id="map" src="{{ url_for('static', filename='img/FAC.svg') }}" onload="dotPositions()">
+				<div id='furniture-container'>
+					<div class='placement'>
+						<!-- <img src='blueprints/fac1_.svg' id='blueprint'> -->
+						<div class='circle furniture'>
+							<div class='ctable'>
+							</div>
+						</div>
+						<div class='circle furniture'>
+							<div class='ctable'>
+							</div>
+						</div>
+						<div class='circle furniture'>
+							<div class='ctable'>
+							</div>
+						</div>
+						<div class='circle furniture'>
+							<div class='ctable'>
+							</div>
+						</div>
+						<div class='circle furniture'>
+							<div class='ctable'>
+							</div>
+						</div>
+						<div class='circle furniture'>
+							<div class='ctable'>
+							</div>
+						</div>
+						<div class='circle furniture'>
+							<div class='ctable'>
+							</div>
+						</div>
+						<div class='circle furniture'>
+							<div class='ctable'>
+							</div>
+						</div>
+						<div class='circle furniture'>
+							<div class='ctable'>
+							</div>
+						</div>
+						<div class='circle furniture'>
+							<div class='ctable'>
+							</div>
+						</div>
 
-		<div class='type2-wrapper'>
-			<div class='r-rectangle long-grey'>
-	<div class='furniture'>
-		<div class='r-rectangle-T'>
-			<div></div>
-			<div class='box'>
-				<div class='face s1'>1</div>
-				<div class='face s2'>2</div>
-				<div class='face s3'>3</div>
-				<div class='face s4'>4</div>
-				<div class='face s5'>5</div>
-			</div>
-		</div>
-	</div>
-</div>
-			<div class='r-rectangle long-grey'>
-	<div class='furniture'>
-		<div class='r-rectangle-T'>
-			<div></div>
-			<div class='box'>
-				<div class='face s1'>1</div>
-				<div class='face s2'>2</div>
-				<div class='face s3'>3</div>
-				<div class='face s4'>4</div>
-				<div class='face s5'>5</div>
-			</div>
-		</div>
-	</div>
-</div>
-			<div class='r-rectangle long-grey'>
-	<div class='furniture'>
-		<div class='r-rectangle-T'>
-			<div></div>
-			<div class='box'>
-				<div class='face s1'>1</div>
-				<div class='face s2'>2</div>
-				<div class='face s3'>3</div>
-				<div class='face s4'>4</div>
-				<div class='face s5'>5</div>
-			</div>
-		</div>
-	</div>
-</div>
-			<div class='r-rectangle long-grey'>
-	<div class='furniture'>
-		<div class='r-rectangle-T'>
-			<div></div>
-			<div class='box'>
-				<div class='face s1'>1</div>
-				<div class='face s2'>2</div>
-				<div class='face s3'>3</div>
-				<div class='face s4'>4</div>
-				<div class='face s5'>5</div>
-			</div>
-		</div>
-	</div>
-</div>
-			<div class='r-rectangle long-grey'>
-	<div class='furniture'>
-		<div class='r-rectangle-T'>
-			<div></div>
-			<div class='box'>
-				<div class='face s1'>1</div>
-				<div class='face s2'>2</div>
-				<div class='face s3'>3</div>
-				<div class='face s4'>4</div>
-				<div class='face s5'>5</div>
-			</div>
-		</div>
-	</div>
-</div>
-			<div class='r-rectangle long-grey'>
-	<div class='furniture'>
-		<div class='r-rectangle-T'>
-			<div></div>
-			<div class='box'>
-				<div class='face s1'>1</div>
-				<div class='face s2'>2</div>
-				<div class='face s3'>3</div>
-				<div class='face s4'>4</div>
-				<div class='face s5'>5</div>
-			</div>
-		</div>
-	</div>
-</div>
-			<div class='r-rectangle long-grey'>
-	<div class='furniture'>
-		<div class='r-rectangle-T'>
-			<div></div>
-			<div class='box'>
-				<div class='face s1'>1</div>
-				<div class='face s2'>2</div>
-				<div class='face s3'>3</div>
-				<div class='face s4'>4</div>
-				<div class='face s5'>5</div>
-			</div>
-		</div>
-	</div>
-</div>
-			<div class='r-rectangle long-grey'>
-	<div class='furniture'>
-		<div class='r-rectangle-T'>
-			<div></div>
-			<div class='box'>
-				<div class='face s1'>1</div>
-				<div class='face s2'>2</div>
-				<div class='face s3'>3</div>
-				<div class='face s4'>4</div>
-				<div class='face s5'>5</div>
-			</div>
-		</div>
-	</div>
-</div>
-			<div class='r-rectangle long-grey'>
-	<div class='furniture'>
-		<div class='r-rectangle-T'>
-			<div></div>
-			<div class='box'>
-				<div class='face s1'>1</div>
-				<div class='face s2'>2</div>
-				<div class='face s3'>3</div>
-				<div class='face s4'>4</div>
-				<div class='face s5'>5</div>
-			</div>
-		</div>
-	</div>
-</div>
-			<div class='r-rectangle long-grey'>
-	<div class='furniture'>
-		<div class='r-rectangle-T'>
-			<div></div>
-			<div class='box'>
-				<div class='face s1'>1</div>
-				<div class='face s2'>2</div>
-				<div class='face s3'>3</div>
-				<div class='face s4'>4</div>
-				<div class='face s5'>5</div>
-			</div>
-		</div>
-	</div>
-</div>
-			<div class='r-rectangle long-grey'>
-	<div class='furniture'>
-		<div class='r-rectangle-T'>
-			<div></div>
-			<div class='box'>
-				<div class='face s1'>1</div>
-				<div class='face s2'>2</div>
-				<div class='face s3'>3</div>
-				<div class='face s4'>4</div>
-				<div class='face s5'>5</div>
-			</div>
-		</div>
-	</div>
-</div>
-			<div class='r-rectangle long-grey'>
-	<div class='furniture'>
-		<div class='r-rectangle-T'>
-			<div></div>
-			<div class='box'>
-				<div class='face s1'>1</div>
-				<div class='face s2'>2</div>
-				<div class='face s3'>3</div>
-				<div class='face s4'>4</div>
-				<div class='face s5'>5</div>
-			</div>
-		</div>
-	</div>
-</div>
-			<div class='r-rectangle long-grey'>
-	<div class='furniture'>
-		<div class='r-rectangle-T'>
-			<div></div>
-			<div class='box'>
-				<div class='face s1'>1</div>
-				<div class='face s2'>2</div>
-				<div class='face s3'>3</div>
-				<div class='face s4'>4</div>
-				<div class='face s5'>5</div>
-			</div>
-		</div>
-	</div>
-</div>
-			<div class='r-rectangle long-grey'>
-	<div class='furniture'>
-		<div class='r-rectangle-T'>
-			<div></div>
-			<div class='box'>
-				<div class='face s1'>1</div>
-				<div class='face s2'>2</div>
-				<div class='face s3'>3</div>
-				<div class='face s4'>4</div>
-				<div class='face s5'>5</div>
-			</div>
-		</div>
-	</div>
-</div>
-			<div class='r-rectangle long-grey'>
-	<div class='furniture'>
-		<div class='r-rectangle-T'>
-			<div></div>
-			<div class='box'>
-				<div class='face s1'>1</div>
-				<div class='face s2'>2</div>
-				<div class='face s3'>3</div>
-				<div class='face s4'>4</div>
-				<div class='face s5'>5</div>
-			</div>
-		</div>
-	</div>
-</div>
-			<div class='r-rectangle long-grey'>
-	<div class='furniture'>
-		<div class='r-rectangle-T'>
-			<div></div>
-			<div class='box'>
-				<div class='face s1'>1</div>
-				<div class='face s2'>2</div>
-				<div class='face s3'>3</div>
-				<div class='face s4'>4</div>
-				<div class='face s5'>5</div>
-			</div>
-		</div>
-	</div>
-</div>
-		</div>
+						<div class='type2-wrapper'>
+							<div class='r-rectangle long-grey'>
+								<div class='furniture'>
+									<div class='r-rectangle-T'>
+										<div></div>
+										<div class='box'>
+											<div class='face s1'>1</div>
+											<div class='face s2'>2</div>
+											<div class='face s3'>3</div>
+											<div class='face s4'>4</div>
+											<div class='face s5'>5</div>
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class='r-rectangle long-grey'>
+								<div class='furniture'>
+									<div class='r-rectangle-T'>
+										<div></div>
+										<div class='box'>
+											<div class='face s1'>1</div>
+											<div class='face s2'>2</div>
+											<div class='face s3'>3</div>
+											<div class='face s4'>4</div>
+											<div class='face s5'>5</div>
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class='r-rectangle long-grey'>
+								<div class='furniture'>
+									<div class='r-rectangle-T'>
+										<div></div>
+										<div class='box'>
+											<div class='face s1'>1</div>
+											<div class='face s2'>2</div>
+											<div class='face s3'>3</div>
+											<div class='face s4'>4</div>
+											<div class='face s5'>5</div>
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class='r-rectangle long-grey'>
+								<div class='furniture'>
+									<div class='r-rectangle-T'>
+										<div></div>
+										<div class='box'>
+											<div class='face s1'>1</div>
+											<div class='face s2'>2</div>
+											<div class='face s3'>3</div>
+											<div class='face s4'>4</div>
+											<div class='face s5'>5</div>
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class='r-rectangle long-grey'>
+								<div class='furniture'>
+									<div class='r-rectangle-T'>
+										<div></div>
+										<div class='box'>
+											<div class='face s1'>1</div>
+											<div class='face s2'>2</div>
+											<div class='face s3'>3</div>
+											<div class='face s4'>4</div>
+											<div class='face s5'>5</div>
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class='r-rectangle long-grey'>
+								<div class='furniture'>
+									<div class='r-rectangle-T'>
+										<div></div>
+										<div class='box'>
+											<div class='face s1'>1</div>
+											<div class='face s2'>2</div>
+											<div class='face s3'>3</div>
+											<div class='face s4'>4</div>
+											<div class='face s5'>5</div>
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class='r-rectangle long-grey'>
+								<div class='furniture'>
+									<div class='r-rectangle-T'>
+										<div></div>
+										<div class='box'>
+											<div class='face s1'>1</div>
+											<div class='face s2'>2</div>
+											<div class='face s3'>3</div>
+											<div class='face s4'>4</div>
+											<div class='face s5'>5</div>
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class='r-rectangle long-grey'>
+								<div class='furniture'>
+									<div class='r-rectangle-T'>
+										<div></div>
+										<div class='box'>
+											<div class='face s1'>1</div>
+											<div class='face s2'>2</div>
+											<div class='face s3'>3</div>
+											<div class='face s4'>4</div>
+											<div class='face s5'>5</div>
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class='r-rectangle long-grey'>
+								<div class='furniture'>
+									<div class='r-rectangle-T'>
+										<div></div>
+										<div class='box'>
+											<div class='face s1'>1</div>
+											<div class='face s2'>2</div>
+											<div class='face s3'>3</div>
+											<div class='face s4'>4</div>
+											<div class='face s5'>5</div>
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class='r-rectangle long-grey'>
+								<div class='furniture'>
+									<div class='r-rectangle-T'>
+										<div></div>
+										<div class='box'>
+											<div class='face s1'>1</div>
+											<div class='face s2'>2</div>
+											<div class='face s3'>3</div>
+											<div class='face s4'>4</div>
+											<div class='face s5'>5</div>
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class='r-rectangle long-grey'>
+								<div class='furniture'>
+									<div class='r-rectangle-T'>
+										<div></div>
+										<div class='box'>
+											<div class='face s1'>1</div>
+											<div class='face s2'>2</div>
+											<div class='face s3'>3</div>
+											<div class='face s4'>4</div>
+											<div class='face s5'>5</div>
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class='r-rectangle long-grey'>
+								<div class='furniture'>
+									<div class='r-rectangle-T'>
+										<div></div>
+										<div class='box'>
+											<div class='face s1'>1</div>
+											<div class='face s2'>2</div>
+											<div class='face s3'>3</div>
+											<div class='face s4'>4</div>
+											<div class='face s5'>5</div>
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class='r-rectangle long-grey'>
+								<div class='furniture'>
+									<div class='r-rectangle-T'>
+										<div></div>
+										<div class='box'>
+											<div class='face s1'>1</div>
+											<div class='face s2'>2</div>
+											<div class='face s3'>3</div>
+											<div class='face s4'>4</div>
+											<div class='face s5'>5</div>
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class='r-rectangle long-grey'>
+								<div class='furniture'>
+									<div class='r-rectangle-T'>
+										<div></div>
+										<div class='box'>
+											<div class='face s1'>1</div>
+											<div class='face s2'>2</div>
+											<div class='face s3'>3</div>
+											<div class='face s4'>4</div>
+											<div class='face s5'>5</div>
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class='r-rectangle long-grey'>
+								<div class='furniture'>
+									<div class='r-rectangle-T'>
+										<div></div>
+										<div class='box'>
+											<div class='face s1'>1</div>
+											<div class='face s2'>2</div>
+											<div class='face s3'>3</div>
+											<div class='face s4'>4</div>
+											<div class='face s5'>5</div>
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class='r-rectangle long-grey'>
+								<div class='furniture'>
+									<div class='r-rectangle-T'>
+										<div></div>
+										<div class='box'>
+											<div class='face s1'>1</div>
+											<div class='face s2'>2</div>
+											<div class='face s3'>3</div>
+											<div class='face s4'>4</div>
+											<div class='face s5'>5</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
 
-		<div>
-			<div class='pillartable'>
-<div class='furniture'>
-	          <div class='t-box pillartable-F'>
-            <div class='t-face t-s1'>1</div>
-            <div class='t-face t-s3'>3</div>
-          </div>
-          <div class='t-box pillartable-L'>
-            <div class='t-face t-s1'>1</div>
-            <div class='t-face t-s3'>3</div>
-          </div>
-          <div class='t-box pillartable-B'>
-            <div class='t-face t-s1'>1</div>
-            <div class='t-face t-s3'>3</div>
-          </div>
-          <div class='t-box pillartable-R'>
-            <div class='t-face t-s1'>1</div>
-            <div class='t-face t-s3'>3</div>
-          </div>
-          <div class='box pillartable-P'>
-            <div class='face s2'>2</div>
-            <div class='face s3'>3</div>
-            <div class='face s4'>4</div>
-            <div class='face s5'>5</div>
-          </div>
-</div>
-</div>
-<div class='pillartable'>
-<div class='furniture'>
-	          <div class='t-box pillartable-F'>
-            <div class='t-face t-s1'>1</div>
-            <div class='t-face t-s3'>3</div>
-          </div>
-          <div class='t-box pillartable-L'>
-            <div class='t-face t-s1'>1</div>
-            <div class='t-face t-s3'>3</div>
-          </div>
-          <div class='t-box pillartable-B'>
-            <div class='t-face t-s1'>1</div>
-            <div class='t-face t-s3'>3</div>
-          </div>
-          <div class='t-box pillartable-R'>
-            <div class='t-face t-s1'>1</div>
-            <div class='t-face t-s3'>3</div>
-          </div>
-          <div class='box pillartable-P'>
-            <div class='face s2'>2</div>
-            <div class='face s3'>3</div>
-            <div class='face s4'>4</div>
-            <div class='face s5'>5</div>
-          </div>
-</div>
-</div>
-<div class='pillartable'>
-<div class='furniture'>
-	          <div class='t-box pillartable-F'>
-            <div class='t-face t-s1'>1</div>
-            <div class='t-face t-s3'>3</div>
-          </div>
-          <div class='t-box pillartable-L'>
-            <div class='t-face t-s1'>1</div>
-            <div class='t-face t-s3'>3</div>
-          </div>
-          <div class='t-box pillartable-B'>
-            <div class='t-face t-s1'>1</div>
-            <div class='t-face t-s3'>3</div>
-          </div>
-          <div class='t-box pillartable-R'>
-            <div class='t-face t-s1'>1</div>
-            <div class='t-face t-s3'>3</div>
-          </div>
-          <div class='box pillartable-P'>
-            <div class='face s2'>2</div>
-            <div class='face s3'>3</div>
-            <div class='face s4'>4</div>
-            <div class='face s5'>5</div>
-          </div>
-</div>
-</div>
-<div class='pillartable'>
-<div class='furniture'>
-	          <div class='t-box pillartable-F'>
-            <div class='t-face t-s1'>1</div>
-            <div class='t-face t-s3'>3</div>
-          </div>
-          <div class='t-box pillartable-L'>
-            <div class='t-face t-s1'>1</div>
-            <div class='t-face t-s3'>3</div>
-          </div>
-          <div class='t-box pillartable-B'>
-            <div class='t-face t-s1'>1</div>
-            <div class='t-face t-s3'>3</div>
-          </div>
-          <div class='t-box pillartable-R'>
-            <div class='t-face t-s1'>1</div>
-            <div class='t-face t-s3'>3</div>
-          </div>
-          <div class='box pillartable-P'>
-            <div class='face s2'>2</div>
-            <div class='face s3'>3</div>
-            <div class='face s4'>4</div>
-            <div class='face s5'>5</div>
-          </div>
-</div>
-</div>
-<div class='pillartable'>
-<div class='furniture'>
-	          <div class='t-box pillartable-F'>
-            <div class='t-face t-s1'>1</div>
-            <div class='t-face t-s3'>3</div>
-          </div>
-          <div class='t-box pillartable-L'>
-            <div class='t-face t-s1'>1</div>
-            <div class='t-face t-s3'>3</div>
-          </div>
-          <div class='t-box pillartable-B'>
-            <div class='t-face t-s1'>1</div>
-            <div class='t-face t-s3'>3</div>
-          </div>
-          <div class='t-box pillartable-R'>
-            <div class='t-face t-s1'>1</div>
-            <div class='t-face t-s3'>3</div>
-          </div>
-          <div class='box pillartable-P'>
-            <div class='face s2'>2</div>
-            <div class='face s3'>3</div>
-            <div class='face s4'>4</div>
-            <div class='face s5'>5</div>
-          </div>
-</div>
-</div>
-<div class='pillartable'>
-<div class='furniture'>
-	          <div class='t-box pillartable-F'>
-            <div class='t-face t-s1'>1</div>
-            <div class='t-face t-s3'>3</div>
-          </div>
-          <div class='t-box pillartable-L'>
-            <div class='t-face t-s1'>1</div>
-            <div class='t-face t-s3'>3</div>
-          </div>
-          <div class='t-box pillartable-B'>
-            <div class='t-face t-s1'>1</div>
-            <div class='t-face t-s3'>3</div>
-          </div>
-          <div class='t-box pillartable-R'>
-            <div class='t-face t-s1'>1</div>
-            <div class='t-face t-s3'>3</div>
-          </div>
-          <div class='box pillartable-P'>
-            <div class='face s2'>2</div>
-            <div class='face s3'>3</div>
-            <div class='face s4'>4</div>
-            <div class='face s5'>5</div>
-          </div>
-</div>
-</div>
-<div class='pillartable'>
-<div class='furniture'>
-	          <div class='t-box pillartable-F'>
-            <div class='t-face t-s1'>1</div>
-            <div class='t-face t-s3'>3</div>
-          </div>
-          <div class='t-box pillartable-L'>
-            <div class='t-face t-s1'>1</div>
-            <div class='t-face t-s3'>3</div>
-          </div>
-          <div class='t-box pillartable-B'>
-            <div class='t-face t-s1'>1</div>
-            <div class='t-face t-s3'>3</div>
-          </div>
-          <div class='t-box pillartable-R'>
-            <div class='t-face t-s1'>1</div>
-            <div class='t-face t-s3'>3</div>
-          </div>
-          <div class='box pillartable-P'>
-            <div class='face s2'>2</div>
-            <div class='face s3'>3</div>
-            <div class='face s4'>4</div>
-            <div class='face s5'>5</div>
-          </div>
-</div>
-</div>
-<div class='pillartable'>
-<div class='furniture'>
-	          <div class='t-box pillartable-F'>
-            <div class='t-face t-s1'>1</div>
-            <div class='t-face t-s3'>3</div>
-          </div>
-          <div class='t-box pillartable-L'>
-            <div class='t-face t-s1'>1</div>
-            <div class='t-face t-s3'>3</div>
-          </div>
-          <div class='t-box pillartable-B'>
-            <div class='t-face t-s1'>1</div>
-            <div class='t-face t-s3'>3</div>
-          </div>
-          <div class='t-box pillartable-R'>
-            <div class='t-face t-s1'>1</div>
-            <div class='t-face t-s3'>3</div>
-          </div>
-          <div class='box pillartable-P'>
-            <div class='face s2'>2</div>
-            <div class='face s3'>3</div>
-            <div class='face s4'>4</div>
-            <div class='face s5'>5</div>
-          </div>
-</div>
-</div>
-<div class='pillartable'>
-<div class='furniture'>
-	          <div class='t-box pillartable-F'>
-            <div class='t-face t-s1'>1</div>
-            <div class='t-face t-s3'>3</div>
-          </div>
-          <div class='t-box pillartable-L'>
-            <div class='t-face t-s1'>1</div>
-            <div class='t-face t-s3'>3</div>
-          </div>
-          <div class='t-box pillartable-B'>
-            <div class='t-face t-s1'>1</div>
-            <div class='t-face t-s3'>3</div>
-          </div>
-          <div class='t-box pillartable-R'>
-            <div class='t-face t-s1'>1</div>
-            <div class='t-face t-s3'>3</div>
-          </div>
-          <div class='box pillartable-P'>
-            <div class='face s2'>2</div>
-            <div class='face s3'>3</div>
-            <div class='face s4'>4</div>
-            <div class='face s5'>5</div>
-          </div>
-</div>
-</div>
-		</div>
+						<div class='pillartables-wrapper'>
+							<div class='pillartable'>
+								<div class='furniture'>
+									<div class='t-box pillartable-F'>
+										<div class='t-face t-s1'>1</div>
+										<div class='t-face t-s3'>3</div>
+									</div>
+									<div class='t-box pillartable-L'>
+										<div class='t-face t-s1'>1</div>
+										<div class='t-face t-s3'>3</div>
+									</div>
+									<div class='t-box pillartable-B'>
+										<div class='t-face t-s1'>1</div>
+										<div class='t-face t-s3'>3</div>
+									</div>
+									<div class='t-box pillartable-R'>
+										<div class='t-face t-s1'>1</div>
+										<div class='t-face t-s3'>3</div>
+									</div>
+									<div class='box pillartable-P'>
+										<div class='face s2'>2</div>
+										<div class='face s3'>3</div>
+										<div class='face s4'>4</div>
+										<div class='face s5'>5</div>
+									</div>
+								</div>
+							</div>
+							<div class='pillartable'>
+								<div class='furniture'>
+									<div class='t-box pillartable-F'>
+										<div class='t-face t-s1'>1</div>
+										<div class='t-face t-s3'>3</div>
+									</div>
+									<div class='t-box pillartable-L'>
+										<div class='t-face t-s1'>1</div>
+										<div class='t-face t-s3'>3</div>
+									</div>
+									<div class='t-box pillartable-B'>
+										<div class='t-face t-s1'>1</div>
+										<div class='t-face t-s3'>3</div>
+									</div>
+									<div class='t-box pillartable-R'>
+										<div class='t-face t-s1'>1</div>
+										<div class='t-face t-s3'>3</div>
+									</div>
+									<div class='box pillartable-P'>
+										<div class='face s2'>2</div>
+										<div class='face s3'>3</div>
+										<div class='face s4'>4</div>
+										<div class='face s5'>5</div>
+									</div>
+								</div>
+							</div>
+							<div class='pillartable'>
+								<div class='furniture'>
+									<div class='t-box pillartable-F'>
+										<div class='t-face t-s1'>1</div>
+										<div class='t-face t-s3'>3</div>
+									</div>
+									<div class='t-box pillartable-L'>
+										<div class='t-face t-s1'>1</div>
+										<div class='t-face t-s3'>3</div>
+									</div>
+									<div class='t-box pillartable-B'>
+										<div class='t-face t-s1'>1</div>
+										<div class='t-face t-s3'>3</div>
+									</div>
+									<div class='t-box pillartable-R'>
+										<div class='t-face t-s1'>1</div>
+										<div class='t-face t-s3'>3</div>
+									</div>
+									<div class='box pillartable-P'>
+										<div class='face s2'>2</div>
+										<div class='face s3'>3</div>
+										<div class='face s4'>4</div>
+										<div class='face s5'>5</div>
+									</div>
+								</div>
+							</div>
+							<div class='pillartable'>
+								<div class='furniture'>
+									<div class='t-box pillartable-F'>
+										<div class='t-face t-s1'>1</div>
+										<div class='t-face t-s3'>3</div>
+									</div>
+									<div class='t-box pillartable-L'>
+										<div class='t-face t-s1'>1</div>
+										<div class='t-face t-s3'>3</div>
+									</div>
+									<div class='t-box pillartable-B'>
+										<div class='t-face t-s1'>1</div>
+										<div class='t-face t-s3'>3</div>
+									</div>
+									<div class='t-box pillartable-R'>
+										<div class='t-face t-s1'>1</div>
+										<div class='t-face t-s3'>3</div>
+									</div>
+									<div class='box pillartable-P'>
+										<div class='face s2'>2</div>
+										<div class='face s3'>3</div>
+										<div class='face s4'>4</div>
+										<div class='face s5'>5</div>
+									</div>
+								</div>
+							</div>
+							<div class='pillartable'>
+								<div class='furniture'>
+									<div class='t-box pillartable-F'>
+										<div class='t-face t-s1'>1</div>
+										<div class='t-face t-s3'>3</div>
+									</div>
+									<div class='t-box pillartable-L'>
+										<div class='t-face t-s1'>1</div>
+										<div class='t-face t-s3'>3</div>
+									</div>
+									<div class='t-box pillartable-B'>
+										<div class='t-face t-s1'>1</div>
+										<div class='t-face t-s3'>3</div>
+									</div>
+									<div class='t-box pillartable-R'>
+										<div class='t-face t-s1'>1</div>
+										<div class='t-face t-s3'>3</div>
+									</div>
+									<div class='box pillartable-P'>
+										<div class='face s2'>2</div>
+										<div class='face s3'>3</div>
+										<div class='face s4'>4</div>
+										<div class='face s5'>5</div>
+									</div>
+								</div>
+							</div>
+							<div class='pillartable'>
+								<div class='furniture'>
+									<div class='t-box pillartable-F'>
+										<div class='t-face t-s1'>1</div>
+										<div class='t-face t-s3'>3</div>
+									</div>
+									<div class='t-box pillartable-L'>
+										<div class='t-face t-s1'>1</div>
+										<div class='t-face t-s3'>3</div>
+									</div>
+									<div class='t-box pillartable-B'>
+										<div class='t-face t-s1'>1</div>
+										<div class='t-face t-s3'>3</div>
+									</div>
+									<div class='t-box pillartable-R'>
+										<div class='t-face t-s1'>1</div>
+										<div class='t-face t-s3'>3</div>
+									</div>
+									<div class='box pillartable-P'>
+										<div class='face s2'>2</div>
+										<div class='face s3'>3</div>
+										<div class='face s4'>4</div>
+										<div class='face s5'>5</div>
+									</div>
+								</div>
+							</div>
+							<div class='pillartable'>
+								<div class='furniture'>
+									<div class='t-box pillartable-F'>
+										<div class='t-face t-s1'>1</div>
+										<div class='t-face t-s3'>3</div>
+									</div>
+									<div class='t-box pillartable-L'>
+										<div class='t-face t-s1'>1</div>
+										<div class='t-face t-s3'>3</div>
+									</div>
+									<div class='t-box pillartable-B'>
+										<div class='t-face t-s1'>1</div>
+										<div class='t-face t-s3'>3</div>
+									</div>
+									<div class='t-box pillartable-R'>
+										<div class='t-face t-s1'>1</div>
+										<div class='t-face t-s3'>3</div>
+									</div>
+									<div class='box pillartable-P'>
+										<div class='face s2'>2</div>
+										<div class='face s3'>3</div>
+										<div class='face s4'>4</div>
+										<div class='face s5'>5</div>
+									</div>
+								</div>
+							</div>
+							<div class='pillartable'>
+								<div class='furniture'>
+									<div class='t-box pillartable-F'>
+										<div class='t-face t-s1'>1</div>
+										<div class='t-face t-s3'>3</div>
+									</div>
+									<div class='t-box pillartable-L'>
+										<div class='t-face t-s1'>1</div>
+										<div class='t-face t-s3'>3</div>
+									</div>
+									<div class='t-box pillartable-B'>
+										<div class='t-face t-s1'>1</div>
+										<div class='t-face t-s3'>3</div>
+									</div>
+									<div class='t-box pillartable-R'>
+										<div class='t-face t-s1'>1</div>
+										<div class='t-face t-s3'>3</div>
+									</div>
+									<div class='box pillartable-P'>
+										<div class='face s2'>2</div>
+										<div class='face s3'>3</div>
+										<div class='face s4'>4</div>
+										<div class='face s5'>5</div>
+									</div>
+								</div>
+							</div>
+							<div class='pillartable'>
+								<div class='furniture'>
+									<div class='t-box pillartable-F'>
+										<div class='t-face t-s1'>1</div>
+										<div class='t-face t-s3'>3</div>
+									</div>
+									<div class='t-box pillartable-L'>
+										<div class='t-face t-s1'>1</div>
+										<div class='t-face t-s3'>3</div>
+									</div>
+									<div class='t-box pillartable-B'>
+										<div class='t-face t-s1'>1</div>
+										<div class='t-face t-s3'>3</div>
+									</div>
+									<div class='t-box pillartable-R'>
+										<div class='t-face t-s1'>1</div>
+										<div class='t-face t-s3'>3</div>
+									</div>
+									<div class='box pillartable-P'>
+										<div class='face s2'>2</div>
+										<div class='face s3'>3</div>
+										<div class='face s4'>4</div>
+										<div class='face s5'>5</div>
+									</div>
+								</div>
+							</div>
+						</div>
 
-		<div class= 'small-square-wrapper'>
-			<div class = 'small-square'>1</div>
-			<div class='fork-leg furniture small-square'>
-	<div class='fork-leg-T'>
-		<div class='t-box'>
-			<div class='t-face t-s1'>1</div>
-			<div class='t-face t-s2'>2</div>
-			<div class='t-face t-s4'>4</div>
-			<div class='t-face t-s5'>5</div>
-		</div>
-		<div class='box'>
-			<div class='face s1'>1</div>
-			<div class='face s3'>3</div>
-			<div class='face s5'>5</div>
-		</div>
-		<div class='t-box'>
-			<div class='t-face t-s1'>1</div>
-			<div class='t-face t-s2'>2</div>
-			<div class='t-face t-s4'>4</div>
-			<div class='t-face t-s5'>5</div>
-		</div>
-	</div></div><div class='fork-leg furniture small-square'>
-	<div class='fork-leg-T'>
-		<div class='t-box'>
-			<div class='t-face t-s1'>1</div>
-			<div class='t-face t-s2'>2</div>
-			<div class='t-face t-s4'>4</div>
-			<div class='t-face t-s5'>5</div>
-		</div>
-		<div class='box'>
-			<div class='face s1'>1</div>
-			<div class='face s3'>3</div>
-			<div class='face s5'>5</div>
-		</div>
-		<div class='t-box'>
-			<div class='t-face t-s1'>1</div>
-			<div class='t-face t-s2'>2</div>
-			<div class='t-face t-s4'>4</div>
-			<div class='t-face t-s5'>5</div>
-		</div>
-	</div></div><div class='fork-leg furniture small-square'>
-	<div class='fork-leg-T'>
-		<div class='t-box'>
-			<div class='t-face t-s1'>1</div>
-			<div class='t-face t-s2'>2</div>
-			<div class='t-face t-s4'>4</div>
-			<div class='t-face t-s5'>5</div>
-		</div>
-		<div class='box'>
-			<div class='face s1'>1</div>
-			<div class='face s3'>3</div>
-			<div class='face s5'>5</div>
-		</div>
-		<div class='t-box'>
-			<div class='t-face t-s1'>1</div>
-			<div class='t-face t-s2'>2</div>
-			<div class='t-face t-s4'>4</div>
-			<div class='t-face t-s5'>5</div>
-		</div>
-	</div></div><div class='fork-leg furniture small-square'>
-	<div class='fork-leg-T'>
-		<div class='t-box'>
-			<div class='t-face t-s1'>1</div>
-			<div class='t-face t-s2'>2</div>
-			<div class='t-face t-s4'>4</div>
-			<div class='t-face t-s5'>5</div>
-		</div>
-		<div class='box'>
-			<div class='face s1'>1</div>
-			<div class='face s3'>3</div>
-			<div class='face s5'>5</div>
-		</div>
-		<div class='t-box'>
-			<div class='t-face t-s1'>1</div>
-			<div class='t-face t-s2'>2</div>
-			<div class='t-face t-s4'>4</div>
-			<div class='t-face t-s5'>5</div>
-		</div>
-	</div></div><div class='fork-leg furniture small-square'>
-	<div class='fork-leg-T'>
-		<div class='t-box'>
-			<div class='t-face t-s1'>1</div>
-			<div class='t-face t-s2'>2</div>
-			<div class='t-face t-s4'>4</div>
-			<div class='t-face t-s5'>5</div>
-		</div>
-		<div class='box'>
-			<div class='face s1'>1</div>
-			<div class='face s3'>3</div>
-			<div class='face s5'>5</div>
-		</div>
-		<div class='t-box'>
-			<div class='t-face t-s1'>1</div>
-			<div class='t-face t-s2'>2</div>
-			<div class='t-face t-s4'>4</div>
-			<div class='t-face t-s5'>5</div>
-		</div>
-	</div></div><div class='fork-leg furniture small-square'>
-	<div class='fork-leg-T'>
-		<div class='t-box'>
-			<div class='t-face t-s1'>1</div>
-			<div class='t-face t-s2'>2</div>
-			<div class='t-face t-s4'>4</div>
-			<div class='t-face t-s5'>5</div>
-		</div>
-		<div class='box'>
-			<div class='face s1'>1</div>
-			<div class='face s3'>3</div>
-			<div class='face s5'>5</div>
-		</div>
-		<div class='t-box'>
-			<div class='t-face t-s1'>1</div>
-			<div class='t-face t-s2'>2</div>
-			<div class='t-face t-s4'>4</div>
-			<div class='t-face t-s5'>5</div>
-		</div>
-	</div></div><div class='fork-leg furniture small-square'>
-	<div class='fork-leg-T'>
-		<div class='t-box'>
-			<div class='t-face t-s1'>1</div>
-			<div class='t-face t-s2'>2</div>
-			<div class='t-face t-s4'>4</div>
-			<div class='t-face t-s5'>5</div>
-		</div>
-		<div class='box'>
-			<div class='face s1'>1</div>
-			<div class='face s3'>3</div>
-			<div class='face s5'>5</div>
-		</div>
-		<div class='t-box'>
-			<div class='t-face t-s1'>1</div>
-			<div class='t-face t-s2'>2</div>
-			<div class='t-face t-s4'>4</div>
-			<div class='t-face t-s5'>5</div>
-		</div>
-	</div></div><div class='fork-leg furniture small-square'>
-	<div class='fork-leg-T'>
-		<div class='t-box'>
-			<div class='t-face t-s1'>1</div>
-			<div class='t-face t-s2'>2</div>
-			<div class='t-face t-s4'>4</div>
-			<div class='t-face t-s5'>5</div>
-		</div>
-		<div class='box'>
-			<div class='face s1'>1</div>
-			<div class='face s3'>3</div>
-			<div class='face s5'>5</div>
-		</div>
-		<div class='t-box'>
-			<div class='t-face t-s1'>1</div>
-			<div class='t-face t-s2'>2</div>
-			<div class='t-face t-s4'>4</div>
-			<div class='t-face t-s5'>5</div>
-		</div>
-	</div></div><div class='fork-leg furniture small-square'>
-	<div class='fork-leg-T'>
-		<div class='t-box'>
-			<div class='t-face t-s1'>1</div>
-			<div class='t-face t-s2'>2</div>
-			<div class='t-face t-s4'>4</div>
-			<div class='t-face t-s5'>5</div>
-		</div>
-		<div class='box'>
-			<div class='face s1'>1</div>
-			<div class='face s3'>3</div>
-			<div class='face s5'>5</div>
-		</div>
-		<div class='t-box'>
-			<div class='t-face t-s1'>1</div>
-			<div class='t-face t-s2'>2</div>
-			<div class='t-face t-s4'>4</div>
-			<div class='t-face t-s5'>5</div>
-		</div>
-	</div></div><div class='fork-leg furniture small-square'>
-	<div class='fork-leg-T'>
-		<div class='t-box'>
-			<div class='t-face t-s1'>1</div>
-			<div class='t-face t-s2'>2</div>
-			<div class='t-face t-s4'>4</div>
-			<div class='t-face t-s5'>5</div>
-		</div>
-		<div class='box'>
-			<div class='face s1'>1</div>
-			<div class='face s3'>3</div>
-			<div class='face s5'>5</div>
-		</div>
-		<div class='t-box'>
-			<div class='t-face t-s1'>1</div>
-			<div class='t-face t-s2'>2</div>
-			<div class='t-face t-s4'>4</div>
-			<div class='t-face t-s5'>5</div>
-		</div>
-	</div></div>
-			<div class = 'small-square' >12</div>
-		</div>
+						<div class= 'small-square-wrapper'>
+							<div class = 'small-square'>1</div>
+							<div class='fork-leg furniture small-square'>
+								<div class='fork-leg-T'>
+									<div class='t-box'>
+										<div class='t-face t-s1'>1</div>
+										<div class='t-face t-s2'>2</div>
+										<div class='t-face t-s4'>4</div>
+										<div class='t-face t-s5'>5</div>
+									</div>
+									<div class='box'>
+										<div class='face s1'>1</div>
+										<div class='face s3'>3</div>
+										<div class='face s5'>5</div>
+									</div>
+									<div class='t-box'>
+										<div class='t-face t-s1'>1</div>
+										<div class='t-face t-s2'>2</div>
+										<div class='t-face t-s4'>4</div>
+										<div class='t-face t-s5'>5</div>
+									</div>
+								</div>
+							</div>
+							<div class='fork-leg furniture small-square'>
+								<div class='fork-leg-T'>
+									<div class='t-box'>
+										<div class='t-face t-s1'>1</div>
+										<div class='t-face t-s2'>2</div>
+										<div class='t-face t-s4'>4</div>
+										<div class='t-face t-s5'>5</div>
+									</div>
+									<div class='box'>
+										<div class='face s1'>1</div>
+										<div class='face s3'>3</div>
+										<div class='face s5'>5</div>
+									</div>
+									<div class='t-box'>
+										<div class='t-face t-s1'>1</div>
+										<div class='t-face t-s2'>2</div>
+										<div class='t-face t-s4'>4</div>
+										<div class='t-face t-s5'>5</div>
+									</div>
+								</div>
+							</div>
+							<div class='fork-leg furniture small-square'>
+								<div class='fork-leg-T'>
+									<div class='t-box'>
+										<div class='t-face t-s1'>1</div>
+										<div class='t-face t-s2'>2</div>
+										<div class='t-face t-s4'>4</div>
+										<div class='t-face t-s5'>5</div>
+									</div>
+									<div class='box'>
+										<div class='face s1'>1</div>
+										<div class='face s3'>3</div>
+										<div class='face s5'>5</div>
+									</div>
+									<div class='t-box'>
+										<div class='t-face t-s1'>1</div>
+										<div class='t-face t-s2'>2</div>
+										<div class='t-face t-s4'>4</div>
+										<div class='t-face t-s5'>5</div>
+									</div>
+								</div>
+							</div>
+							<div class='fork-leg furniture small-square'>
+								<div class='fork-leg-T'>
+									<div class='t-box'>
+										<div class='t-face t-s1'>1</div>
+										<div class='t-face t-s2'>2</div>
+										<div class='t-face t-s4'>4</div>
+										<div class='t-face t-s5'>5</div>
+									</div>
+									<div class='box'>
+										<div class='face s1'>1</div>
+										<div class='face s3'>3</div>
+										<div class='face s5'>5</div>
+									</div>
+									<div class='t-box'>
+										<div class='t-face t-s1'>1</div>
+										<div class='t-face t-s2'>2</div>
+										<div class='t-face t-s4'>4</div>
+										<div class='t-face t-s5'>5</div>
+									</div>
+								</div>
+							</div>
+							<div class='fork-leg furniture small-square'>
+								<div class='fork-leg-T'>
+									<div class='t-box'>
+										<div class='t-face t-s1'>1</div>
+										<div class='t-face t-s2'>2</div>
+										<div class='t-face t-s4'>4</div>
+										<div class='t-face t-s5'>5</div>
+									</div>
+									<div class='box'>
+										<div class='face s1'>1</div>
+										<div class='face s3'>3</div>
+										<div class='face s5'>5</div>
+									</div>
+									<div class='t-box'>
+										<div class='t-face t-s1'>1</div>
+										<div class='t-face t-s2'>2</div>
+										<div class='t-face t-s4'>4</div>
+										<div class='t-face t-s5'>5</div>
+									</div>
+								</div>
+							</div>
+							<div class='fork-leg furniture small-square'>
+								<div class='fork-leg-T'>
+									<div class='t-box'>
+										<div class='t-face t-s1'>1</div>
+										<div class='t-face t-s2'>2</div>
+										<div class='t-face t-s4'>4</div>
+										<div class='t-face t-s5'>5</div>
+									</div>
+									<div class='box'>
+										<div class='face s1'>1</div>
+										<div class='face s3'>3</div>
+										<div class='face s5'>5</div>
+									</div>
+									<div class='t-box'>
+										<div class='t-face t-s1'>1</div>
+										<div class='t-face t-s2'>2</div>
+										<div class='t-face t-s4'>4</div>
+										<div class='t-face t-s5'>5</div>
+									</div>
+								</div>
+							</div>
+							<div class='fork-leg furniture small-square'>
+								<div class='fork-leg-T'>
+									<div class='t-box'>
+										<div class='t-face t-s1'>1</div>
+										<div class='t-face t-s2'>2</div>
+										<div class='t-face t-s4'>4</div>
+										<div class='t-face t-s5'>5</div>
+									</div>
+									<div class='box'>
+										<div class='face s1'>1</div>
+										<div class='face s3'>3</div>
+										<div class='face s5'>5</div>
+									</div>
+									<div class='t-box'>
+										<div class='t-face t-s1'>1</div>
+										<div class='t-face t-s2'>2</div>
+										<div class='t-face t-s4'>4</div>
+										<div class='t-face t-s5'>5</div>
+									</div>
+								</div>
+							</div>
+							<div class='fork-leg furniture small-square'>
+								<div class='fork-leg-T'>
+									<div class='t-box'>
+										<div class='t-face t-s1'>1</div>
+										<div class='t-face t-s2'>2</div>
+										<div class='t-face t-s4'>4</div>
+										<div class='t-face t-s5'>5</div>
+									</div>
+									<div class='box'>
+										<div class='face s1'>1</div>
+										<div class='face s3'>3</div>
+										<div class='face s5'>5</div>
+									</div>
+									<div class='t-box'>
+										<div class='t-face t-s1'>1</div>
+										<div class='t-face t-s2'>2</div>
+										<div class='t-face t-s4'>4</div>
+										<div class='t-face t-s5'>5</div>
+									</div>
+								</div>
+							</div>
+							<div class='fork-leg furniture small-square'>
+								<div class='fork-leg-T'>
+									<div class='t-box'>
+										<div class='t-face t-s1'>1</div>
+										<div class='t-face t-s2'>2</div>
+										<div class='t-face t-s4'>4</div>
+										<div class='t-face t-s5'>5</div>
+									</div>
+									<div class='box'>
+										<div class='face s1'>1</div>
+										<div class='face s3'>3</div>
+										<div class='face s5'>5</div>
+									</div>
+									<div class='t-box'>
+										<div class='t-face t-s1'>1</div>
+										<div class='t-face t-s2'>2</div>
+										<div class='t-face t-s4'>4</div>
+										<div class='t-face t-s5'>5</div>
+									</div>
+								</div>
+							</div>
+							<div class='fork-leg furniture small-square'>
+								<div class='fork-leg-T'>
+									<div class='t-box'>
+										<div class='t-face t-s1'>1</div>
+										<div class='t-face t-s2'>2</div>
+										<div class='t-face t-s4'>4</div>
+										<div class='t-face t-s5'>5</div>
+									</div>
+									<div class='box'>
+										<div class='face s1'>1</div>
+										<div class='face s3'>3</div>
+										<div class='face s5'>5</div>
+									</div>
+									<div class='t-box'>
+										<div class='t-face t-s1'>1</div>
+										<div class='t-face t-s2'>2</div>
+										<div class='t-face t-s4'>4</div>
+										<div class='t-face t-s5'>5</div>
+									</div>
+								</div>
+							</div>
+							<div class = 'small-square' >12</div>
+						</div>
 
-		<div class = 'long-rectangle-wrapper'>
-			<div class='hightable long-rectangle'>
-	<div style='transform-origin:0 0;transform: translateX(100%) rotate(90deg);transform-style: preserve-3d;'>
-		<div class='furniture'>
-			<div class='box hightable-L'>
-				<div class='face s1'>1</div>
-				<div class='face s2'>2</div>
-				<div class='face s3'>3</div>
-				<div class='face s4'>4</div>
-				<div class='face s5'>5</div>
-			</div>
-			<div class='box hightable-R'>
-				<div class='face s1'>1</div>
-				<div class='face s2'>2</div>
-				<div class='face s3'>3</div>
-				<div class='face s4'>4</div>
-				<div class='face s5'>5</div>
-			</div>
-			<div class='box hightable-T'>
-				<div class='face s1'>1</div>
-				<div class='face s3'>3</div>
-				<div class='face s5'>5</div>
-			</div>
-		</div>
-	</div>
-</div>
-			<div class='hightable long-rectangle'>
-	<div style='transform-origin:0 0;transform: translateX(100%) rotate(90deg);transform-style: preserve-3d;'>
-		<div class='furniture'>
-			<div class='box hightable-L'>
-				<div class='face s1'>1</div>
-				<div class='face s2'>2</div>
-				<div class='face s3'>3</div>
-				<div class='face s4'>4</div>
-				<div class='face s5'>5</div>
-			</div>
-			<div class='box hightable-R'>
-				<div class='face s1'>1</div>
-				<div class='face s2'>2</div>
-				<div class='face s3'>3</div>
-				<div class='face s4'>4</div>
-				<div class='face s5'>5</div>
-			</div>
-			<div class='box hightable-T'>
-				<div class='face s1'>1</div>
-				<div class='face s3'>3</div>
-				<div class='face s5'>5</div>
-			</div>
-		</div>
-	</div>
-</div>
-			<div class='hightable long-rectangle'>
-	<div style='transform-origin:0 0;transform: translateX(100%) rotate(90deg);transform-style: preserve-3d;'>
-		<div class='furniture'>
-			<div class='box hightable-L'>
-				<div class='face s1'>1</div>
-				<div class='face s2'>2</div>
-				<div class='face s3'>3</div>
-				<div class='face s4'>4</div>
-				<div class='face s5'>5</div>
-			</div>
-			<div class='box hightable-R'>
-				<div class='face s1'>1</div>
-				<div class='face s2'>2</div>
-				<div class='face s3'>3</div>
-				<div class='face s4'>4</div>
-				<div class='face s5'>5</div>
-			</div>
-			<div class='box hightable-T'>
-				<div class='face s1'>1</div>
-				<div class='face s3'>3</div>
-				<div class='face s5'>5</div>
-			</div>
-		</div>
-	</div>
-</div>
-			<div class='hightable long-rectangle'>
-	<div style='transform-origin:0 0;transform: translateX(100%) rotate(90deg);transform-style: preserve-3d;'>
-		<div class='furniture'>
-			<div class='box hightable-L'>
-				<div class='face s1'>1</div>
-				<div class='face s2'>2</div>
-				<div class='face s3'>3</div>
-				<div class='face s4'>4</div>
-				<div class='face s5'>5</div>
-			</div>
-			<div class='box hightable-R'>
-				<div class='face s1'>1</div>
-				<div class='face s2'>2</div>
-				<div class='face s3'>3</div>
-				<div class='face s4'>4</div>
-				<div class='face s5'>5</div>
-			</div>
-			<div class='box hightable-T'>
-				<div class='face s1'>1</div>
-				<div class='face s3'>3</div>
-				<div class='face s5'>5</div>
-			</div>
-		</div>
-	</div>
-</div>
-			<div class='hightable long-rectangle'>
-	<div style='transform-origin:0 0;transform: translateX(100%) rotate(90deg);transform-style: preserve-3d;'>
-		<div class='furniture'>
-			<div class='box hightable-L'>
-				<div class='face s1'>1</div>
-				<div class='face s2'>2</div>
-				<div class='face s3'>3</div>
-				<div class='face s4'>4</div>
-				<div class='face s5'>5</div>
-			</div>
-			<div class='box hightable-R'>
-				<div class='face s1'>1</div>
-				<div class='face s2'>2</div>
-				<div class='face s3'>3</div>
-				<div class='face s4'>4</div>
-				<div class='face s5'>5</div>
-			</div>
-			<div class='box hightable-T'>
-				<div class='face s1'>1</div>
-				<div class='face s3'>3</div>
-				<div class='face s5'>5</div>
-			</div>
-		</div>
-	</div>
-</div>
-			<div class='hightable long-rectangle'>
-	<div style='transform-origin:0 0;transform: translateX(100%) rotate(90deg);transform-style: preserve-3d;'>
-		<div class='furniture'>
-			<div class='box hightable-L'>
-				<div class='face s1'>1</div>
-				<div class='face s2'>2</div>
-				<div class='face s3'>3</div>
-				<div class='face s4'>4</div>
-				<div class='face s5'>5</div>
-			</div>
-			<div class='box hightable-R'>
-				<div class='face s1'>1</div>
-				<div class='face s2'>2</div>
-				<div class='face s3'>3</div>
-				<div class='face s4'>4</div>
-				<div class='face s5'>5</div>
-			</div>
-			<div class='box hightable-T'>
-				<div class='face s1'>1</div>
-				<div class='face s3'>3</div>
-				<div class='face s5'>5</div>
-			</div>
-		</div>
-	</div>
-</div>
-			<div class='hightable long-rectangle'>
-	<div style='transform-origin:0 0;transform: translateX(100%) rotate(90deg);transform-style: preserve-3d;'>
-		<div class='furniture'>
-			<div class='box hightable-L'>
-				<div class='face s1'>1</div>
-				<div class='face s2'>2</div>
-				<div class='face s3'>3</div>
-				<div class='face s4'>4</div>
-				<div class='face s5'>5</div>
-			</div>
-			<div class='box hightable-R'>
-				<div class='face s1'>1</div>
-				<div class='face s2'>2</div>
-				<div class='face s3'>3</div>
-				<div class='face s4'>4</div>
-				<div class='face s5'>5</div>
-			</div>
-			<div class='box hightable-T'>
-				<div class='face s1'>1</div>
-				<div class='face s3'>3</div>
-				<div class='face s5'>5</div>
-			</div>
-		</div>
-	</div>
-</div>
-			<div class='hightable long-rectangle'>
-	<div style='transform-origin:0 0;transform: translateX(100%) rotate(90deg);transform-style: preserve-3d;'>
-		<div class='furniture'>
-			<div class='box hightable-L'>
-				<div class='face s1'>1</div>
-				<div class='face s2'>2</div>
-				<div class='face s3'>3</div>
-				<div class='face s4'>4</div>
-				<div class='face s5'>5</div>
-			</div>
-			<div class='box hightable-R'>
-				<div class='face s1'>1</div>
-				<div class='face s2'>2</div>
-				<div class='face s3'>3</div>
-				<div class='face s4'>4</div>
-				<div class='face s5'>5</div>
-			</div>
-			<div class='box hightable-T'>
-				<div class='face s1'>1</div>
-				<div class='face s3'>3</div>
-				<div class='face s5'>5</div>
-			</div>
-		</div>
-	</div>
-</div>
-			<div class='hightable long-rectangle'>
-	<div style='transform-origin:0 0;transform: translateX(100%) rotate(90deg);transform-style: preserve-3d;'>
-		<div class='furniture'>
-			<div class='box hightable-L'>
-				<div class='face s1'>1</div>
-				<div class='face s2'>2</div>
-				<div class='face s3'>3</div>
-				<div class='face s4'>4</div>
-				<div class='face s5'>5</div>
-			</div>
-			<div class='box hightable-R'>
-				<div class='face s1'>1</div>
-				<div class='face s2'>2</div>
-				<div class='face s3'>3</div>
-				<div class='face s4'>4</div>
-				<div class='face s5'>5</div>
-			</div>
-			<div class='box hightable-T'>
-				<div class='face s1'>1</div>
-				<div class='face s3'>3</div>
-				<div class='face s5'>5</div>
-			</div>
-		</div>
-	</div>
-</div>
-			<div class='hightable long-rectangle'>
-	<div style='transform-origin:0 0;transform: translateX(100%) rotate(90deg);transform-style: preserve-3d;'>
-		<div class='furniture'>
-			<div class='box hightable-L'>
-				<div class='face s1'>1</div>
-				<div class='face s2'>2</div>
-				<div class='face s3'>3</div>
-				<div class='face s4'>4</div>
-				<div class='face s5'>5</div>
-			</div>
-			<div class='box hightable-R'>
-				<div class='face s1'>1</div>
-				<div class='face s2'>2</div>
-				<div class='face s3'>3</div>
-				<div class='face s4'>4</div>
-				<div class='face s5'>5</div>
-			</div>
-			<div class='box hightable-T'>
-				<div class='face s1'>1</div>
-				<div class='face s3'>3</div>
-				<div class='face s5'>5</div>
-			</div>
-		</div>
-	</div>
-</div>
-			<div class='hightable long-rectangle'>
-	<div style='transform-origin:0 0;transform: translateX(100%) rotate(90deg);transform-style: preserve-3d;'>
-		<div class='furniture'>
-			<div class='box hightable-L'>
-				<div class='face s1'>1</div>
-				<div class='face s2'>2</div>
-				<div class='face s3'>3</div>
-				<div class='face s4'>4</div>
-				<div class='face s5'>5</div>
-			</div>
-			<div class='box hightable-R'>
-				<div class='face s1'>1</div>
-				<div class='face s2'>2</div>
-				<div class='face s3'>3</div>
-				<div class='face s4'>4</div>
-				<div class='face s5'>5</div>
-			</div>
-			<div class='box hightable-T'>
-				<div class='face s1'>1</div>
-				<div class='face s3'>3</div>
-				<div class='face s5'>5</div>
-			</div>
-		</div>
-	</div>
-</div>
-			<div class='hightable long-rectangle'>
-	<div style='transform-origin:0 0;transform: translateX(100%) rotate(90deg);transform-style: preserve-3d;'>
-		<div class='furniture'>
-			<div class='box hightable-L'>
-				<div class='face s1'>1</div>
-				<div class='face s2'>2</div>
-				<div class='face s3'>3</div>
-				<div class='face s4'>4</div>
-				<div class='face s5'>5</div>
-			</div>
-			<div class='box hightable-R'>
-				<div class='face s1'>1</div>
-				<div class='face s2'>2</div>
-				<div class='face s3'>3</div>
-				<div class='face s4'>4</div>
-				<div class='face s5'>5</div>
-			</div>
-			<div class='box hightable-T'>
-				<div class='face s1'>1</div>
-				<div class='face s3'>3</div>
-				<div class='face s5'>5</div>
-			</div>
-		</div>
-	</div>
-</div>
-			<div class='hightable long-rectangle'>
-	<div style='transform-origin:0 0;transform: translateX(100%) rotate(90deg);transform-style: preserve-3d;'>
-		<div class='furniture'>
-			<div class='box hightable-L'>
-				<div class='face s1'>1</div>
-				<div class='face s2'>2</div>
-				<div class='face s3'>3</div>
-				<div class='face s4'>4</div>
-				<div class='face s5'>5</div>
-			</div>
-			<div class='box hightable-R'>
-				<div class='face s1'>1</div>
-				<div class='face s2'>2</div>
-				<div class='face s3'>3</div>
-				<div class='face s4'>4</div>
-				<div class='face s5'>5</div>
-			</div>
-			<div class='box hightable-T'>
-				<div class='face s1'>1</div>
-				<div class='face s3'>3</div>
-				<div class='face s5'>5</div>
-			</div>
-		</div>
-	</div>
-</div>
-			<div class='hightable long-rectangle'>
-	<div style='transform-origin:0 0;transform: translateX(100%) rotate(90deg);transform-style: preserve-3d;'>
-		<div class='furniture'>
-			<div class='box hightable-L'>
-				<div class='face s1'>1</div>
-				<div class='face s2'>2</div>
-				<div class='face s3'>3</div>
-				<div class='face s4'>4</div>
-				<div class='face s5'>5</div>
-			</div>
-			<div class='box hightable-R'>
-				<div class='face s1'>1</div>
-				<div class='face s2'>2</div>
-				<div class='face s3'>3</div>
-				<div class='face s4'>4</div>
-				<div class='face s5'>5</div>
-			</div>
-			<div class='box hightable-T'>
-				<div class='face s1'>1</div>
-				<div class='face s3'>3</div>
-				<div class='face s5'>5</div>
-			</div>
-		</div>
-	</div>
-</div>
+						<div class = 'long-rectangle-wrapper'>
+							<div class='hightable long-rectangle'>
+								<div style='transform-origin:0 0;transform: translateX(100%) rotate(90deg);transform-style: preserve-3d;'>
+									<div class='furniture'>
+										<div class='box hightable-L'>
+											<div class='face s1'>1</div>
+											<div class='face s2'>2</div>
+											<div class='face s3'>3</div>
+											<div class='face s4'>4</div>
+											<div class='face s5'>5</div>
+										</div>
+										<div class='box hightable-R'>
+											<div class='face s1'>1</div>
+											<div class='face s2'>2</div>
+											<div class='face s3'>3</div>
+											<div class='face s4'>4</div>
+											<div class='face s5'>5</div>
+										</div>
+										<div class='box hightable-T'>
+											<div class='face s1'>1</div>
+											<div class='face s3'>3</div>
+											<div class='face s5'>5</div>
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class='hightable long-rectangle'>
+								<div style='transform-origin:0 0;transform: translateX(100%) rotate(90deg);transform-style: preserve-3d;'>
+									<div class='furniture'>
+										<div class='box hightable-L'>
+											<div class='face s1'>1</div>
+											<div class='face s2'>2</div>
+											<div class='face s3'>3</div>
+											<div class='face s4'>4</div>
+											<div class='face s5'>5</div>
+										</div>
+										<div class='box hightable-R'>
+											<div class='face s1'>1</div>
+											<div class='face s2'>2</div>
+											<div class='face s3'>3</div>
+											<div class='face s4'>4</div>
+											<div class='face s5'>5</div>
+										</div>
+										<div class='box hightable-T'>
+											<div class='face s1'>1</div>
+											<div class='face s3'>3</div>
+											<div class='face s5'>5</div>
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class='hightable long-rectangle'>
+								<div style='transform-origin:0 0;transform: translateX(100%) rotate(90deg);transform-style: preserve-3d;'>
+									<div class='furniture'>
+										<div class='box hightable-L'>
+											<div class='face s1'>1</div>
+											<div class='face s2'>2</div>
+											<div class='face s3'>3</div>
+											<div class='face s4'>4</div>
+											<div class='face s5'>5</div>
+										</div>
+										<div class='box hightable-R'>
+											<div class='face s1'>1</div>
+											<div class='face s2'>2</div>
+											<div class='face s3'>3</div>
+											<div class='face s4'>4</div>
+											<div class='face s5'>5</div>
+										</div>
+										<div class='box hightable-T'>
+											<div class='face s1'>1</div>
+											<div class='face s3'>3</div>
+											<div class='face s5'>5</div>
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class='hightable long-rectangle'>
+								<div style='transform-origin:0 0;transform: translateX(100%) rotate(90deg);transform-style: preserve-3d;'>
+									<div class='furniture'>
+										<div class='box hightable-L'>
+											<div class='face s1'>1</div>
+											<div class='face s2'>2</div>
+											<div class='face s3'>3</div>
+											<div class='face s4'>4</div>
+											<div class='face s5'>5</div>
+										</div>
+										<div class='box hightable-R'>
+											<div class='face s1'>1</div>
+											<div class='face s2'>2</div>
+											<div class='face s3'>3</div>
+											<div class='face s4'>4</div>
+											<div class='face s5'>5</div>
+										</div>
+										<div class='box hightable-T'>
+											<div class='face s1'>1</div>
+											<div class='face s3'>3</div>
+											<div class='face s5'>5</div>
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class='hightable long-rectangle'>
+								<div style='transform-origin:0 0;transform: translateX(100%) rotate(90deg);transform-style: preserve-3d;'>
+									<div class='furniture'>
+										<div class='box hightable-L'>
+											<div class='face s1'>1</div>
+											<div class='face s2'>2</div>
+											<div class='face s3'>3</div>
+											<div class='face s4'>4</div>
+											<div class='face s5'>5</div>
+										</div>
+										<div class='box hightable-R'>
+											<div class='face s1'>1</div>
+											<div class='face s2'>2</div>
+											<div class='face s3'>3</div>
+											<div class='face s4'>4</div>
+											<div class='face s5'>5</div>
+										</div>
+										<div class='box hightable-T'>
+											<div class='face s1'>1</div>
+											<div class='face s3'>3</div>
+											<div class='face s5'>5</div>
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class='hightable long-rectangle'>
+								<div style='transform-origin:0 0;transform: translateX(100%) rotate(90deg);transform-style: preserve-3d;'>
+									<div class='furniture'>
+										<div class='box hightable-L'>
+											<div class='face s1'>1</div>
+											<div class='face s2'>2</div>
+											<div class='face s3'>3</div>
+											<div class='face s4'>4</div>
+											<div class='face s5'>5</div>
+										</div>
+										<div class='box hightable-R'>
+											<div class='face s1'>1</div>
+											<div class='face s2'>2</div>
+											<div class='face s3'>3</div>
+											<div class='face s4'>4</div>
+											<div class='face s5'>5</div>
+										</div>
+										<div class='box hightable-T'>
+											<div class='face s1'>1</div>
+											<div class='face s3'>3</div>
+											<div class='face s5'>5</div>
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class='hightable long-rectangle'>
+								<div style='transform-origin:0 0;transform: translateX(100%) rotate(90deg);transform-style: preserve-3d;'>
+									<div class='furniture'>
+										<div class='box hightable-L'>
+											<div class='face s1'>1</div>
+											<div class='face s2'>2</div>
+											<div class='face s3'>3</div>
+											<div class='face s4'>4</div>
+											<div class='face s5'>5</div>
+										</div>
+										<div class='box hightable-R'>
+											<div class='face s1'>1</div>
+											<div class='face s2'>2</div>
+											<div class='face s3'>3</div>
+											<div class='face s4'>4</div>
+											<div class='face s5'>5</div>
+										</div>
+										<div class='box hightable-T'>
+											<div class='face s1'>1</div>
+											<div class='face s3'>3</div>
+											<div class='face s5'>5</div>
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class='hightable long-rectangle'>
+								<div style='transform-origin:0 0;transform: translateX(100%) rotate(90deg);transform-style: preserve-3d;'>
+									<div class='furniture'>
+										<div class='box hightable-L'>
+											<div class='face s1'>1</div>
+											<div class='face s2'>2</div>
+											<div class='face s3'>3</div>
+											<div class='face s4'>4</div>
+											<div class='face s5'>5</div>
+										</div>
+										<div class='box hightable-R'>
+											<div class='face s1'>1</div>
+											<div class='face s2'>2</div>
+											<div class='face s3'>3</div>
+											<div class='face s4'>4</div>
+											<div class='face s5'>5</div>
+										</div>
+										<div class='box hightable-T'>
+											<div class='face s1'>1</div>
+											<div class='face s3'>3</div>
+											<div class='face s5'>5</div>
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class='hightable long-rectangle'>
+								<div style='transform-origin:0 0;transform: translateX(100%) rotate(90deg);transform-style: preserve-3d;'>
+									<div class='furniture'>
+										<div class='box hightable-L'>
+											<div class='face s1'>1</div>
+											<div class='face s2'>2</div>
+											<div class='face s3'>3</div>
+											<div class='face s4'>4</div>
+											<div class='face s5'>5</div>
+										</div>
+										<div class='box hightable-R'>
+											<div class='face s1'>1</div>
+											<div class='face s2'>2</div>
+											<div class='face s3'>3</div>
+											<div class='face s4'>4</div>
+											<div class='face s5'>5</div>
+										</div>
+										<div class='box hightable-T'>
+											<div class='face s1'>1</div>
+											<div class='face s3'>3</div>
+											<div class='face s5'>5</div>
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class='hightable long-rectangle'>
+								<div style='transform-origin:0 0;transform: translateX(100%) rotate(90deg);transform-style: preserve-3d;'>
+									<div class='furniture'>
+										<div class='box hightable-L'>
+											<div class='face s1'>1</div>
+											<div class='face s2'>2</div>
+											<div class='face s3'>3</div>
+											<div class='face s4'>4</div>
+											<div class='face s5'>5</div>
+										</div>
+										<div class='box hightable-R'>
+											<div class='face s1'>1</div>
+											<div class='face s2'>2</div>
+											<div class='face s3'>3</div>
+											<div class='face s4'>4</div>
+											<div class='face s5'>5</div>
+										</div>
+										<div class='box hightable-T'>
+											<div class='face s1'>1</div>
+											<div class='face s3'>3</div>
+											<div class='face s5'>5</div>
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class='hightable long-rectangle'>
+								<div style='transform-origin:0 0;transform: translateX(100%) rotate(90deg);transform-style: preserve-3d;'>
+									<div class='furniture'>
+										<div class='box hightable-L'>
+											<div class='face s1'>1</div>
+											<div class='face s2'>2</div>
+											<div class='face s3'>3</div>
+											<div class='face s4'>4</div>
+											<div class='face s5'>5</div>
+										</div>
+										<div class='box hightable-R'>
+											<div class='face s1'>1</div>
+											<div class='face s2'>2</div>
+											<div class='face s3'>3</div>
+											<div class='face s4'>4</div>
+											<div class='face s5'>5</div>
+										</div>
+										<div class='box hightable-T'>
+											<div class='face s1'>1</div>
+											<div class='face s3'>3</div>
+											<div class='face s5'>5</div>
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class='hightable long-rectangle'>
+								<div style='transform-origin:0 0;transform: translateX(100%) rotate(90deg);transform-style: preserve-3d;'>
+									<div class='furniture'>
+										<div class='box hightable-L'>
+											<div class='face s1'>1</div>
+											<div class='face s2'>2</div>
+											<div class='face s3'>3</div>
+											<div class='face s4'>4</div>
+											<div class='face s5'>5</div>
+										</div>
+										<div class='box hightable-R'>
+											<div class='face s1'>1</div>
+											<div class='face s2'>2</div>
+											<div class='face s3'>3</div>
+											<div class='face s4'>4</div>
+											<div class='face s5'>5</div>
+										</div>
+										<div class='box hightable-T'>
+											<div class='face s1'>1</div>
+											<div class='face s3'>3</div>
+											<div class='face s5'>5</div>
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class='hightable long-rectangle'>
+								<div style='transform-origin:0 0;transform: translateX(100%) rotate(90deg);transform-style: preserve-3d;'>
+									<div class='furniture'>
+										<div class='box hightable-L'>
+											<div class='face s1'>1</div>
+											<div class='face s2'>2</div>
+											<div class='face s3'>3</div>
+											<div class='face s4'>4</div>
+											<div class='face s5'>5</div>
+										</div>
+										<div class='box hightable-R'>
+											<div class='face s1'>1</div>
+											<div class='face s2'>2</div>
+											<div class='face s3'>3</div>
+											<div class='face s4'>4</div>
+											<div class='face s5'>5</div>
+										</div>
+										<div class='box hightable-T'>
+											<div class='face s1'>1</div>
+											<div class='face s3'>3</div>
+											<div class='face s5'>5</div>
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class='hightable long-rectangle'>
+								<div style='transform-origin:0 0;transform: translateX(100%) rotate(90deg);transform-style: preserve-3d;'>
+									<div class='furniture'>
+										<div class='box hightable-L'>
+											<div class='face s1'>1</div>
+											<div class='face s2'>2</div>
+											<div class='face s3'>3</div>
+											<div class='face s4'>4</div>
+											<div class='face s5'>5</div>
+										</div>
+										<div class='box hightable-R'>
+											<div class='face s1'>1</div>
+											<div class='face s2'>2</div>
+											<div class='face s3'>3</div>
+											<div class='face s4'>4</div>
+											<div class='face s5'>5</div>
+										</div>
+										<div class='box hightable-T'>
+											<div class='face s1'>1</div>
+											<div class='face s3'>3</div>
+											<div class='face s5'>5</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
 
-		</div>
+						<div class = 'booth-wrapper'>
+							<div class='boothset'>
+								<div class='booth'>
+									<div class='furniture'>
+										<div class='t-box booth-B1'>
+											<div class='t-face t-s1'>1</div>
+											<div class='t-face t-s2'>2</div>
+											<div class='t-face t-s3'>3</div>
+											<div class='t-face t-s4'>4</div>
+											<div class='t-face t-s6'>6</div>
+										</div>
+										<div class='booth-C'>
+											<div class='w-box'>
+												<div class='w-face w-s1'>1</div>
+												<div class='w-face w-s2'>2</div>
+												<div class='w-face w-s3'>3</div>
+												<div class='w-face w-s4'>4</div>
+											</div>
+											<div class='box'>
+												<div class='face s1'>1</div>
+												<div class='face s2'>2</div>
+												<div class='face s4'>4</div>
+											</div>
+											<div class='t-box'>
+												<div class='t-face t-s1'>1</div>
+												<div class='t-face t-s2'>2</div>
+												<div class='t-face t-s4'>4</div>
+											</div>
+										</div>
+										<div class='booth-B2'>
+											<div class='t-box'>
+												<div class='t-face t-s1'>1</div>
+												<div class='t-face t-s2'>2</div>
+												<div class='t-face t-s4'>4</div>
+												<div class='t-face t-s5'>5</div>
+												<div class='t-face t-s6'>6</div>
+											</div>
+											<div class='t-box'>
+												<div class='t-face t-s1'>1</div>
+												<div class='t-face t-s2'>2</div>
+												<div class='t-face t-s4'>4</div>
+												<div class='t-face t-s5'>5</div>
+												<div class='t-face t-s6'>6</div>
+											</div>
+										</div>
+									</div>
+								</div>
+								<div class='booth'>
+									<div class='furniture'>
+										<div class='t-box booth-B1'>
+											<div class='t-face t-s1'>1</div>
+											<div class='t-face t-s2'>2</div>
+											<div class='t-face t-s3'>3</div>
+											<div class='t-face t-s4'>4</div>
+											<div class='t-face t-s6'>6</div>
+										</div>
+										<div class='booth-C'>
+											<div class='w-box'>
+												<div class='w-face w-s1'>1</div>
+												<div class='w-face w-s2'>2</div>
+												<div class='w-face w-s3'>3</div>
+												<div class='w-face w-s4'>4</div>
+											</div>
+											<div class='box'>
+												<div class='face s1'>1</div>
+												<div class='face s2'>2</div>
+												<div class='face s4'>4</div>
+											</div>
+											<div class='t-box'>
+												<div class='t-face t-s1'>1</div>
+												<div class='t-face t-s2'>2</div>
+												<div class='t-face t-s4'>4</div>
+											</div>
+										</div>
+										<div class='booth-B2'>
+											<div class='t-box'>
+												<div class='t-face t-s1'>1</div>
+												<div class='t-face t-s2'>2</div>
+												<div class='t-face t-s4'>4</div>
+												<div class='t-face t-s5'>5</div>
+												<div class='t-face t-s6'>6</div>
+											</div>
+											<div class='t-box'>
+												<div class='t-face t-s1'>1</div>
+												<div class='t-face t-s2'>2</div>
+												<div class='t-face t-s4'>4</div>
+												<div class='t-face t-s5'>5</div>
+												<div class='t-face t-s6'>6</div>
+											</div>
+										</div>
+									</div>
+								</div>
+								<div class='r-rectangle'>
+									<div class='r-rectangle furniture'>
+										<div class='r-rectangle-T'>
+											<div class='box'>
+												<div class='face s1'>1</div>
+												<div class='face s2'>2</div>
+												<div class='face s3'>3</div>
+												<div class='face s4'>4</div>
+												<div class='face s5'>5</div>
+												<div class='face s6'>6</div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class='boothset'>
+								<div class='booth'>
+									<div class='furniture'>
+										<div class='t-box booth-B1'>
+											<div class='t-face t-s1'>1</div>
+											<div class='t-face t-s2'>2</div>
+											<div class='t-face t-s3'>3</div>
+											<div class='t-face t-s4'>4</div>
+											<div class='t-face t-s6'>6</div>
+										</div>
+										<div class='booth-C'>
+											<div class='w-box'>
+												<div class='w-face w-s1'>1</div>
+												<div class='w-face w-s2'>2</div>
+												<div class='w-face w-s3'>3</div>
+												<div class='w-face w-s4'>4</div>
+											</div>
+											<div class='box'>
+												<div class='face s1'>1</div>
+												<div class='face s2'>2</div>
+												<div class='face s4'>4</div>
+											</div>
+											<div class='t-box'>
+												<div class='t-face t-s1'>1</div>
+												<div class='t-face t-s2'>2</div>
+												<div class='t-face t-s4'>4</div>
+											</div>
+										</div>
+										<div class='booth-B2'>
+											<div class='t-box'>
+												<div class='t-face t-s1'>1</div>
+												<div class='t-face t-s2'>2</div>
+												<div class='t-face t-s4'>4</div>
+												<div class='t-face t-s5'>5</div>
+												<div class='t-face t-s6'>6</div>
+											</div>
+											<div class='t-box'>
+												<div class='t-face t-s1'>1</div>
+												<div class='t-face t-s2'>2</div>
+												<div class='t-face t-s4'>4</div>
+												<div class='t-face t-s5'>5</div>
+												<div class='t-face t-s6'>6</div>
+											</div>
+										</div>
+									</div>
+								</div>
+								<div class='booth'>
+									<div class='furniture'>
+										<div class='t-box booth-B1'>
+											<div class='t-face t-s1'>1</div>
+											<div class='t-face t-s2'>2</div>
+											<div class='t-face t-s3'>3</div>
+											<div class='t-face t-s4'>4</div>
+											<div class='t-face t-s6'>6</div>
+										</div>
+										<div class='booth-C'>
+											<div class='w-box'>
+												<div class='w-face w-s1'>1</div>
+												<div class='w-face w-s2'>2</div>
+												<div class='w-face w-s3'>3</div>
+												<div class='w-face w-s4'>4</div>
+											</div>
+											<div class='box'>
+												<div class='face s1'>1</div>
+												<div class='face s2'>2</div>
+												<div class='face s4'>4</div>
+											</div>
+											<div class='t-box'>
+												<div class='t-face t-s1'>1</div>
+												<div class='t-face t-s2'>2</div>
+												<div class='t-face t-s4'>4</div>
+											</div>
+										</div>
+										<div class='booth-B2'>
+											<div class='t-box'>
+												<div class='t-face t-s1'>1</div>
+												<div class='t-face t-s2'>2</div>
+												<div class='t-face t-s4'>4</div>
+												<div class='t-face t-s5'>5</div>
+												<div class='t-face t-s6'>6</div>
+											</div>
+											<div class='t-box'>
+												<div class='t-face t-s1'>1</div>
+												<div class='t-face t-s2'>2</div>
+												<div class='t-face t-s4'>4</div>
+												<div class='t-face t-s5'>5</div>
+												<div class='t-face t-s6'>6</div>
+											</div>
+										</div>
+									</div>
+								</div>
+								<div class='r-rectangle'>
+									<div class='r-rectangle furniture'>
+										<div class='r-rectangle-T'>
+											<div class='box'>
+												<div class='face s1'>1</div>
+												<div class='face s2'>2</div>
+												<div class='face s3'>3</div>
+												<div class='face s4'>4</div>
+												<div class='face s5'>5</div>
+												<div class='face s6'>6</div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class='boothset'>
+								<div class='booth'>
+									<div class='furniture'>
+										<div class='t-box booth-B1'>
+											<div class='t-face t-s1'>1</div>
+											<div class='t-face t-s2'>2</div>
+											<div class='t-face t-s3'>3</div>
+											<div class='t-face t-s4'>4</div>
+											<div class='t-face t-s6'>6</div>
+										</div>
+										<div class='booth-C'>
+											<div class='w-box'>
+												<div class='w-face w-s1'>1</div>
+												<div class='w-face w-s2'>2</div>
+												<div class='w-face w-s3'>3</div>
+												<div class='w-face w-s4'>4</div>
+											</div>
+											<div class='box'>
+												<div class='face s1'>1</div>
+												<div class='face s2'>2</div>
+												<div class='face s4'>4</div>
+											</div>
+											<div class='t-box'>
+												<div class='t-face t-s1'>1</div>
+												<div class='t-face t-s2'>2</div>
+												<div class='t-face t-s4'>4</div>
+											</div>
+										</div>
+										<div class='booth-B2'>
+											<div class='t-box'>
+												<div class='t-face t-s1'>1</div>
+												<div class='t-face t-s2'>2</div>
+												<div class='t-face t-s4'>4</div>
+												<div class='t-face t-s5'>5</div>
+												<div class='t-face t-s6'>6</div>
+											</div>
+											<div class='t-box'>
+												<div class='t-face t-s1'>1</div>
+												<div class='t-face t-s2'>2</div>
+												<div class='t-face t-s4'>4</div>
+												<div class='t-face t-s5'>5</div>
+												<div class='t-face t-s6'>6</div>
+											</div>
+										</div>
+									</div>
+								</div>
+								<div class='booth'>
+									<div class='furniture'>
+										<div class='t-box booth-B1'>
+											<div class='t-face t-s1'>1</div>
+											<div class='t-face t-s2'>2</div>
+											<div class='t-face t-s3'>3</div>
+											<div class='t-face t-s4'>4</div>
+											<div class='t-face t-s6'>6</div>
+										</div>
+										<div class='booth-C'>
+											<div class='w-box'>
+												<div class='w-face w-s1'>1</div>
+												<div class='w-face w-s2'>2</div>
+												<div class='w-face w-s3'>3</div>
+												<div class='w-face w-s4'>4</div>
+											</div>
+											<div class='box'>
+												<div class='face s1'>1</div>
+												<div class='face s2'>2</div>
+												<div class='face s4'>4</div>
+											</div>
+											<div class='t-box'>
+												<div class='t-face t-s1'>1</div>
+												<div class='t-face t-s2'>2</div>
+												<div class='t-face t-s4'>4</div>
+											</div>
+										</div>
+										<div class='booth-B2'>
+											<div class='t-box'>
+												<div class='t-face t-s1'>1</div>
+												<div class='t-face t-s2'>2</div>
+												<div class='t-face t-s4'>4</div>
+												<div class='t-face t-s5'>5</div>
+												<div class='t-face t-s6'>6</div>
+											</div>
+											<div class='t-box'>
+												<div class='t-face t-s1'>1</div>
+												<div class='t-face t-s2'>2</div>
+												<div class='t-face t-s4'>4</div>
+												<div class='t-face t-s5'>5</div>
+												<div class='t-face t-s6'>6</div>
+											</div>
 
-		<div class = 'booth-wrapper'>
-			<div class='boothset'>
-<div class='booth'>
-<div class='furniture'>
-      <div class='t-box booth-B1'>
-        <div class='t-face t-s1'>1</div>
-        <div class='t-face t-s2'>2</div>
-        <div class='t-face t-s3'>3</div>
-        <div class='t-face t-s4'>4</div>
-        <div class='t-face t-s6'>6</div>
-      </div>
-      <div class='booth-C'>
-        <div class='w-box'>
-          <div class='w-face w-s1'>1</div>
-          <div class='w-face w-s2'>2</div>
-          <div class='w-face w-s3'>3</div>
-          <div class='w-face w-s4'>4</div>
-        </div>
-        <div class='box'>
-          <div class='face s1'>1</div>
-          <div class='face s2'>2</div>
-          <div class='face s4'>4</div>
-        </div>
-        <div class='t-box'>
-          <div class='t-face t-s1'>1</div>
-          <div class='t-face t-s2'>2</div>
-          <div class='t-face t-s4'>4</div>
-        </div>
-      </div>
-      <div class='booth-B2'>
-        <div class='t-box'>
-          <div class='t-face t-s1'>1</div>
-          <div class='t-face t-s2'>2</div>
-          <div class='t-face t-s4'>4</div>
-          <div class='t-face t-s5'>5</div>
-          <div class='t-face t-s6'>6</div>
-        </div>
-        <div class='t-box'>
-          <div class='t-face t-s1'>1</div>
-          <div class='t-face t-s2'>2</div>
-          <div class='t-face t-s4'>4</div>
-          <div class='t-face t-s5'>5</div>
-          <div class='t-face t-s6'>6</div>
-        </div>
-      </div>
-    </div></div>
-    <div class='booth'>
-    <div class='furniture'>
-      <div class='t-box booth-B1'>
-        <div class='t-face t-s1'>1</div>
-        <div class='t-face t-s2'>2</div>
-        <div class='t-face t-s3'>3</div>
-        <div class='t-face t-s4'>4</div>
-        <div class='t-face t-s6'>6</div>
-      </div>
-      <div class='booth-C'>
-        <div class='w-box'>
-          <div class='w-face w-s1'>1</div>
-          <div class='w-face w-s2'>2</div>
-          <div class='w-face w-s3'>3</div>
-          <div class='w-face w-s4'>4</div>
-        </div>
-        <div class='box'>
-          <div class='face s1'>1</div>
-          <div class='face s2'>2</div>
-          <div class='face s4'>4</div>
-        </div>
-        <div class='t-box'>
-          <div class='t-face t-s1'>1</div>
-          <div class='t-face t-s2'>2</div>
-          <div class='t-face t-s4'>4</div>
-        </div>
-      </div>
-      <div class='booth-B2'>
-        <div class='t-box'>
-          <div class='t-face t-s1'>1</div>
-          <div class='t-face t-s2'>2</div>
-          <div class='t-face t-s4'>4</div>
-          <div class='t-face t-s5'>5</div>
-          <div class='t-face t-s6'>6</div>
-        </div>
-        <div class='t-box'>
-          <div class='t-face t-s1'>1</div>
-          <div class='t-face t-s2'>2</div>
-          <div class='t-face t-s4'>4</div>
-          <div class='t-face t-s5'>5</div>
-          <div class='t-face t-s6'>6</div>
-        </div>
-      </div>
-      </div></div>
-      
-      <div class='r-rectangle'>
-      <div class='r-rectangle furniture'>
-  <div class='r-rectangle-T'>
-    <div class='box'>
-      <div class='face s1'>1</div>
-      <div class='face s2'>2</div>
-      <div class='face s3'>3</div>
-      <div class='face s4'>4</div>
-      <div class='face s5'>5</div>
-      <div class='face s6'>6</div>
-    </div>
-  </div>
-</div></div>
-    </div>
-    	<div class='boothset'>
-<div class='booth'>
-<div class='furniture'>
-      <div class='t-box booth-B1'>
-        <div class='t-face t-s1'>1</div>
-        <div class='t-face t-s2'>2</div>
-        <div class='t-face t-s3'>3</div>
-        <div class='t-face t-s4'>4</div>
-        <div class='t-face t-s6'>6</div>
-      </div>
-      <div class='booth-C'>
-        <div class='w-box'>
-          <div class='w-face w-s1'>1</div>
-          <div class='w-face w-s2'>2</div>
-          <div class='w-face w-s3'>3</div>
-          <div class='w-face w-s4'>4</div>
-        </div>
-        <div class='box'>
-          <div class='face s1'>1</div>
-          <div class='face s2'>2</div>
-          <div class='face s4'>4</div>
-        </div>
-        <div class='t-box'>
-          <div class='t-face t-s1'>1</div>
-          <div class='t-face t-s2'>2</div>
-          <div class='t-face t-s4'>4</div>
-        </div>
-      </div>
-      <div class='booth-B2'>
-        <div class='t-box'>
-          <div class='t-face t-s1'>1</div>
-          <div class='t-face t-s2'>2</div>
-          <div class='t-face t-s4'>4</div>
-          <div class='t-face t-s5'>5</div>
-          <div class='t-face t-s6'>6</div>
-        </div>
-        <div class='t-box'>
-          <div class='t-face t-s1'>1</div>
-          <div class='t-face t-s2'>2</div>
-          <div class='t-face t-s4'>4</div>
-          <div class='t-face t-s5'>5</div>
-          <div class='t-face t-s6'>6</div>
-        </div>
-      </div>
-    </div></div>
-    <div class='booth'>
-    <div class='furniture'>
-      <div class='t-box booth-B1'>
-        <div class='t-face t-s1'>1</div>
-        <div class='t-face t-s2'>2</div>
-        <div class='t-face t-s3'>3</div>
-        <div class='t-face t-s4'>4</div>
-        <div class='t-face t-s6'>6</div>
-      </div>
-      <div class='booth-C'>
-        <div class='w-box'>
-          <div class='w-face w-s1'>1</div>
-          <div class='w-face w-s2'>2</div>
-          <div class='w-face w-s3'>3</div>
-          <div class='w-face w-s4'>4</div>
-        </div>
-        <div class='box'>
-          <div class='face s1'>1</div>
-          <div class='face s2'>2</div>
-          <div class='face s4'>4</div>
-        </div>
-        <div class='t-box'>
-          <div class='t-face t-s1'>1</div>
-          <div class='t-face t-s2'>2</div>
-          <div class='t-face t-s4'>4</div>
-        </div>
-      </div>
-      <div class='booth-B2'>
-        <div class='t-box'>
-          <div class='t-face t-s1'>1</div>
-          <div class='t-face t-s2'>2</div>
-          <div class='t-face t-s4'>4</div>
-          <div class='t-face t-s5'>5</div>
-          <div class='t-face t-s6'>6</div>
-        </div>
-        <div class='t-box'>
-          <div class='t-face t-s1'>1</div>
-          <div class='t-face t-s2'>2</div>
-          <div class='t-face t-s4'>4</div>
-          <div class='t-face t-s5'>5</div>
-          <div class='t-face t-s6'>6</div>
-        </div>
-      </div>
-      </div></div>
-      
-      <div class='r-rectangle'>
-      <div class='r-rectangle furniture'>
-  <div class='r-rectangle-T'>
-    <div class='box'>
-      <div class='face s1'>1</div>
-      <div class='face s2'>2</div>
-      <div class='face s3'>3</div>
-      <div class='face s4'>4</div>
-      <div class='face s5'>5</div>
-      <div class='face s6'>6</div>
-    </div>
-  </div>
-</div></div>
-    </div>
-    	<div class='boothset'>
-<div class='booth'>
-<div class='furniture'>
-      <div class='t-box booth-B1'>
-        <div class='t-face t-s1'>1</div>
-        <div class='t-face t-s2'>2</div>
-        <div class='t-face t-s3'>3</div>
-        <div class='t-face t-s4'>4</div>
-        <div class='t-face t-s6'>6</div>
-      </div>
-      <div class='booth-C'>
-        <div class='w-box'>
-          <div class='w-face w-s1'>1</div>
-          <div class='w-face w-s2'>2</div>
-          <div class='w-face w-s3'>3</div>
-          <div class='w-face w-s4'>4</div>
-        </div>
-        <div class='box'>
-          <div class='face s1'>1</div>
-          <div class='face s2'>2</div>
-          <div class='face s4'>4</div>
-        </div>
-        <div class='t-box'>
-          <div class='t-face t-s1'>1</div>
-          <div class='t-face t-s2'>2</div>
-          <div class='t-face t-s4'>4</div>
-        </div>
-      </div>
-      <div class='booth-B2'>
-        <div class='t-box'>
-          <div class='t-face t-s1'>1</div>
-          <div class='t-face t-s2'>2</div>
-          <div class='t-face t-s4'>4</div>
-          <div class='t-face t-s5'>5</div>
-          <div class='t-face t-s6'>6</div>
-        </div>
-        <div class='t-box'>
-          <div class='t-face t-s1'>1</div>
-          <div class='t-face t-s2'>2</div>
-          <div class='t-face t-s4'>4</div>
-          <div class='t-face t-s5'>5</div>
-          <div class='t-face t-s6'>6</div>
-        </div>
-      </div>
-    </div></div>
-    <div class='booth'>
-    <div class='furniture'>
-      <div class='t-box booth-B1'>
-        <div class='t-face t-s1'>1</div>
-        <div class='t-face t-s2'>2</div>
-        <div class='t-face t-s3'>3</div>
-        <div class='t-face t-s4'>4</div>
-        <div class='t-face t-s6'>6</div>
-      </div>
-      <div class='booth-C'>
-        <div class='w-box'>
-          <div class='w-face w-s1'>1</div>
-          <div class='w-face w-s2'>2</div>
-          <div class='w-face w-s3'>3</div>
-          <div class='w-face w-s4'>4</div>
-        </div>
-        <div class='box'>
-          <div class='face s1'>1</div>
-          <div class='face s2'>2</div>
-          <div class='face s4'>4</div>
-        </div>
-        <div class='t-box'>
-          <div class='t-face t-s1'>1</div>
-          <div class='t-face t-s2'>2</div>
-          <div class='t-face t-s4'>4</div>
-        </div>
-      </div>
-      <div class='booth-B2'>
-        <div class='t-box'>
-          <div class='t-face t-s1'>1</div>
-          <div class='t-face t-s2'>2</div>
-          <div class='t-face t-s4'>4</div>
-          <div class='t-face t-s5'>5</div>
-          <div class='t-face t-s6'>6</div>
-        </div>
-        <div class='t-box'>
-          <div class='t-face t-s1'>1</div>
-          <div class='t-face t-s2'>2</div>
-          <div class='t-face t-s4'>4</div>
-          <div class='t-face t-s5'>5</div>
-          <div class='t-face t-s6'>6</div>
-        </div>
-      </div>
-      </div></div>
-      
-      <div class='r-rectangle'>
-      <div class='r-rectangle furniture'>
-  <div class='r-rectangle-T'>
-    <div class='box'>
-      <div class='face s1'>1</div>
-      <div class='face s2'>2</div>
-      <div class='face s3'>3</div>
-      <div class='face s4'>4</div>
-      <div class='face s5'>5</div>
-      <div class='face s6'>6</div>
-    </div>
-  </div>
-</div></div>
-    </div>
-    	<div class='boothset'>
-<div class='booth'>
-<div class='furniture'>
-      <div class='t-box booth-B1'>
-        <div class='t-face t-s1'>1</div>
-        <div class='t-face t-s2'>2</div>
-        <div class='t-face t-s3'>3</div>
-        <div class='t-face t-s4'>4</div>
-        <div class='t-face t-s6'>6</div>
-      </div>
-      <div class='booth-C'>
-        <div class='w-box'>
-          <div class='w-face w-s1'>1</div>
-          <div class='w-face w-s2'>2</div>
-          <div class='w-face w-s3'>3</div>
-          <div class='w-face w-s4'>4</div>
-        </div>
-        <div class='box'>
-          <div class='face s1'>1</div>
-          <div class='face s2'>2</div>
-          <div class='face s4'>4</div>
-        </div>
-        <div class='t-box'>
-          <div class='t-face t-s1'>1</div>
-          <div class='t-face t-s2'>2</div>
-          <div class='t-face t-s4'>4</div>
-        </div>
-      </div>
-      <div class='booth-B2'>
-        <div class='t-box'>
-          <div class='t-face t-s1'>1</div>
-          <div class='t-face t-s2'>2</div>
-          <div class='t-face t-s4'>4</div>
-          <div class='t-face t-s5'>5</div>
-          <div class='t-face t-s6'>6</div>
-        </div>
-        <div class='t-box'>
-          <div class='t-face t-s1'>1</div>
-          <div class='t-face t-s2'>2</div>
-          <div class='t-face t-s4'>4</div>
-          <div class='t-face t-s5'>5</div>
-          <div class='t-face t-s6'>6</div>
-        </div>
-      </div>
-    </div></div>
-    <div class='booth'>
-    <div class='furniture'>
-      <div class='t-box booth-B1'>
-        <div class='t-face t-s1'>1</div>
-        <div class='t-face t-s2'>2</div>
-        <div class='t-face t-s3'>3</div>
-        <div class='t-face t-s4'>4</div>
-        <div class='t-face t-s6'>6</div>
-      </div>
-      <div class='booth-C'>
-        <div class='w-box'>
-          <div class='w-face w-s1'>1</div>
-          <div class='w-face w-s2'>2</div>
-          <div class='w-face w-s3'>3</div>
-          <div class='w-face w-s4'>4</div>
-        </div>
-        <div class='box'>
-          <div class='face s1'>1</div>
-          <div class='face s2'>2</div>
-          <div class='face s4'>4</div>
-        </div>
-        <div class='t-box'>
-          <div class='t-face t-s1'>1</div>
-          <div class='t-face t-s2'>2</div>
-          <div class='t-face t-s4'>4</div>
-        </div>
-      </div>
-      <div class='booth-B2'>
-        <div class='t-box'>
-          <div class='t-face t-s1'>1</div>
-          <div class='t-face t-s2'>2</div>
-          <div class='t-face t-s4'>4</div>
-          <div class='t-face t-s5'>5</div>
-          <div class='t-face t-s6'>6</div>
-        </div>
-        <div class='t-box'>
-          <div class='t-face t-s1'>1</div>
-          <div class='t-face t-s2'>2</div>
-          <div class='t-face t-s4'>4</div>
-          <div class='t-face t-s5'>5</div>
-          <div class='t-face t-s6'>6</div>
-        </div>
-      </div>
-      </div></div>
-      
-      <div class='r-rectangle'>
-      <div class='r-rectangle furniture'>
-  <div class='r-rectangle-T'>
-    <div class='box'>
-      <div class='face s1'>1</div>
-      <div class='face s2'>2</div>
-      <div class='face s3'>3</div>
-      <div class='face s4'>4</div>
-      <div class='face s5'>5</div>
-      <div class='face s6'>6</div>
-    </div>
-  </div>
-</div></div>
-    </div>
-			</div>
-		</div>
+										</div>
+									</div>
+								</div>
+								<div class='r-rectangle'>
+									<div class='r-rectangle furniture'>
+										<div class='r-rectangle-T'>
+											<div class='box'>
+												<div class='face s1'>1</div>
+												<div class='face s2'>2</div>
+												<div class='face s3'>3</div>
+												<div class='face s4'>4</div>
+												<div class='face s5'>5</div>
+												<div class='face s6'>6</div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class='boothset'>
+								<div class='booth'>
+									<div class='furniture'>
+										<div class='t-box booth-B1'>
+											<div class='t-face t-s1'>1</div>
+											<div class='t-face t-s2'>2</div>
+											<div class='t-face t-s3'>3</div>
+											<div class='t-face t-s4'>4</div>
+											<div class='t-face t-s6'>6</div>
+										</div>
+										<div class='booth-C'>
+											<div class='w-box'>
+												<div class='w-face w-s1'>1</div>
+												<div class='w-face w-s2'>2</div>
+												<div class='w-face w-s3'>3</div>
+												<div class='w-face w-s4'>4</div>
+											</div>
+											<div class='box'>
+												<div class='face s1'>1</div>
+												<div class='face s2'>2</div>
+												<div class='face s4'>4</div>
+											</div>
+											<div class='t-box'>
+												<div class='t-face t-s1'>1</div>
+												<div class='t-face t-s2'>2</div>
+												<div class='t-face t-s4'>4</div>
+											</div>
+										</div>
+										<div class='booth-B2'>
+											<div class='t-box'>
+												<div class='t-face t-s1'>1</div>
+												<div class='t-face t-s2'>2</div>
+												<div class='t-face t-s4'>4</div>
+												<div class='t-face t-s5'>5</div>
+												<div class='t-face t-s6'>6</div>
+											</div>
+											<div class='t-box'>
+												<div class='t-face t-s1'>1</div>
+												<div class='t-face t-s2'>2</div>
+												<div class='t-face t-s4'>4</div>
+												<div class='t-face t-s5'>5</div>
+												<div class='t-face t-s6'>6</div>
+											</div>
+										</div>
+									</div>
+								</div>
+								<div class='booth'>
+									<div class='furniture'>
+										<div class='t-box booth-B1'>
+											<div class='t-face t-s1'>1</div>
+											<div class='t-face t-s2'>2</div>
+											<div class='t-face t-s3'>3</div>
+											<div class='t-face t-s4'>4</div>
+											<div class='t-face t-s6'>6</div>
+										</div>
+										<div class='booth-C'>
+											<div class='w-box'>
+												<div class='w-face w-s1'>1</div>
+												<div class='w-face w-s2'>2</div>
+												<div class='w-face w-s3'>3</div>
+												<div class='w-face w-s4'>4</div>
+											</div>
+											<div class='box'>
+												<div class='face s1'>1</div>
+												<div class='face s2'>2</div>
+												<div class='face s4'>4</div>
+											</div>
+											<div class='t-box'>
+												<div class='t-face t-s1'>1</div>
+												<div class='t-face t-s2'>2</div>
+												<div class='t-face t-s4'>4</div>
+											</div>
+										</div>
+										<div class='booth-B2'>
+											<div class='t-box'>
+												<div class='t-face t-s1'>1</div>
+												<div class='t-face t-s2'>2</div>
+												<div class='t-face t-s4'>4</div>
+												<div class='t-face t-s5'>5</div>
+												<div class='t-face t-s6'>6</div>
+											</div>
+											<div class='t-box'>
+												<div class='t-face t-s1'>1</div>
+												<div class='t-face t-s2'>2</div>
+												<div class='t-face t-s4'>4</div>
+												<div class='t-face t-s5'>5</div>
+												<div class='t-face t-s6'>6</div>
+											</div>
+
+										</div>
+									</div>
+								</div>
+								<div class='r-rectangle'>
+									<div class='r-rectangle furniture'>
+										<div class='r-rectangle-T'>
+											<div class='box'>
+												<div class='face s1'>1</div>
+												<div class='face s2'>2</div>
+												<div class='face s3'>3</div>
+												<div class='face s4'>4</div>
+												<div class='face s5'>5</div>
+												<div class='face s6'>6</div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
 					</div>
-			{% for i in range(length)%}
+				</div>
+				
+				{% for i in range(length)%}
 				<img id="dot{{i}}" src="{{ url_for('static', filename='img/dot.svg') }}" width="30" height="30" />
-			{%endfor%}
-		
-			<div id="pin" class="layer"></div>
-		</div>
-		
-	</div>
-	<svg id="left-top" class="corner-border" viewbox="0 0 24.5 24.5" preserveAspectRatio="xMinYMin meet">
-		<use x="0" y="0" width="100" height="100" href="#cb"/>
-	</svg>
-	<svg id="right-top" class="corner-border" viewbox="0 0 24.5 24.5" preserveAspectRatio="xMinYMin meet">
-		<use x="-75.5" y="0" width="100" height="100" href="#cb"/>
-	</svg>
-	<svg id="left-bottom" class="corner-border" viewbox="0 0 24.5 24.5" preserveAspectRatio="xMinYMin meet">
-		<use x="-0" y="-75.5" width="100" height="100" href="#cb"/>
-	</svg>
-	<svg id="right-bottom" class="corner-border" viewbox="0 0 24.5 24.5" preserveAspectRatio="xMinYMin meet">
-		<use x="-75.5" y="-75.5" width="100" height="100" href="#cb"/>
-	</svg>
-	<svg id="grid" viewbox="0 0 100 100" preserveAspectRatio="xMidYMid slice">
-		<use href="#g" stroke="rgba(0,0,0,.1)" stroke-width=".25"/>
-	</svg>
-	
-	
-</main>
-<footer>
-	<button type= "button" class = "btn btn-default btn-xs" onclick = "zoomOut()" style="float: right;"> Zoom Out</button>
-	<span class="info">How it works</span>
-	<hr>
-	<ul>
-		{%if flag == False or flag == None%}
-		<li class="current"><span class="underlined">Pick where to meet</span></li>
-		<li><span>Click Generate Link</span></li>
-		{%endif%}
-		{%if flag == True%}
-		<li><span>Pick where to meet</span></li>
-		<li class="current"><span class="underlined">Here's your <a href={{url}} >link</a></span></li>
-		{%endif%}
-	</ul>
-	<form name="generateLink" class="col-lg-12" action="{{url_for('prereg')}}" method="POST">
-        <div class="input-group" style="width:340px;text-align:center;margin:0 auto;">
-            <div class = "row">	
-                <input type="hidden" name="leftPixel" id="left_label">
-			</div>
-            <div class = "row">	
-                <input type="hidden" name="topPixel" id="top_label">
-			</div>
-			<div class = "row">	
-                <input type="hidden" name="screenWidth" id="sc_width_label">
-			</div>
-            <div class = "row">	
-                <input type="hidden" name="screenHeight" id="sc_height_label">
-			</div>
-			<div class = "row">	
-                <input type="hidden" name="zoomLevel" id="zoom_label">
-			</div>
-			<div class = "row">	
-                <input type="hidden" name="Building" value="FAC">
-			</div>
-            <div class = "row">
-                <span class="input-group-btn"><button class="dropbtn" type="submit">Generate Link</button></span>
-            </div>
-        </div>
-     </form>	
-</footer>
+				{%endfor%}
 
-<script>
-function distance(x1,y1,x2,y2) {
-	return Math.sqrt((x1-x2)**2+(y1-y2)**2);
-}
-class Point {
-	constructor(meID,mapID) {
-		this.me = document.getElementById(meID);
-		let bounds = this.me.getBoundingClientRect();
+				<div id="pin" class="layer"></div>
+
+			</div>
+		</div>
+
+		<svg id="left-top" class="corner-border" viewbox="0 0 24.5 24.5" preserveAspectRatio="xMinYMin meet">
+			<use x="0" y="0" width="100" height="100" href="#cb"/>
+		</svg>
+		<svg id="right-top" class="corner-border" viewbox="0 0 24.5 24.5" preserveAspectRatio="xMinYMin meet">
+			<use x="-75.5" y="0" width="100" height="100" href="#cb"/>
+		</svg>
+		<svg id="left-bottom" class="corner-border" viewbox="0 0 24.5 24.5" preserveAspectRatio="xMinYMin meet">
+			<use x="-0" y="-75.5" width="100" height="100" href="#cb"/>
+		</svg>
+		<svg id="right-bottom" class="corner-border" viewbox="0 0 24.5 24.5" preserveAspectRatio="xMinYMin meet">
+			<use x="-75.5" y="-75.5" width="100" height="100" href="#cb"/>
+		</svg>
+		<svg id="grid" viewbox="0 0 100 100" preserveAspectRatio="xMidYMid slice">
+			<use href="#g" stroke="rgba(0,0,0,.1)" stroke-width=".25"/>
+		</svg>
+
+
+	</main>
+	<footer>
+		<button type= "button" class = "btn btn-default btn-xs" onclick = "zoomOut()" style="float: right;"> Zoom Out</button>
+		<span class="info">How it works</span>
+		<hr>
+		<ul>
+			{%if flag == False or flag == None%}
+			<li class="current"><span class="underlined">Pick where to meet</span></li>
+			<li><span>Click Generate Link</span></li>
+			{%endif%}
+			{%if flag == True%}
+			<li><span>Pick where to meet</span></li>
+			<li class="current"><span class="underlined">Here's your <a href={{url}} >link</a></span></li>
+			{%endif%}
+		</ul>
+		<form name="generateLink" class="col-lg-12" action="{{url_for('prereg')}}" method="POST">
+			<div class="input-group" style="width:340px;text-align:center;margin:0 auto;">
+				<div class = "row">	
+					<input type="hidden" name="leftPixel" id="left_label">
+				</div>
+				<div class = "row">	
+					<input type="hidden" name="topPixel" id="top_label">
+				</div>
+				<div class = "row">	
+					<input type="hidden" name="screenWidth" id="sc_width_label">
+				</div>
+				<div class = "row">	
+					<input type="hidden" name="screenHeight" id="sc_height_label">
+				</div>
+				<div class = "row">	
+					<input type="hidden" name="zoomLevel" id="zoom_label">
+				</div>
+				<div class = "row">	
+					<input type="hidden" name="Building" value="FAC">
+				</div>
+				<div class = "row">
+					<span class="input-group-btn"><button class="dropbtn" type="submit">Generate Link</button></span>
+				</div>
+			</div>
+		</form>	
+	</footer>
+
+	<script>
+		function distance(x1,y1,x2,y2) {
+			return Math.sqrt((x1-x2)**2+(y1-y2)**2);
+		}
+		class Point {
+			constructor(meID,mapID) {
+				this.me = document.getElementById(meID);
+				let bounds = this.me.getBoundingClientRect();
 		this.diameter = bounds.width; // assume me never resizes.
 		this.map = document.getElementById(mapID);
 		this.updateOffset();
@@ -1800,9 +1859,9 @@ function setBgColor(time=(new Date()).getHours()) {
 
 var SoniasGlobalZoomVariable = 1;
 const	meID = 'pin',
-		mapID = 'newcontainer';
+mapID = 'newcontainer';
 var		point,
-		pointInitialized = false;
+pointInitialized = false;
 function initPoint() {
 	if (pointInitialized)
 		return;
@@ -1832,37 +1891,37 @@ initPoint();
       // Our "raw" coordinates are not scaled. This allows us to only have to modify our stored
       // coordinates when the UI is updated. It also simplifies our calculations as these
       // coordinates are without respect to the current scale.
-   
+
       var img = null;
       var current = {x: 0, y: 0, zoom: 1, oldzoom: 1};
       var container = null;
       {% for i in range(length)%}
-        var dot{{i}} = null;
+      var dot{{i}} = null;
       {%endfor%}
       var table = null;
       var map = null;
       var prevScale = 1;
       var furn = null;
-	  var allDots = null;
-	  var google = null;
+      var allDots = null;
+      var google = null;
           // We need to disable the following event handlers so that the browser doesn't try to
       // automatically handle our image drag gestures.
       var disableImgEventHandlers = function() {
-        var events = ['onclick', 'onmousedown', 'onmousemove', 'onmouseout', 'onmouseover',
-          'onmouseup', 'ondblclick', 'onfocus', 'onblur'
-        ];
-        events.forEach(function(event) {
-          img[event] = function() {
-            return false;
-          };
-        });
+      	var events = ['onclick', 'onmousedown', 'onmousemove', 'onmouseout', 'onmouseover',
+      	'onmouseup', 'ondblclick', 'onfocus', 'onblur'
+      	];
+      	events.forEach(function(event) {
+      		img[event] = function() {
+      			return false;
+      		};
+      	});
       };
-    
+
       var zoomWithTransform = function(e){
       	
-        var zoomImg = img;
-        originalZoom = current.zoom;
-        if (originalZoom < 1.953125){
+      	var zoomImg = img;
+      	originalZoom = current.zoom;
+      	if (originalZoom < 1.953125){
 	        newZoom = current.zoom * 1.25; //put parameter for scale
 	        /// scroll offset
 	        scrollX = zoomImg.scrollLeft;
@@ -1886,21 +1945,21 @@ initPoint();
 	        current.x = finalX;
 	        current.y = finalY;
 	        current.oldzoom = originalZoom;
-    	}
-      }
-      var zoomOut = function(e){
-      	        var zoomImg = img;
-        var originalZoom = current.zoom;
-        if(originalZoom >1){
+	    }
+	}
+	var zoomOut = function(e){
+		var zoomImg = img;
+		var originalZoom = current.zoom;
+		if(originalZoom >1){
         newZoom = current.zoom / 1.25; //put parameter for scale
-		
-		}
-		SoniasGlobalZoomVariable=newZoom;
-		
-        current.zoom = newZoom;
+
+    }
+    SoniasGlobalZoomVariable=newZoom;
+
+    current.zoom = newZoom;
   //      current.x = finalX;
   //      current.y = finalY;
-        current.oldzoom = originalZoom;
+  current.oldzoom = originalZoom;
         //img.style.transform = 'scale('+current.zoom+')';
         console.log( "Current values " + current.x + ' ' + current.y);
         var tempx = document.getElementById('newcontainer').scrollLeft;
@@ -1912,34 +1971,34 @@ initPoint();
       //  document.getElementById('map-container').scrollLeft= tempx - newScrollLeft;
     //    document.getElementById('map-container').scrollTop= tempy - newScrollTop;
          //furn.style.transform = 'scale('+current.zoom+')';
-		 document.getElementById('newcontainer').style.transform = 'scale('+current.zoom+')';
-      }
-  
-      var onLoad = function() {
-        img = document.getElementById("map");
-        container = document.getElementById("map-container");
-        furn = document.getElementById("furniture");
-		google = document.getElementById("google");
-		
+         document.getElementById('newcontainer').style.transform = 'scale('+current.zoom+')';
+     }
+
+     var onLoad = function() {
+     	img = document.getElementById("map");
+     	container = document.getElementById("map-container");
+     	furn = document.getElementById("furniture");
+     	google = document.getElementById("google");
+
 		//allDots = document.getElementById("dots"); ///////////////////
 		
-        {% for i in range(length)%}
-        dot{{i}} = document.getElementById("dot{{i}}");
-        {%endfor%}
+		{% for i in range(length)%}
+		dot{{i}} = document.getElementById("dot{{i}}");
+		{%endfor%}
       //  table = new Furniture("furniture", "map-container");
        // map = new Furniture("map", "map-container");
- 
+
       //  disableImgEventHandlers();
-        var hammer = new Hammer(container);
-        
-        hammer.on('doubletap', function(e) {
+      var hammer = new Hammer(container);
+
+      hammer.on('doubletap', function(e) {
           //var c = map.rawCenter(e);
           //var n = map.zoomAround(1.6, c.x, c.y);
           //var n = table.rawCenter(e);
           //table.zoomAround(1.6, n.x, n.y);
           //var newScale = 1.3*prevScale;
-		  var tempx = document.getElementById('newcontainer').offsetLeft;
-        var tempy = document.getElementById('newcontainer').offsetTop;
+          var tempx = document.getElementById('newcontainer').offsetLeft;
+          var tempy = document.getElementById('newcontainer').offsetTop;
 		//console.log(e.clientX);
 		/*console.log(tempx);
 		console.log(tempy);
@@ -1949,18 +2008,18 @@ initPoint();
 		var scale = current.zoom;
 		var originx -= mousex/(scale*zoom) - mousex/scale;
 		var originy -= mousey/(scale*zoom) - mousey/scale;
-		  */
-          zoomWithTransform(e);    
+		*/
+		zoomWithTransform(e);    
           //apply new transformations
           //img.style.transform= 'scale('+current.zoom+')';
-        console.log(current.x + ' ' + current.y);
-        
-        
-		
-		
-		
+          console.log(current.x + ' ' + current.y);
+
+
+
+
+
          //furn.style.transform = 'scale('+current.zoom+')';
-		
+
 		/*
 				var i;
 		var l = {{length}};
@@ -1971,13 +2030,13 @@ initPoint();
 		var p = document.getElementById("newcontainer");
 		p.style.transform = 'scale('+current.zoom+')';
 		p.style.transformOrigin = "0 0"; 
-		 
-		 document.getElementById('newcontainer').scrollLeft= -(current.x * current.zoom);
-        document.getElementById('newcontainer').scrollTop= -((current.y * current.zoom) );
+
+		document.getElementById('newcontainer').scrollLeft= -(current.x * current.zoom);
+		document.getElementById('newcontainer').scrollTop= -((current.y * current.zoom) );
 		//p.style.transform = 'translate('+originx+', '+ originy +')';
-        });
-      };
-      onLoad();
+	});
+  };
+  onLoad();
 </script>
 </body>
 </html>
