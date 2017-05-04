@@ -6,8 +6,6 @@
 	<title>{{building.replace('*','')}} Map</title>
 	<!-- Styles -->
 	<link type="text/css" rel="stylesheet" href="{{ url_for('static', filename='css/demostyles.css') }}" async>
-	<link type="text/css" rel="stylesheet" href="{{ url_for('static', filename='css/furniture.css') }}" async>
-	<link type="text/css" rel="stylesheet" href="{{ url_for('static', filename='css/fac_placement.css') }}" async>
 	<link href="https://fonts.googleapis.com/css?family=Lora|Nunito" rel="stylesheet" async>
 	<svg style="height:0;">
 		<defs>
@@ -22,7 +20,63 @@
 				<use href="#vert_box"/>
 				<use href="#hor_box"/>
 			</clipPath>
-
+			<symbol id="ct" class="layer" fill="rgba(250,230,177,1)" viewbox="0 0 100 100" preserveAspectRatio="xMidYMid meet">
+				<defs>
+					<!-- shadow filter -->
+					<filter id="f_shadow" x="-50%" y="-50%" width="200%" height="200%" primitiveUnits="objectBoundingBox">
+						<feColorMatrix
+							result="darken"
+							in="offOut"
+							type="matrix"
+							values="0.4 0 0 0 0
+											0 0.4 0 0 0
+											0 0 0.4 0 0
+											0 0 0 1 0" />
+						<!-- <feGaussianBlur result="blurOut" in="darken" stdDeviation=".05"/> -->
+					</filter>
+					<!--  darken filter -->
+					<filter id="f_darken" x="0" y="0" width="100%" height="100%">
+						<feColorMatrix
+							in="SourceGraphic"
+							type="matrix"
+							values="0.02 0 0 0 0
+											0 0.02 0 0 0
+											0 0 0.02 0 0
+											0 0 0 1 0" />
+					</filter>
+					<!-- 	bottom gradient	 -->
+					<radialGradient id="radial" cx="50%" cy="50%" r="50%" fx="0%" fy="50%" gradientTransform="translate(.5,0)">
+						<stop offset="0%" stop-color="rgba(255,255,255,.1)"/>
+						<stop offset="100%" stop-color="rgba(255,255,255,0)"/>
+					</radialGradient>
+					<!-- 	glare	 -->
+					<symbol id="glare" fill="rgba(255,255,255,.5)" viewbox="0 0 28 32" preserveAspectRatio="none">
+						<rect x="-1" y="-10" width="2" height="20" transform="translate(16,10) rotate(10) skewX(-30)"/>
+						<rect x="-.25" y="-10" width=".5" height="20" transform="translate(10,15) rotate(10) skewX(-30)"/>
+						<rect x="-2" y="-10" width="4" height="30" fill="rgba(255,255,255,.2)" transform="translate(18,13) rotate(10) skewX(-30)"/>
+					</symbol>
+					<!-- clip for glare -->
+					<clipPath id="glare_clip">
+						<ellipse id="glare_clip_def" cx="50" cy="0" rx="50" ry="50" transform="translate(0,6.7) scale(1,.5)"/>
+					</clipPath>
+				</defs>
+				<!-- 	shadow	 -->
+				<ellipse id="shadow" cx="50" cy="50" rx="50" ry="50" transform="translate(0,0) scale(.7,.7) scale(1,.5)" fill="rgba(38,34,22,.1)"/>
+				<!-- 	bottom	 -->
+				<ellipse id="bottom1" cx="50" cy="50" rx="50" ry="50" fill="rgb(38,34,22)" transform="translate(0,0) scale(.5,.5) scale(1,.5)"/>
+				<ellipse id="bottom2" cx="50" cy="50" rx="50" ry="50" fill="url(#radial)" transform="translate(0,0) scale(.5,.5) scale(1,.5)"/>
+				<!-- 	leg	 -->
+				<rect id="leg" width="15" height="50" rx="6" x="50" y="0" transform="translate(-7.5,6.7) scale(1,0.866)" fill="rgb(38,34,22)"/>
+				<!-- 	edge	 -->
+				<ellipse id="edge" cx="50" cy="0" rx="50" ry="50" transform="translate(0,6.7) matrix(1,0,0,1.02,0,.8485) scale(1,.5)" fill="rgba(0,0,0,1)"/>
+				<!-- 	top	 -->
+				<ellipse id="top" cx="50" cy="0" rx="50" ry="50" transform="translate(0,6.7) scale(1,.5)"/>
+				<!-- glare -->
+				<g clip-path="url(#glare_clip)">
+					<!-- "contain and clip" trick-->
+					<use id="glare_instance" xlink:href="#glare" width="100" height="50" y="-25" transform="translate(0,25) translate(0,-20.71) scale(1,1)"/>
+				</g>
+			</symbol>
 		</defs>
 		
 		<rect id="cb" width="100" height="100" rx="25" ry="25" mask="url(#border_mask)"/>
@@ -113,44 +167,9 @@
 </main>
 
 <script>
-	function dotPositions(){
-		/*var map = document.getElementById("map");
-		var currentScreenX = map.offsetWidth - 100.0;
-		var currentScreenY = map.offsetHeight - 100.0;
-		var i;
-		var l = 1;
-		for(i = 0; i < l; i++){
-			var s = document.getElementById("dot" + i);
-			console.log(s);
-
-			var scale = currentScreenX/2000;
-
-
-			var screenXArr = {{screen_xs}};
-			var screenYArr = {{screen_ys}};
-			var preXArr = {{x_coord}};
-			var preYArr = {{y_coord}};
-			var screenX = screenXArr[i] - 100.0;
-			var screenY = screenYArr[i] - 100.0;
-
-			var prevScale = screenX/2000;
-
-			var preX = preXArr[i] - 50.0;
-			var preY = preYArr[i] - 50.0;
-
-			var x = ((currentScreenX*preX)/screenX) + 50.0;
-			var y = ((currentScreenY*preY)/screenY) + 50.0;
-
-			//var yScale = currentScreenX/1000;
-
-			//s.style.transform = 'scale('+scale+','+scale+')';
-			s.style.width = 30 + "px";
-			s.style.height = 30 + "px";
-			s.style.transform = 'translate('+x+'px,'+y+'px)';
-			//s.style.left = x + "px";
-			//s.style.top = y + "px";
-			console.log("dotPositions() ran!");
-		}*/
+  var dot_flag = false;
+						
+	function dotPosition(){
 		var map = document.getElementById("map");
 		var s = document.getElementById("dot");
 		var screenX = {{screen_x}} - 100.0;
@@ -163,8 +182,8 @@
 		
 		var scale = currentScreenX/2000;
 		
-		s.style.width = 30 + "px";
-		s.style.height = 30 + "px";
+		s.style.width = scale*30 + "px";
+		s.style.height = scale*30 + "px";
 
 		var x = ((currentScreenX*preX)/screenX) + 50.0;
 		var y = ((currentScreenY*preY)/screenY) + 50.0;
@@ -175,41 +194,11 @@
 		//s.style.top = y + "px";
 		dot_flag = true;
 	}
-
-	function scrollToCenter() {
-		var c = document.getElementById('map-container');
-		c.scrollTop = c.scrollHeight * 6.648/(114.400 - 1) + 50;
-		c.scrollLeft = c.scrollWidth * 23.129/(147.644 - 1) + 30;
-	}
-
-	function setBgColor(time=(new Date()).getHours()) {
-		var c = document.getElementById('map-container');
-		if (time > 17)
-			c.style.background = 'linear-gradient(rgba(0,0,255,.5) 0%, rgba(255,0,0,.25) 100%)';
-		else if (time > 11)
-			c.style.background = 'linear-gradient(rgba(128,255,255,.5) 0%, rgba(128,128,0,.25) 100%)';
-		else if (time > 6)
-			c.style.background = 'linear-gradient(rgba(255,255,0,.25) 0%, rgba(0,128,233,.5) 100%)';
-		else if (time > 3)
-			c.style.background = 'linear-gradient(rgba(0,0,255,.5) 0%, rgba(0,0,0,.25) 100%)';
-		else
-			c.style.background = 'linear-gradient(rgba(0,0,0,.5) 0%, rgba(0,0,255,.25) 100%)';
-	}
-	function init() {
-		var initialized = false;
-		if (initialized)
-			return;
-		if (document.readyState === 'interactive' || document.readyState === 'complete') {
-			initialized = true;
-			console.log(" initialized.");
-			dotPositions();
-			scrollToCenter();
-			setBgColor();
-		}
-		else
-			document.addEventListener('readystatechange',init);
-	}
-	init();
+						
+	window.onload = dotPosition;
+	
+	if (!dot_flag)
+		dotPosition();
 </script>
 
 </body>
