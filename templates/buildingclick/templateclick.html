@@ -177,13 +177,13 @@
 	}
 
 	function scrollToCenter() {
-		var c = document.getElementById('newcontainer');
+		var c = document.getElementById('map-container');
 		c.scrollTop = c.scrollHeight * 6.648/(114.400 - 1) + 50;
 		c.scrollLeft = c.scrollWidth * 23.129/(147.644 - 1) + 30;
 	}
 
 	function setBgColor(time=(new Date()).getHours()) {
-		var c = document.getElementById('newcontainer');
+		var c = document.getElementById('map-container');
 		if (time > 17)
 			c.style.background = 'linear-gradient(rgba(0,0,255,.5) 0%, rgba(255,0,0,.25) 100%)';
 		else if (time > 11)
